@@ -292,7 +292,7 @@ export const Hero: React.FC<HeroProps> = ({
                 <Cpu className="w-5 h-5" />
               </div>
               <div className="text-left">
-                <div className="text-xs font-extrabold text-slate-900">20+ BC Deployments</div>
+                <div className="text-xs font-extrabold text-slate-900">100+ BC Deployments</div>
                 <div className="text-[10px] text-blue-600 font-semibold">15+ Years NAV/BC Mastery</div>
               </div>
             </motion.div>
