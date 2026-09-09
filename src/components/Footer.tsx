@@ -4,11 +4,11 @@ import { COREENACT_CONTACT } from "../data/coreenactData";
 import { PageType } from "../types";
 
 interface FooterProps {
-  onOpenChat: () => void;
   onNavigate?: (page: PageType) => void;
+  onOpenGeminiChat?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenChat, onNavigate }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenGeminiChat }) => {
   const handleLink = (page: PageType) => {
     if (onNavigate) {
       onNavigate(page);
@@ -125,6 +125,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenChat, onNavigate }) => {
                   24/7 Managed Services
                 </button>
               </li>
+              {onOpenGeminiChat && (
+                <li>
+                  <button
+                    onClick={onOpenGeminiChat}
+                    className="text-cyan-400 hover:text-cyan-300 transition text-left font-bold flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
+                    <span>Gemini AI Advisor</span>
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
 
@@ -228,13 +239,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenChat, onNavigate }) => {
             © {new Date().getFullYear()} Coreenact Solutions. All rights reserved.
           </div>
           <div className="flex items-center gap-4 text-xs sm:text-sm">
-            <button
-              onClick={onOpenChat}
-              className="text-cyan-400 hover:text-cyan-300 transition font-medium cursor-pointer"
-            >
-              Consult Copilot AI
-            </button>
-            <span>•</span>
             <span className="text-slate-400">Microsoft Solutions Partner</span>
             <span>•</span>
             <span className="text-slate-400">info@coreenact.com</span>

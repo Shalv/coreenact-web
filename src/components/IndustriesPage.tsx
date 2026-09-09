@@ -21,12 +21,10 @@ import { INDUSTRIES_CATALOG } from "../data/coreenactData";
 
 interface IndustriesPageProps {
   onOpenContact: () => void;
-  onOpenChat: (preset?: string) => void;
 }
 
 export const IndustriesPage: React.FC<IndustriesPageProps> = ({
   onOpenContact,
-  onOpenChat,
 }) => {
   const [selectedIndustryId, setSelectedIndustryId] = useState<string>(INDUSTRIES_CATALOG[0].id);
   const activeIndustry =
@@ -204,11 +202,7 @@ export const IndustriesPage: React.FC<IndustriesPageProps> = ({
               Need to see how your specific business process maps to Dynamics 365?
             </div>
             <button
-              onClick={() =>
-                onOpenChat(
-                  `Could you provide a detailed technical walkthrough of how Coreenact deploys Microsoft Dynamics 365 for the ${activeIndustry.name} industry?`
-                )
-              }
+              onClick={onOpenContact}
               className="text-sm font-bold text-blue-600 hover:text-blue-700 transition flex items-center gap-1.5 cursor-pointer"
             >
               <span>Consult Architect for {activeIndustry.name} Blueprint</span>

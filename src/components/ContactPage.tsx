@@ -14,12 +14,10 @@ import { COREENACT_CONTACT } from "../data/coreenactData";
 
 interface ContactPageProps {
   onGroundLocation: (cityName: string) => void;
-  onOpenChat: (preset?: string) => void;
 }
 
 export const ContactPage: React.FC<ContactPageProps> = ({
   onGroundLocation,
-  onOpenChat,
 }) => {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({

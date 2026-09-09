@@ -10,33 +10,36 @@ import { RoiCalculator } from "./components/RoiCalculator";
 import { CaseStudies } from "./components/CaseStudies";
 import { GlobalHubs } from "./components/GlobalHubs";
 import { Footer } from "./components/Footer";
-import { ChatbotDrawer } from "./components/ChatbotDrawer";
 import { ContactModal } from "./components/ContactModal";
-import { PageType } from "./types";
+import { GeminiChatDrawer } from "./components/GeminiChatDrawer";
+import { CustomerQueryBar } from "./components/CustomerQueryBar";
+import { PageType, KnowledgeSource } from "./types";
 import {
-  MessageSquare,
-  Sparkles,
   ArrowLeft,
   Briefcase,
   Factory,
   Info,
   Mail,
-  MapPin,
   ChevronRight,
+  Sparkles,
 } from "lucide-react";
 import { COREENACT_CONTACT } from "./data/coreenactData";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageType>("home");
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
-  const [chatPresetPrompt, setChatPresetPrompt] = useState<string | null>(null);
+  const [isGeminiChatOpen, setIsGeminiChatOpen] = useState(false);
+  const [geminiPresetPrompt, setGeminiPresetPrompt] = useState<string | null>(null);
+  const [geminiPresetSource, setGeminiPresetSource] = useState<KnowledgeSource>("hybrid");
 
-  const handleOpenChatWithPrompt = (promptText?: string) => {
+  const handleOpenGeminiChat = (promptText?: string, source?: KnowledgeSource) => {
     if (promptText) {
-      setChatPresetPrompt(promptText);
+      setGeminiPresetPrompt(promptText);
     }
-    setIsChatOpen(true);
+    if (source) {
+      setGeminiPresetSource(source);
+    }
+    setIsGeminiChatOpen(true);
   };
 
   const handleNavigate = (target: string) => {
@@ -96,30 +99,30 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans selection:bg-blue-600 selection:text-white relative overflow-x-hidden">
+    <div className="min-h-screen bg-white dark:bg-[#0b0f19] text-slate-900 dark:text-slate-100 flex flex-col font-sans selection:bg-blue-600 selection:text-white relative overflow-x-hidden transition-colors duration-200">
       {/* Top Navigation Header */}
       <Navbar
         activePage={currentPage}
         onSelectPage={handleSelectPage}
-        onOpenChat={() => setIsChatOpen(true)}
         onOpenContact={() => setIsContactOpen(true)}
+        onOpenGeminiChat={() => handleOpenGeminiChat()}
         onNavigate={handleNavigate}
       />
 
       {/* Page Breadcrumb / Bar for Subpages */}
       {currentPage !== "home" && (
-        <div className="pt-36 pb-4 border-b border-slate-200 bg-slate-50">
+        <div className="pt-36 pb-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60">
           <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-sm">
-            <div className="flex items-center gap-2.5 text-slate-500">
+            <div className="flex items-center gap-2.5 text-slate-500 dark:text-slate-400">
               <button
                 onClick={() => handleSelectPage("home")}
-                className="hover:text-blue-600 transition flex items-center gap-1.5 font-semibold cursor-pointer"
+                className="hover:text-blue-600 dark:hover:text-sky-400 transition flex items-center gap-1.5 font-semibold cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Home</span>
               </button>
-              <ChevronRight className="w-4 h-4 text-slate-400" />
-              <span className="text-blue-700 font-bold capitalize font-mono text-sm">
+              <ChevronRight className="w-4 h-4 text-slate-400 dark:text-slate-600" />
+              <span className="text-blue-700 dark:text-sky-400 font-bold capitalize font-mono text-sm">
                 {currentPage.replace("-", " ")}
               </span>
             </div>
@@ -127,7 +130,7 @@ export default function App() {
             <div className="flex items-center gap-3.5">
               <button
                 onClick={() => setIsContactOpen(true)}
-                className="text-sm text-slate-700 hover:text-blue-600 font-medium cursor-pointer"
+                className="text-sm text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-sky-400 font-medium cursor-pointer"
               >
                 Book D365 Consultation
               </button>
@@ -143,104 +146,102 @@ export default function App() {
       )}
 
       {/* Dynamic View Switcher */}
-      <main className="flex-grow bg-white">
+      <main className="flex-grow bg-white dark:bg-[#0b0f19]">
         {currentPage === "home" && (
           <>
             {/* 1. Hero Section */}
             <Hero
-              onOpenChat={() => setIsChatOpen(true)}
               onOpenCalculator={() => handleNavigate("calculator")}
               onOpenContact={() => setIsContactOpen(true)}
             />
 
             {/* Quick Portal Cards mirroring Coreenact main navigation */}
-            <div className="py-12 max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 bg-white">
+            <div className="py-12 max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#0b0f19]">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div
                   onClick={() => handleSelectPage("services")}
-                  className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-md transition cursor-pointer group text-left"
+                  className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-sky-400 hover:shadow-md transition cursor-pointer group text-left"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 mb-4 group-hover:scale-105 transition">
+                  <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-blue-600 dark:text-sky-400 mb-4 group-hover:scale-105 transition">
                     <Briefcase className="w-6 h-6" />
                   </div>
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-sky-400 transition">
                     Services Catalog
                   </h3>
-                  <p className="text-sm text-slate-600 mt-2 leading-relaxed">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
                     Business Central ERP Consulting, NAV migrations, GST localization & audits
                   </p>
                 </div>
 
                 <div
                   onClick={() => handleSelectPage("industries")}
-                  className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-md transition cursor-pointer group text-left"
+                  className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-sky-400 hover:shadow-md transition cursor-pointer group text-left"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 mb-4 group-hover:scale-105 transition">
+                  <div className="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4 group-hover:scale-105 transition">
                     <Factory className="w-6 h-6" />
                   </div>
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-sky-400 transition">
                     9 Industry Blueprints
                   </h3>
-                  <p className="text-sm text-slate-600 mt-2 leading-relaxed">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
                     Manufacturing, FMCG, Retail, EdCore education ERP, and logistics
                   </p>
                 </div>
 
                 <div
                   onClick={() => handleSelectPage("about")}
-                  className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-md transition cursor-pointer group text-left"
+                  className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-sky-400 hover:shadow-md transition cursor-pointer group text-left"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-600 mb-4 group-hover:scale-105 transition">
+                  <div className="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-950/60 border border-purple-200 dark:border-purple-800 flex items-center justify-center text-purple-600 dark:text-purple-400 mb-4 group-hover:scale-105 transition">
                     <Info className="w-6 h-6" />
                   </div>
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-sky-400 transition">
                     About Coreenact
                   </h3>
-                  <p className="text-sm text-slate-600 mt-2 leading-relaxed">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
                     Story, 5-phase delivery framework, and Microsoft partner credentials
                   </p>
                 </div>
 
                 <div
                   onClick={() => handleSelectPage("contact")}
-                  className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-md transition cursor-pointer group text-left"
+                  className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-sky-400 hover:shadow-md transition cursor-pointer group text-left"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 mb-4 group-hover:scale-105 transition">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-emerald-600 dark:text-emerald-400 mb-4 group-hover:scale-105 transition">
                     <Mail className="w-6 h-6" />
                   </div>
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-sky-400 transition">
                     Contact & Hubs
                   </h3>
-                  <p className="text-sm text-slate-600 mt-2 leading-relaxed">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
                     New Delhi & Mississauga offices • info@coreenact.com
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* 2. Enterprise Solutions & 5 Pillars + EdCore */}
+            {/* 2. Customer Query AI Assistant (Website Content or Google Search Grounded - Free Tier) */}
+            <CustomerQueryBar
+              onOpenChatWithPrompt={(prompt, source) => handleOpenGeminiChat(prompt, source)}
+            />
+
+            {/* 3. Enterprise Solutions & 5 Pillars + EdCore */}
             <SolutionsGrid
-              onSelectSolution={(title) =>
-                handleOpenChatWithPrompt(
-                  `Can you walk me through a Microsoft Dynamics 365 Business Central implementation plan for ${title}? What are the typical prerequisites and architectural phases?`
-                )
-              }
+              onSelectSolution={() => setIsContactOpen(true)}
               onOpenContact={() => setIsContactOpen(true)}
             />
 
-            {/* 3. Interactive ROI & 3-Year TCO Calculator */}
+            {/* 4. Interactive ROI & 3-Year TCO Calculator */}
             <RoiCalculator
-              onOpenChat={(preset) => handleOpenChatWithPrompt(preset)}
               onOpenContact={() => setIsContactOpen(true)}
             />
 
-            {/* 4. Enterprise Case Studies */}
+            {/* 5. Enterprise Case Studies */}
             <CaseStudies
-              onOpenChat={(preset) => handleOpenChatWithPrompt(preset)}
               onOpenContact={() => setIsContactOpen(true)}
             />
 
-            {/* 5. Global Hubs & Delivery Centers */}
+            {/* 6. Global Hubs & Delivery Centers */}
             <GlobalHubs
               onGroundLocation={handleGroundLocation}
               onOpenContact={() => setIsContactOpen(true)}
@@ -251,14 +252,12 @@ export default function App() {
         {currentPage === "services" && (
           <ServicesPage
             onOpenContact={() => setIsContactOpen(true)}
-            onOpenChat={(preset) => handleOpenChatWithPrompt(preset)}
           />
         )}
 
         {currentPage === "industries" && (
           <IndustriesPage
             onOpenContact={() => setIsContactOpen(true)}
-            onOpenChat={(preset) => handleOpenChatWithPrompt(preset)}
           />
         )}
 
@@ -272,18 +271,13 @@ export default function App() {
         {currentPage === "contact" && (
           <ContactPage
             onGroundLocation={handleGroundLocation}
-            onOpenChat={(preset) => handleOpenChatWithPrompt(preset)}
           />
         )}
 
         {currentPage === "solutions" && (
           <div className="pt-8">
             <SolutionsGrid
-              onSelectSolution={(title) =>
-                handleOpenChatWithPrompt(
-                  `Can you walk me through a Microsoft Dynamics 365 Business Central implementation plan for ${title}? What are the typical prerequisites and architectural phases?`
-                )
-              }
+              onSelectSolution={() => setIsContactOpen(true)}
               onOpenContact={() => setIsContactOpen(true)}
             />
           </div>
@@ -292,7 +286,6 @@ export default function App() {
         {currentPage === "case-studies" && (
           <div className="pt-8 pb-16">
             <CaseStudies
-              onOpenChat={(preset) => handleOpenChatWithPrompt(preset)}
               onOpenContact={() => setIsContactOpen(true)}
             />
           </div>
@@ -301,36 +294,40 @@ export default function App() {
 
       {/* Dark Footer as requested */}
       <Footer
-        onOpenChat={() => setIsChatOpen(true)}
         onNavigate={handleSelectPage}
+        onOpenGeminiChat={() => handleOpenGeminiChat()}
       />
 
-      {/* Floating Action Button for Copilot AI Chatbot */}
+      {/* Floating Action Button for Gemini Multi-Turn AI Advisor */}
       <div className="fixed bottom-6 right-6 z-40">
         <button
-          onClick={() => setIsChatOpen(true)}
-          className="relative group p-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-3 cursor-pointer"
-          title="Open Coreenact Copilot"
+          onClick={() => handleOpenGeminiChat()}
+          className="relative group p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-800 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-2.5 cursor-pointer border border-blue-400/40"
+          title="Open Free Coreenact AI Advisor"
         >
           <div className="relative">
-            <MessageSquare className="w-5 h-5 text-white" />
-            <Sparkles className="w-3 h-3 text-cyan-200 absolute -top-1.5 -right-1.5 animate-spin-slow" />
+            <Sparkles className="w-5 h-5 text-cyan-200 animate-pulse" />
           </div>
-          <span className="hidden sm:inline font-bold text-xs tracking-wide">
-            D365 Copilot
-          </span>
-          <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full border-2 border-white animate-pulse" />
+          <div className="text-left hidden sm:block">
+            <div className="font-bold text-xs leading-none flex items-center gap-1.5">
+              <span>Customer & ERP AI</span>
+              <span className="text-[10px] bg-emerald-500/80 text-white px-1 py-0.2 rounded font-normal">Free</span>
+            </div>
+            <div className="text-[10px] text-cyan-200/80 font-mono mt-0.5 leading-none">Website RAG • Google Grounded</div>
+          </div>
+          <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full border-2 border-white dark:border-slate-900 animate-pulse" />
         </button>
       </div>
 
-      {/* Multi-turn Chatbot Drawer */}
-      <ChatbotDrawer
-        isOpen={isChatOpen}
+      {/* Multi-turn Gemini Chatbot Drawer */}
+      <GeminiChatDrawer
+        isOpen={isGeminiChatOpen}
         onClose={() => {
-          setIsChatOpen(false);
-          setChatPresetPrompt(null);
+          setIsGeminiChatOpen(false);
+          setGeminiPresetPrompt(null);
         }}
-        initialPrompt={chatPresetPrompt}
+        initialPrompt={geminiPresetPrompt}
+        initialSource={geminiPresetSource}
       />
 
       {/* Contact & Architecture Discovery Modal */}

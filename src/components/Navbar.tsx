@@ -1,29 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
-  MessageSquare,
   Mail,
   ArrowRight,
   Menu,
   X,
   MapPin,
+  Sparkles,
 } from "lucide-react";
 import { PageType } from "../types";
 import { COREENACT_CONTACT } from "../data/coreenactData";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 interface NavbarProps {
   activePage?: PageType;
   onSelectPage?: (page: PageType) => void;
-  onOpenChat: (preset?: string) => void;
   onOpenContact: () => void;
+  onOpenGeminiChat?: () => void;
   onNavigate?: (sectionId: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   activePage = "home",
   onSelectPage,
-  onOpenChat,
   onOpenContact,
+  onOpenGeminiChat,
   onNavigate,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -58,31 +59,31 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 bg-white ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         isScrolled
-          ? "shadow-sm border-b border-slate-200/90 bg-white/98 backdrop-blur-md"
-          : "border-b border-slate-200/80 bg-white"
+          ? "shadow-sm border-b border-slate-200/90 bg-white/98 backdrop-blur-md dark:bg-slate-950/98 dark:border-slate-800"
+          : "border-b border-slate-200/80 bg-white dark:bg-slate-950 dark:border-slate-800"
       }`}
     >
       {/* Top Utility Bar */}
-      <div className="bg-slate-50 border-b border-slate-200/80 py-2 px-4 text-center text-xs sm:text-[13px] text-slate-600 flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
-        <span className="flex items-center gap-2 text-blue-700 font-bold">
+      <div className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200/80 dark:border-slate-800 py-2 px-4 text-center text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
+        <span className="flex items-center gap-2 text-blue-700 dark:text-sky-400 font-bold">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           Official Microsoft Solutions Partner
         </span>
-        <span className="text-slate-300 hidden sm:inline">•</span>
+        <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
         <span>
           Enterprise Inquiries:{" "}
           <a
             href={`mailto:${COREENACT_CONTACT.email}`}
-            className="text-slate-900 hover:text-blue-700 font-mono font-bold transition"
+            className="text-slate-900 dark:text-slate-100 hover:text-blue-700 dark:hover:text-sky-400 font-mono font-bold transition"
           >
             {COREENACT_CONTACT.email}
           </a>
         </span>
-        <span className="text-slate-300 hidden sm:inline">•</span>
-        <span className="flex items-center gap-1.5 text-slate-700 font-medium">
-          <MapPin className="w-4 h-4 text-blue-600" />
+        <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
+        <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 font-medium">
+          <MapPin className="w-4 h-4 text-blue-600 dark:text-sky-400" />
           Offices in New Delhi (India) & Mississauga (Canada)
         </span>
       </div>
@@ -96,18 +97,18 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => handlePageClick("home")}
             title="Coreenact - Microsoft Dynamics 365 Business Central Partner"
           >
-            <div className="flex items-center transition group-hover:opacity-90">
+            <div className="flex items-center transition group-hover:opacity-90 dark:bg-white/95 dark:px-2.5 dark:py-1 dark:rounded-lg">
               <img
                 src="/coreenact-logo-transparent.png"
                 alt="Coreenact Solutions"
                 className="h-9 sm:h-10 w-auto object-contain"
               />
             </div>
-            <div className="hidden lg:flex flex-col text-left border-l border-slate-200 pl-3.5">
-              <span className="text-[11px] font-extrabold tracking-wider text-blue-700 uppercase font-mono">
+            <div className="hidden lg:flex flex-col text-left border-l border-slate-200 dark:border-slate-800 pl-3.5">
+              <span className="text-[11px] font-extrabold tracking-wider text-blue-700 dark:text-sky-400 uppercase font-mono">
                 Microsoft Partner
               </span>
-              <span className="text-xs font-semibold text-slate-600">
+              <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
                 Dynamics 365 Business Central
               </span>
             </div>
@@ -156,14 +157,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Action CTAs */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-2.5">
+            {/* Theme Switcher Toggle for Light & High-Contrast Dark Mode */}
+            <ThemeSwitcher />
+
+            {/* Gemini Multi-turn Chat Launcher */}
             <button
-              onClick={() => onOpenChat()}
-              className="p-2.5 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 transition cursor-pointer flex items-center gap-2 text-sm font-semibold"
-              title="Dynamics 365 Copilot AI Advisor"
+              onClick={onOpenGeminiChat}
+              className="px-3.5 py-2.5 rounded-xl text-sm font-bold transition flex items-center gap-1.5 cursor-pointer bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-xs"
+              title="Open Coreenact Gemini AI Advisor"
             >
-              <MessageSquare className="w-4 h-4 text-blue-600" />
-              <span className="hidden xl:inline">AI Advisor</span>
+              <Sparkles className="w-4 h-4 text-cyan-200 animate-pulse" />
+              <span>Gemini AI</span>
             </button>
 
             <button
@@ -171,10 +176,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               className={`px-4 py-2.5 rounded-xl text-sm font-bold transition flex items-center gap-2 cursor-pointer border ${
                 activePage === "contact"
                   ? "bg-blue-600 text-white border-blue-600 shadow-xs"
-                  : "bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-200/80"
+                  : "bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200 dark:border-slate-700"
               }`}
             >
-              <Mail className="w-4 h-4 text-blue-600" />
+              <Mail className="w-4 h-4 text-blue-600 dark:text-sky-400" />
               <span>Contact Us</span>
             </button>
 
@@ -189,16 +194,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Mobile Menu Toggle Button */}
           <div className="flex md:hidden items-center gap-2">
-            <button
-              onClick={() => onOpenChat()}
-              className="p-2 rounded-xl bg-blue-50 border border-blue-200 text-blue-700"
-              title="Copilot Chat"
-            >
-              <MessageSquare className="w-5 h-5" />
-            </button>
+            <ThemeSwitcher compact />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200"
+              className="p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -213,7 +212,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="md:hidden bg-white border-b border-slate-200 px-5 py-6 space-y-4 text-left shadow-xl"
+            className="md:hidden bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 px-5 py-6 space-y-4 text-left shadow-xl"
           >
             <div className="space-y-1">
               {navItems.map((item) => (
@@ -222,8 +221,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={() => handlePageClick(item.id)}
                   className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between cursor-pointer ${
                     activePage === item.id
-                      ? "bg-blue-50 text-blue-700 border border-blue-200 font-bold"
-                      : "text-slate-800 hover:bg-slate-50"
+                      ? "bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-sky-400 border border-blue-200 dark:border-blue-800 font-bold"
+                      : "text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-900"
                   }`}
                 >
                   <span>{item.label}</span>
@@ -236,15 +235,34 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between cursor-pointer ${
                   activePage === "contact"
                     ? "bg-blue-600 text-white font-bold"
-                    : "text-slate-800 hover:bg-slate-50"
+                    : "text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-900"
                 }`}
               >
                 <span>Contact Us ({COREENACT_CONTACT.email})</span>
-                <Mail className="w-4 h-4 text-blue-600" />
+                <Mail className="w-4 h-4 text-blue-600 dark:text-sky-400" />
               </button>
             </div>
 
-            <div className="pt-4 border-t border-slate-200 space-y-2">
+            {/* Mobile Theme Toggle Section */}
+            <div className="pt-3 pb-1 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+              <span className="text-xs font-bold text-slate-600 dark:text-slate-400 font-mono">
+                INTERFACE THEME
+              </span>
+              <ThemeSwitcher />
+            </div>
+
+            <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-2">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenGeminiChat?.();
+                }}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs cursor-pointer"
+              >
+                <Sparkles className="w-4 h-4 text-cyan-200 animate-pulse" />
+                <span>Open Gemini AI Advisor (Multi-Turn)</span>
+              </button>
+
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);

@@ -18,13 +18,11 @@ import {
 } from "lucide-react";
 
 interface HeroProps {
-  onOpenChat: (preset?: string) => void;
   onOpenCalculator?: () => void;
   onOpenContact: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
-  onOpenChat,
   onOpenCalculator,
   onOpenContact,
 }) => {
@@ -92,7 +90,7 @@ export const Hero: React.FC<HeroProps> = ({
             {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-3.5 pt-1">
               <button
-                onClick={() => onOpenChat("I need an expert consultation on migrating from Dynamics NAV to Business Central SaaS.")}
+                onClick={onOpenContact}
                 className="px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 transition-all duration-200 hover:scale-[1.02] flex items-center gap-2.5 cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-blue-200" />
@@ -268,13 +266,13 @@ export const Hero: React.FC<HeroProps> = ({
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     <button
-                      onClick={() => onOpenChat("Tell me the exact step-by-step roadmap to upgrade from Dynamics NAV to Business Central SaaS.")}
+                      onClick={onOpenContact}
                       className="py-2.5 px-3 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-blue-50 text-slate-800 hover:text-blue-700 border border-slate-200/70 hover:border-blue-300 transition text-center truncate cursor-pointer"
                     >
                       NAV to BC Roadmap
                     </button>
                     <button
-                      onClick={() => onOpenChat("How does Business Central handle Indian GST, e-Invoicing, and TDS automatically?")}
+                      onClick={onOpenContact}
                       className="py-2.5 px-3 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-blue-50 text-slate-800 hover:text-blue-700 border border-slate-200/70 hover:border-blue-300 transition text-center truncate cursor-pointer"
                     >
                       India GST Architecture
@@ -294,7 +292,7 @@ export const Hero: React.FC<HeroProps> = ({
                 <Cpu className="w-5 h-5" />
               </div>
               <div className="text-left">
-                <div className="text-xs font-extrabold text-slate-900">20+ BC Deployments</div>
+                <div className="text-xs font-extrabold text-slate-900">100+ BC Deployments</div>
                 <div className="text-[10px] text-blue-600 font-semibold">15+ Years NAV/BC Mastery</div>
               </div>
             </motion.div>

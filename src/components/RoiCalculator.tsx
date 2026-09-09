@@ -13,12 +13,10 @@ import {
 } from "lucide-react";
 
 interface RoiCalculatorProps {
-  onOpenChat: (preset?: string) => void;
   onOpenContact: () => void;
 }
 
 export const RoiCalculator: React.FC<RoiCalculatorProps> = ({
-  onOpenChat,
   onOpenContact,
 }) => {
   const [users, setUsers] = useState<number>(75);
@@ -312,15 +310,11 @@ export const RoiCalculator: React.FC<RoiCalculatorProps> = ({
                 </button>
 
                 <button
-                  onClick={() =>
-                    onOpenChat(
-                      `Please generate an executive summary for our migration from ${currentSystem.toUpperCase()} to Microsoft Dynamics 365 Business Central for ${users} users, modeling an annual savings of $${calculations.annualSavings.toLocaleString()}.`
-                    )
-                  }
+                  onClick={onOpenContact}
                   className="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs border border-slate-200 transition flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-                  <span>Ask Architect to Analyze This Scenario</span>
+                  <span>Request Custom TCO Architecture Review</span>
                 </button>
               </div>
             </div>

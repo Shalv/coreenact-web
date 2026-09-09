@@ -1,27 +1,20 @@
-# Coreenact Website
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+</div>
 
-React + Vite + TypeScript website with an Express API layer for Coreenact's enterprise AI features.
+# Run and deploy your AI Studio app
 
-## Local development
+This contains everything you need to run your app locally.
 
-```bash
-npm install
-npm run dev
-```
+View your app in AI Studio: https://ai.studio/apps/dd232b5e-ba95-4382-ada5-7367217e56d3
 
-Open the local URL shown by Vite/Express.
+## Run Locally
 
-## Production deployment
+**Prerequisites:**  Node.js
 
-This repository is structured for **GitHub → Vercel** deployment.
 
-1. Push the repository to GitHub.
-2. Import the repository into Vercel.
-3. Add `GEMINI_API_KEY` under Vercel Project Settings → Environment Variables.
-4. Deploy.
-
-The React/Vite frontend is built into `dist/`. Requests under `/api/*` are routed to the Express API function in `api/index.ts`.
-
-## Environment variables
-
-See `.env.example`. Never commit `.env` or a real Gemini API key.
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`

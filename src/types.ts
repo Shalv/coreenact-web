@@ -1,12 +1,24 @@
+export type KnowledgeSource = 'website' | 'google' | 'hybrid';
+
+export interface GroundingSource {
+  title: string;
+  url: string;
+}
+
 export interface ChatMessage {
   id: string;
   role: 'user' | 'model';
   content: string;
   timestamp: string;
   modelUsed?: string;
+  roleUsed?: string;
+  roleTitle?: string;
+  sourceUsed?: KnowledgeSource;
+  groundingSources?: GroundingSource[];
+  searchQueries?: string[];
 }
 
-export type ChatRole = 'architect' | 'd365' | 'pricing' | 'copilot';
+export type ChatRole = 'architect' | 'consultant' | 'fast' | 'ai_specialist';
 
 export interface GroundingChunk {
   maps?: {

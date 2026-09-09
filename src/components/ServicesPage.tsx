@@ -19,12 +19,10 @@ import { SERVICES_CATALOG } from "../data/coreenactData";
 
 interface ServicesPageProps {
   onOpenContact: () => void;
-  onOpenChat: (preset?: string) => void;
 }
 
 export const ServicesPage: React.FC<ServicesPageProps> = ({
   onOpenContact,
-  onOpenChat,
 }) => {
   const [activeServiceId, setActiveServiceId] = useState<string>(SERVICES_CATALOG[0].id);
   const activeService =
@@ -123,14 +121,10 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                 <span>Book Scoping Session</span>
               </button>
               <button
-                onClick={() =>
-                  onOpenChat(
-                    `Can you explain the methodology, timeline, and typical deliverables for Coreenact's ${activeService.title} service?`
-                  )
-                }
+                onClick={onOpenContact}
                 className="px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm border border-slate-300 transition cursor-pointer"
               >
-                Ask Consultant
+                Inquire About Service
               </button>
             </div>
           </div>

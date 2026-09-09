@@ -9,12 +9,10 @@ import {
 import { CASE_STUDIES } from "../data/solutionsData";
 
 interface CaseStudiesProps {
-  onOpenChat: (preset?: string) => void;
   onOpenContact: () => void;
 }
 
 export const CaseStudies: React.FC<CaseStudiesProps> = ({
-  onOpenChat,
   onOpenContact,
 }) => {
   const [selectedCase, setSelectedCase] = useState<string>(CASE_STUDIES[0].id);
@@ -80,13 +78,9 @@ export const CaseStudies: React.FC<CaseStudiesProps> = ({
                 </div>
               </div>
 
-              {/* Quick Chat Shortcut */}
+              {/* Quick Consultation Shortcut */}
               <button
-                onClick={() =>
-                  onOpenChat(
-                    `Tell me more about how Coreenact solved the challenge for the ${activeCase.industry} vertical. What was the technical cutover roadmap?`
-                  )
-                }
+                onClick={onOpenContact}
                 className="px-5 py-3 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 font-bold text-sm flex items-center gap-2 shrink-0 transition cursor-pointer"
               >
                 <Sparkles className="w-4 h-4" />
