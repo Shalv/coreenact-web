@@ -47,8 +47,6 @@ const ROLES: RoleConfig[] = [
   {
     id: "consultant",
     title: "General ERP Consultant",
-    taskType: "General Tasks",
-    defaultModel: "gemini-3.8-flash",
     icon: Briefcase,
     badgeColor: "text-blue-700 dark:text-sky-400",
     badgeBg: "bg-blue-50 dark:bg-blue-950/60 border-blue-200 dark:border-blue-800",
