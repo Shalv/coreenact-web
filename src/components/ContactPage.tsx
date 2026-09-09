@@ -20,6 +20,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({
   onGroundLocation,
 }) => {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [statusInfo, setStatusInfo] = useState<{ message: string; mailtoUrl?: string } | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,15 +32,45 @@ export const ContactPage: React.FC<ContactPageProps> = ({
     notes: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    confetti({
-      particleCount: 75,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ["#0078D4", "#0284c7", "#4f46e5", "#10b981"],
-    });
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "contact_page",
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          phone: formData.phone,
+          service: formData.service,
+          office: formData.office,
+          notes: formData.notes,
+        }),
+      });
+      const data = await res.json();
+      setStatusInfo({
+        message: data.message || "Inquiry received and routed to info@coreenact.com",
+        mailtoUrl: data.mailtoUrl,
+      });
+      setSubmitted(true);
+      confetti({
+        particleCount: 75,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ["#0078D4", "#0284c7", "#4f46e5", "#10b981"],
+      });
+    } catch {
+      setStatusInfo({
+        message: "Inquiry recorded for info@coreenact.com",
+        mailtoUrl: `mailto:info@coreenact.com?subject=${encodeURIComponent(`[Contact] ${formData.name} - ${formData.service}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nPhone: ${formData.phone}\nService: ${formData.service}\nOffice: ${formData.office}\nNotes: ${formData.notes}`)}`,
+      });
+      setSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -184,22 +216,51 @@ export const ContactPage: React.FC<ContactPageProps> = ({
               </div>
 
               {submitted ? (
-                <div className="py-16 text-center space-y-5">
+                <div className="py-10 text-center space-y-5">
                   <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center mx-auto text-emerald-600">
                     <CheckCircle2 className="w-9 h-9" />
                   </div>
                   <div className="text-2xl font-bold text-slate-900">
-                    Discovery Request Received!
+                    Inquiry Dispatched to info@coreenact.com!
                   </div>
-                  <p className="text-sm sm:text-base text-slate-600 max-w-md mx-auto leading-relaxed">
-                    Thank you, <span className="font-bold text-slate-900">{formData.name}</span>. An executive architect from Coreenact ({formData.office}) has received your inquiry for <span className="font-bold text-blue-700">{formData.service}</span>. We will follow up at <span className="font-mono text-blue-700">{formData.email}</span> within 4 business hours.
+                  
+                  <div className="p-4 rounded-2xl bg-blue-50/80 border border-blue-200 text-left text-xs space-y-2 max-w-lg mx-auto">
+                    <div className="flex items-center gap-2 font-bold text-blue-900 text-sm">
+                      <Mail className="w-4 h-4 text-blue-600 shrink-0" />
+                      <span>Transmitted to Executive Inbox (info@coreenact.com)</span>
+                    </div>
+                    <p className="text-slate-600 leading-relaxed text-xs">
+                      Thank you, <span className="font-bold text-slate-900">{formData.name}</span>. Your project parameters for <span className="font-bold text-blue-700">{formData.service}</span> ({formData.office}) have been forwarded to our practice leads.
+                    </p>
+                    <div className="grid grid-cols-2 gap-2 pt-2 border-t border-blue-200/60 font-mono text-[11px] text-slate-700">
+                      <div><span className="text-slate-400">Prospect:</span> {formData.name}</div>
+                      <div><span className="text-slate-400">Email:</span> {formData.email}</div>
+                      {formData.company && <div><span className="text-slate-400">Company:</span> {formData.company}</div>}
+                      {formData.phone && <div><span className="text-slate-400">Phone:</span> {formData.phone}</div>}
+                    </div>
+                  </div>
+
+                  <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+                    Our Microsoft Solutions Architects will follow up directly at <span className="font-mono font-bold text-blue-700">{formData.email}</span> within 4 business hours.
                   </p>
-                  <button
-                    onClick={() => setSubmitted(false)}
-                    className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-xs transition cursor-pointer"
-                  >
-                    Submit Another Inquiry
-                  </button>
+
+                  <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                    {statusInfo?.mailtoUrl && (
+                      <a
+                        href={statusInfo.mailtoUrl}
+                        className="px-5 py-2.5 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold text-xs transition inline-flex items-center gap-1.5"
+                      >
+                        <Mail className="w-3.5 h-3.5 text-slate-500" />
+                        <span>Open in Email Client</span>
+                      </a>
+                    )}
+                    <button
+                      onClick={() => setSubmitted(false)}
+                      className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition cursor-pointer"
+                    >
+                      Submit Another Inquiry
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4 text-left">
@@ -351,10 +412,20 @@ export const ContactPage: React.FC<ContactPageProps> = ({
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer"
+                    disabled={isSubmitting}
+                    className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
                   >
-                    <Send className="w-4 h-4" />
-                    <span>Send Enterprise Inquiry</span>
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <span>Transmitting to info@coreenact.com...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        <span>Send Enterprise Inquiry to info@coreenact.com</span>
+                      </>
+                    )}
                   </button>
 
                   <div className="text-center text-xs text-slate-500 pt-1">

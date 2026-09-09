@@ -16,6 +16,7 @@ export interface ChatMessage {
   sourceUsed?: KnowledgeSource;
   groundingSources?: GroundingSource[];
   searchQueries?: string[];
+  isLocalFallback?: boolean;
 }
 
 export type ChatRole = 'architect' | 'consultant' | 'fast' | 'ai_specialist';

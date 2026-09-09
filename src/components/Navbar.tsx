@@ -161,34 +161,22 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Theme Switcher Toggle for Light & High-Contrast Dark Mode */}
             <ThemeSwitcher />
 
-            {/* Gemini Multi-turn Chat Launcher */}
-            <button
-              onClick={onOpenGeminiChat}
-              className="px-3.5 py-2.5 rounded-xl text-sm font-bold transition flex items-center gap-1.5 cursor-pointer bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-xs"
-              title="Open Coreenact Gemini AI Advisor"
-            >
-              <Sparkles className="w-4 h-4 text-cyan-200 animate-pulse" />
-              <span>Gemini AI</span>
-            </button>
-
-            <button
-              onClick={() => handlePageClick("contact")}
-              className={`px-4 py-2.5 rounded-xl text-sm font-bold transition flex items-center gap-2 cursor-pointer border ${
-                activePage === "contact"
-                  ? "bg-blue-600 text-white border-blue-600 shadow-xs"
-                  : "bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200 dark:border-slate-700"
-              }`}
-            >
-              <Mail className="w-4 h-4 text-blue-600 dark:text-sky-400" />
-              <span>Contact Us</span>
-            </button>
-
             <button
               onClick={onOpenContact}
               className="px-4.5 py-2.5 rounded-xl font-bold text-sm cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center gap-2"
             >
               <span>Book Consultation</span>
               <ArrowRight className="w-4 h-4" />
+            </button>
+
+            {/* Coreenact AI Multi-turn Chat Launcher (In Last) */}
+            <button
+              onClick={onOpenGeminiChat}
+              className="px-3.5 py-2.5 rounded-xl text-sm font-bold transition flex items-center gap-1.5 cursor-pointer bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-xs"
+              title="Open Coreenact AI Advisor"
+            >
+              <Sparkles className="w-4 h-4 text-cyan-200 animate-pulse" />
+              <span>Coreenact AI</span>
             </button>
           </div>
 
@@ -229,18 +217,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <ArrowRight className="w-3.5 h-3.5 text-slate-400" />
                 </button>
               ))}
-
-              <button
-                onClick={() => handlePageClick("contact")}
-                className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between cursor-pointer ${
-                  activePage === "contact"
-                    ? "bg-blue-600 text-white font-bold"
-                    : "text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-900"
-                }`}
-              >
-                <span>Contact Us ({COREENACT_CONTACT.email})</span>
-                <Mail className="w-4 h-4 text-blue-600 dark:text-sky-400" />
-              </button>
             </div>
 
             {/* Mobile Theme Toggle Section */}
@@ -255,23 +231,23 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  onOpenGeminiChat?.();
-                }}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs cursor-pointer"
-              >
-                <Sparkles className="w-4 h-4 text-cyan-200 animate-pulse" />
-                <span>Open Gemini AI Advisor (Multi-Turn)</span>
-              </button>
-
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
                   onOpenContact();
                 }}
                 className="w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs cursor-pointer"
               >
                 <span>Book Consultation</span>
                 <ArrowRight className="w-4 h-4" />
+              </button>
+
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenGeminiChat?.();
+                }}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs cursor-pointer"
+              >
+                <Sparkles className="w-4 h-4 text-cyan-200 animate-pulse" />
+                <span>Open Coreenact AI Advisor</span>
               </button>
 
               <div className="text-[11px] text-slate-500 text-center pt-2">

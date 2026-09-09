@@ -298,7 +298,7 @@ export default function App() {
         onOpenGeminiChat={() => handleOpenGeminiChat()}
       />
 
-      {/* Floating Action Button for Gemini Multi-Turn AI Advisor */}
+      {/* Floating Action Button for Coreenact AI Advisor */}
       <div className="fixed bottom-6 right-6 z-40">
         <button
           onClick={() => handleOpenGeminiChat()}
@@ -310,7 +310,7 @@ export default function App() {
           </div>
           <div className="text-left hidden sm:block">
             <div className="font-bold text-xs leading-none flex items-center gap-1.5">
-              <span>Customer & ERP AI</span>
+              <span>Coreenact AI</span>
               <span className="text-[10px] bg-emerald-500/80 text-white px-1 py-0.2 rounded font-normal">Free</span>
             </div>
             <div className="text-[10px] text-cyan-200/80 font-mono mt-0.5 leading-none">Website RAG • Google Grounded</div>

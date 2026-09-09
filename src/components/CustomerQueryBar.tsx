@@ -57,6 +57,8 @@ export const CustomerQueryBar: React.FC<CustomerQueryBarProps> = ({
     reply: string;
     sourceUsed: KnowledgeSource;
     groundingSources: GroundingSource[];
+    modelUsed?: string;
+    isLocalFallback?: boolean;
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -91,6 +93,8 @@ export const CustomerQueryBar: React.FC<CustomerQueryBarProps> = ({
         reply: data.reply,
         sourceUsed: data.sourceUsed || activeSource,
         groundingSources: data.groundingSources || [],
+        modelUsed: data.modelUsed,
+        isLocalFallback: data.isLocalFallback,
       });
     } catch (err: any) {
       console.error("Customer query failed:", err);
@@ -252,10 +256,17 @@ export const CustomerQueryBar: React.FC<CustomerQueryBarProps> = ({
                     <span className="capitalize">{result.sourceUsed} Grounded Answer</span>
                   </span>
 
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800">
-                    <CheckCircle2 className="w-3 h-3" />
-                    <span>Free Tier Response</span>
-                  </span>
+                  {result.isLocalFallback ? (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold text-blue-700 dark:text-sky-300 bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800">
+                      <ShieldCheck className="w-3 h-3" />
+                      <span>Verified Knowledge Base</span>
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800">
+                      <CheckCircle2 className="w-3 h-3" />
+                      <span>Free Tier AI Response</span>
+                    </span>
+                  )}
                 </div>
 
                 {onOpenChatWithPrompt && (

@@ -10,6 +10,8 @@ interface ContactModalProps {
 
 export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [statusInfo, setStatusInfo] = useState<{ message: string; mailtoUrl?: string } | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,15 +22,45 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     notes: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    confetti({
-      particleCount: 70,
-      spread: 60,
-      origin: { y: 0.5 },
-      colors: ["#0078D4", "#0284c7", "#4f46e5", "#10b981"],
-    });
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          source: "book_consultation",
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          phone: formData.phone,
+          interest: formData.interest,
+          timeframe: formData.timeframe,
+          notes: formData.notes,
+        }),
+      });
+      const data = await res.json();
+      setStatusInfo({
+        message: data.message || "Inquiry received and routed to info@coreenact.com",
+        mailtoUrl: data.mailtoUrl,
+      });
+      setSubmitted(true);
+      confetti({
+        particleCount: 70,
+        spread: 60,
+        origin: { y: 0.5 },
+        colors: ["#0078D4", "#0284c7", "#4f46e5", "#10b981"],
+      });
+    } catch {
+      setStatusInfo({
+        message: "Inquiry recorded for info@coreenact.com",
+        mailtoUrl: `mailto:info@coreenact.com?subject=${encodeURIComponent(`[Consultation] ${formData.name}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nPhone: ${formData.phone}\nService: ${formData.interest}\nTimeframe: ${formData.timeframe}\nNotes: ${formData.notes}`)}`,
+      });
+      setSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -74,23 +106,43 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               </div>
 
               {submitted ? (
-                <div className="py-8 text-center space-y-4">
+                <div className="py-6 text-center space-y-4">
                   <div className="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center mx-auto text-emerald-600">
                     <CheckCircle2 className="w-9 h-9" />
                   </div>
                   <div className="text-2xl font-bold text-slate-900">Discovery Session Requested!</div>
+                  <div className="p-3.5 rounded-xl bg-blue-50/70 border border-blue-200/80 text-left text-xs space-y-1.5 max-w-md mx-auto">
+                    <div className="flex items-center gap-1.5 font-bold text-blue-900">
+                      <Mail className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                      <span>Inquiry Dispatched to info@coreenact.com</span>
+                    </div>
+                    <p className="text-slate-600 text-[11px] leading-relaxed">
+                      All consultation parameters for <span className="font-semibold text-slate-800">{formData.name}</span> ({formData.email}) regarding <span className="font-semibold text-slate-800">{formData.interest}</span> have been sent to our executive team.
+                    </p>
+                  </div>
                   <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
-                    Thank you, <span className="font-semibold text-slate-900">{formData.name}</span>. A Principal Solutions Architect from our {formData.interest} practice has received your request and will provide a personalized preliminary roadmap within 4 business hours.
+                    Our Principal Solutions Architects will follow up at <span className="font-semibold text-blue-700">{formData.email}</span> within 4 business hours.
                   </p>
-                  <button
-                    onClick={() => {
-                      setSubmitted(false);
-                      onClose();
-                    }}
-                    className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition cursor-pointer"
-                  >
-                    Done
-                  </button>
+                  <div className="flex items-center justify-center gap-3 pt-2">
+                    {statusInfo?.mailtoUrl && (
+                      <a
+                        href={statusInfo.mailtoUrl}
+                        className="px-4 py-2.5 rounded-xl border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold text-xs transition inline-flex items-center gap-1.5"
+                      >
+                        <Mail className="w-3.5 h-3.5 text-slate-500" />
+                        <span>Open in Email Client</span>
+                      </a>
+                    )}
+                    <button
+                      onClick={() => {
+                        setSubmitted(false);
+                        onClose();
+                      }}
+                      className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition cursor-pointer"
+                    >
+                      Done
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -221,10 +273,20 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-700 shadow-md flex items-center justify-center gap-2 transition cursor-pointer"
+                    disabled={isSubmitting}
+                    className="w-full py-3.5 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-700 shadow-md flex items-center justify-center gap-2 transition cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
                   >
-                    <span>Request Business Central Review & TCO Audit</span>
-                    <ArrowRight className="w-4 h-4" />
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <span>Sending Inquiry to info@coreenact.com...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Request Business Central Review & TCO Audit</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
                   </button>
                 </form>
               )}

@@ -132,7 +132,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenGeminiChat }) 
                     className="text-cyan-400 hover:text-cyan-300 transition text-left font-bold flex items-center gap-1.5 cursor-pointer"
                   >
                     <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
-                    <span>Gemini AI Advisor</span>
+                    <span>Coreenact AI Advisor</span>
                   </button>
                 </li>
               )}
