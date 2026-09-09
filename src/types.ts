@@ -1,0 +1,86 @@
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'model';
+  content: string;
+  timestamp: string;
+  modelUsed?: string;
+}
+
+export type ChatRole = 'architect' | 'd365' | 'pricing' | 'copilot';
+
+export interface GroundingChunk {
+  maps?: {
+    uri?: string;
+    title?: string;
+    placeAnswerSources?: {
+      reviewSnippets?: Array<{
+        snippet?: string;
+        author?: string;
+      }>;
+    };
+  };
+  web?: {
+    uri?: string;
+    title?: string;
+  };
+}
+
+export type PageType =
+  | 'home'
+  | 'solutions'
+  | 'services'
+  | 'industries'
+  | 'about'
+  | 'case-studies'
+  | 'contact';
+
+export interface ServiceItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  badge: string;
+  iconName: string;
+  color: string;
+  description: string;
+  phases: string[];
+  deliverables: string[];
+  benefits: string[];
+}
+
+export interface IndustryItem {
+  id: string;
+  name: string;
+  tagline: string;
+  iconName: string;
+  color: string;
+  challenges: string[];
+  solutions: string[];
+  d365Features: string[];
+  resultMetric: { label: string; value: string };
+}
+
+export interface SolutionItem {
+  id: string;
+  title: string;
+  tagline: string;
+  badge: string;
+  color: string;
+  accentGradient: string;
+  iconName: string;
+  description: string;
+  capabilities: string[];
+  metrics: { label: string; value: string };
+  microsoftStack: string[];
+}
+
+export interface CaseStudy {
+  id: string;
+  client: string;
+  industry: string;
+  headline: string;
+  challenge: string;
+  solution: string;
+  outcome: string;
+  stats: Array<{ label: string; value: string; color: string }>;
+  badgeColor: string;
+}
