@@ -9,6 +9,7 @@ import { ContactPage } from "./components/ContactPage";
 import { RoiCalculator } from "./components/RoiCalculator";
 import { CaseStudies } from "./components/CaseStudies";
 import { GlobalHubs } from "./components/GlobalHubs";
+import { TechStackShowcase } from "./components/TechStackShowcase";
 import { Footer } from "./components/Footer";
 import { ContactModal } from "./components/ContactModal";
 import { GeminiChatDrawer } from "./components/GeminiChatDrawer";
@@ -230,6 +231,9 @@ export default function App() {
               onSelectSolution={() => setIsContactOpen(true)}
               onOpenContact={() => setIsContactOpen(true)}
             />
+
+            {/* 3b. Interactive Real Microsoft Technology Stack Showcase */}
+            <TechStackShowcase onOpenContact={() => setIsContactOpen(true)} />
 
             {/* 4. Interactive ROI & 3-Year TCO Calculator */}
             <RoiCalculator

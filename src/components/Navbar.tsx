@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { PageType } from "../types";
 import { COREENACT_CONTACT } from "../data/coreenactData";
+import { MicrosoftLogo } from "./icons/MicrosoftIcons";
 
 interface NavbarProps {
   activePage?: PageType;
@@ -68,7 +69,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Top Utility Bar */}
       <div className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200/80 dark:border-slate-800 py-2 px-4 text-center text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
         <span className="flex items-center gap-2 text-blue-700 dark:text-sky-400 font-bold">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <MicrosoftLogo className="w-3.5 h-3.5" />
           Official Microsoft Solutions Partner
         </span>
         <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
@@ -104,13 +105,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="h-11 sm:h-13 w-auto object-contain"
               />
             </div>
-            <div className="hidden lg:flex flex-col text-left border-l border-slate-200 dark:border-slate-800 pl-3.5">
-              <span className="text-[11px] font-extrabold tracking-wider text-blue-700 dark:text-sky-400 uppercase font-mono">
-                Microsoft Partner
-              </span>
-              <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
-                Dynamics 365 Business Central
-              </span>
+            <div className="hidden lg:flex items-center gap-2.5 border-l border-slate-200 dark:border-slate-800 pl-3.5">
+              <MicrosoftLogo className="w-6 h-6 shrink-0" />
+              <div className="flex flex-col text-left">
+                <span className="text-[11px] font-extrabold tracking-wider text-blue-700 dark:text-sky-400 uppercase font-mono">
+                  Microsoft Partner
+                </span>
+                <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
+                  Dynamics 365 Business Central
+                </span>
+              </div>
             </div>
           </div>
 

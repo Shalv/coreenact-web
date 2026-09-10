@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import {
-  Layers,
   ArrowRight,
   CheckCircle2,
   Calendar,
 } from "lucide-react";
 import { SOLUTION_PILLARS } from "../data/coreenactData";
+import { MicrosoftLogo } from "./icons/MicrosoftIcons";
 
 interface SolutionsGridProps {
   onSelectSolution: (solutionTitle: string) => void;
@@ -29,7 +29,7 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold tracking-wider uppercase">
-            <Layers className="w-3.5 h-3.5 text-blue-600" />
+            <MicrosoftLogo className="w-3.5 h-3.5" />
             <span>Microsoft Dynamics 365 Architecture</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-heading">

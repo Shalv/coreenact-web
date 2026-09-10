@@ -1,7 +1,15 @@
 import React from "react";
 import { motion } from "motion/react";
-import { MapPin, Globe2, Building, Compass } from "lucide-react";
+import { MapPin, Building, Compass } from "lucide-react";
 import { GLOBAL_OFFICES } from "../data/solutionsData";
+import { MicrosoftLogo } from "./icons/MicrosoftIcons";
+
+const OFFICE_IMAGES: Record<string, string> = {
+  "New Delhi":
+    "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1200&q=75",
+  "Mississauga / Toronto":
+    "https://images.unsplash.com/photo-1517090504586-fde19ea6066f?auto=format&fit=crop&w=1200&q=75",
+};
 
 interface GlobalHubsProps {
   onGroundLocation: (cityName: string) => void;
@@ -17,7 +25,7 @@ export const GlobalHubs: React.FC<GlobalHubsProps> = ({
       <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-14 space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold tracking-wider uppercase">
-            <Globe2 className="w-3.5 h-3.5 text-blue-600" />
+            <MicrosoftLogo className="w-3.5 h-3.5" />
             <span>Global Microsoft Delivery Network</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-heading">
@@ -41,9 +49,24 @@ export const GlobalHubs: React.FC<GlobalHubsProps> = ({
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.08 }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="rounded-3xl p-1 bg-gradient-to-br from-blue-100 via-indigo-100 to-slate-200 shadow-xs hover:shadow-md transition-all duration-300"
+              className="rounded-3xl p-1 bg-gradient-to-br from-blue-100 via-indigo-100 to-slate-200 shadow-xs hover:shadow-md transition-all duration-300 group"
             >
-              <div className="rounded-[23px] bg-white p-7 sm:p-8 h-full flex flex-col justify-between space-y-6 border border-slate-200 text-left">
+              <div className="rounded-[23px] bg-white overflow-hidden h-full flex flex-col justify-between border border-slate-200 text-left">
+                <div className="h-40 w-full relative overflow-hidden">
+                  <img
+                    src={OFFICE_IMAGES[office.city]}
+                    alt={`${office.city} delivery center`}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/10 to-transparent" />
+                  <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-white/95 px-2.5 py-1 rounded-lg shadow-sm">
+                    <MicrosoftLogo className="w-3.5 h-3.5" />
+                  </span>
+                  <span className="absolute bottom-3 left-4 text-white font-bold text-lg drop-shadow">
+                    {office.city}
+                  </span>
+                </div>
+                <div className="p-7 sm:p-8 flex-1 flex flex-col justify-between space-y-6">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
@@ -85,6 +108,7 @@ export const GlobalHubs: React.FC<GlobalHubsProps> = ({
                   <span className="text-xs font-mono text-slate-400">
                     {office.coords.lat.toFixed(2)}°, {office.coords.lng.toFixed(2)}°
                   </span>
+                </div>
                 </div>
               </div>
             </motion.div>

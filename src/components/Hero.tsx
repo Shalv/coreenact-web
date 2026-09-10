@@ -16,6 +16,7 @@ import {
   RefreshCw,
   Coins,
 } from "lucide-react";
+import { MicrosoftLogo, TechIcon } from "./icons/MicrosoftIcons";
 
 interface HeroProps {
   onOpenCalculator?: () => void;
@@ -64,12 +65,13 @@ export const Hero: React.FC<HeroProps> = ({
               transition={{ delay: 0.1, duration: 0.4 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 border border-blue-200/80 shadow-xs"
             >
+              <MicrosoftLogo className="w-4 h-4" />
+              <span className="text-xs sm:text-sm font-bold text-blue-900 tracking-wide">
+                Microsoft Solutions Partner • Dynamics 365 Business Central
+              </span>
               <span className="flex h-2.5 w-2.5 relative">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span>
-              </span>
-              <span className="text-xs sm:text-sm font-bold text-blue-900 tracking-wide">
-                Microsoft Solutions Partner • Dynamics 365 Business Central
               </span>
             </motion.div>
 
@@ -167,12 +169,14 @@ export const Hero: React.FC<HeroProps> = ({
                 "Azure Cloud Hosting",
                 "Managed Support 24/7",
               ].map((tech) => (
-                <span
+                <motion.span
                   key={tech}
-                  className="px-3 py-1 rounded-md bg-slate-100 text-slate-700 text-xs font-medium border border-slate-200/60"
+                  whileHover={{ y: -2, scale: 1.04 }}
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-slate-100 text-slate-700 text-xs font-medium border border-slate-200/60 hover:border-blue-300 hover:bg-blue-50 transition-colors"
                 >
+                  <TechIcon label={tech} className="w-3.5 h-3.5" />
                   {tech}
-                </span>
+                </motion.span>
               ))}
             </div>
           </motion.div>
@@ -236,8 +240,8 @@ export const Hero: React.FC<HeroProps> = ({
                 <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-200/80 space-y-2.5">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded-lg bg-blue-600 flex items-center justify-center text-white">
-                        <Sparkles className="w-3.5 h-3.5" />
+                      <div className="w-7 h-7 rounded-lg bg-white border border-blue-200 flex items-center justify-center shadow-2xs">
+                        <TechIcon label="copilot" className="w-4.5 h-4.5" />
                       </div>
                       <div>
                         <div className="text-xs font-bold text-slate-900">Microsoft Copilot in Business Central</div>

@@ -2,6 +2,7 @@ import React from "react";
 import { Sparkles, Shield, MapPin, Mail, Phone, ExternalLink, ArrowRight } from "lucide-react";
 import { COREENACT_CONTACT } from "../data/coreenactData";
 import { PageType } from "../types";
+import { MicrosoftLogo } from "./icons/MicrosoftIcons";
 
 interface FooterProps {
   onNavigate?: (page: PageType) => void;
@@ -34,6 +35,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenGeminiChat }) 
                 />
               </div>
               <div className="flex items-center gap-2">
+                <div className="p-1 rounded bg-white/95">
+                  <MicrosoftLogo className="w-3.5 h-3.5" />
+                </div>
                 <span className="text-xs tracking-wider text-cyan-400 uppercase font-mono font-bold">
                   Microsoft Solutions Partner
                 </span>
@@ -62,7 +66,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenGeminiChat }) 
             </div>
 
             <div className="flex items-center gap-2 pt-1">
-              <span className="px-3 py-1 rounded-full text-xs font-bold bg-blue-500/10 border border-blue-400/30 text-blue-300">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-blue-500/10 border border-blue-400/30 text-blue-300">
+                <MicrosoftLogo className="w-3 h-3" />
                 Microsoft Solutions Partner
               </span>
               <span className="px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/10 border border-cyan-400/30 text-cyan-300">
@@ -239,7 +244,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenGeminiChat }) 
             © {new Date().getFullYear()} Coreenact Solutions. All rights reserved.
           </div>
           <div className="flex items-center gap-4 text-xs sm:text-sm">
-            <span className="text-slate-400">Microsoft Solutions Partner</span>
+            <span className="inline-flex items-center gap-1.5 text-slate-400">
+              <MicrosoftLogo className="w-3 h-3" />
+              Microsoft Solutions Partner
+            </span>
             <span>•</span>
             <span className="text-slate-400">info@coreenact.com</span>
           </div>

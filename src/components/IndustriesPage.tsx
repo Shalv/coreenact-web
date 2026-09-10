@@ -18,6 +18,19 @@ import {
   Layers,
 } from "lucide-react";
 import { INDUSTRIES_CATALOG } from "../data/coreenactData";
+import { DynamicsIcon, MicrosoftLogo } from "./icons/MicrosoftIcons";
+
+const INDUSTRY_IMAGES: Record<string, string> = {
+  manufacturing: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1400&q=75",
+  fmcg: "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1400&q=75",
+  retail: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1400&q=75",
+  education: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1400&q=75",
+  "professional-services": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=75",
+  construction: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1400&q=75",
+  "maritime-logistics": "https://images.unsplash.com/photo-1494412651409-8963ce7935a7?auto=format&fit=crop&w=1400&q=75",
+  healthcare: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1400&q=75",
+  distribution: "https://images.unsplash.com/photo-1601599963565-b7f49b9c68ba?auto=format&fit=crop&w=1400&q=75",
+};
 
 interface IndustriesPageProps {
   onOpenContact: () => void;
@@ -107,16 +120,31 @@ export const IndustriesPage: React.FC<IndustriesPageProps> = ({
         transition={{ duration: 0.3 }}
         className="rounded-3xl p-1 bg-gradient-to-br from-blue-100 via-indigo-100 to-slate-200 shadow-md mb-16"
       >
-        <div className="rounded-[23px] bg-white p-6 sm:p-10 space-y-8 border border-slate-200">
+        <div className="rounded-[23px] bg-white overflow-hidden border border-slate-200">
+          {/* Industry photo banner */}
+          <div className="h-40 sm:h-56 w-full relative overflow-hidden">
+            <img
+              src={INDUSTRY_IMAGES[activeIndustry.id]}
+              alt={`${activeIndustry.name} industry`}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+            <span className="absolute top-4 right-4 inline-flex items-center gap-1.5 bg-white/95 px-3 py-1.5 rounded-lg shadow-sm">
+              <MicrosoftLogo className="w-4 h-4" />
+              <span className="text-xs font-bold text-slate-800">Built on Dynamics 365</span>
+            </span>
+            <span className="absolute bottom-4 left-6 text-white text-2xl sm:text-3xl font-extrabold font-heading drop-shadow">
+              {activeIndustry.name}
+            </span>
+          </div>
+
+          <div className="p-6 sm:p-10 space-y-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-slate-200">
             <div className="flex items-center gap-4">
               <div className="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shrink-0">
                 {getIcon(activeIndustry.iconName)}
               </div>
               <div>
-                <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 font-heading">
-                  {activeIndustry.name}
-                </h2>
                 <p className="text-sm sm:text-base text-blue-700 font-semibold mt-0.5">
                   {activeIndustry.tagline}
                 </p>
@@ -181,7 +209,7 @@ export const IndustriesPage: React.FC<IndustriesPageProps> = ({
           {/* Microsoft Dynamics 365 Specialized Features */}
           <div className="p-6 sm:p-8 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
             <h3 className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-              <Layers className="w-4 h-4 text-indigo-600" />
+              <DynamicsIcon className="w-4 h-4" />
               <span>Microsoft Dynamics 365 Pre-Configured Capabilities</span>
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -209,6 +237,7 @@ export const IndustriesPage: React.FC<IndustriesPageProps> = ({
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
+          </div>
         </div>
       </motion.div>
 
@@ -222,12 +251,21 @@ export const IndustriesPage: React.FC<IndustriesPageProps> = ({
             <div
               key={ind.id}
               onClick={() => setSelectedIndustryId(ind.id)}
-              className={`p-6 rounded-2xl cursor-pointer transition-all duration-200 border text-left ${
+              className={`rounded-2xl cursor-pointer transition-all duration-200 border text-left overflow-hidden group ${
                 ind.id === selectedIndustryId
                   ? "bg-blue-50/50 border-blue-400 shadow-md"
                   : "bg-white border-slate-200 hover:border-blue-300 hover:shadow-xs"
               }`}
             >
+              <div className="h-28 w-full overflow-hidden relative">
+                <img
+                  src={INDUSTRY_IMAGES[ind.id]}
+                  alt={ind.name}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 to-transparent" />
+              </div>
+              <div className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
                   {getIcon(ind.iconName)}
@@ -241,6 +279,7 @@ export const IndustriesPage: React.FC<IndustriesPageProps> = ({
               <div className="text-xs font-bold text-blue-600 flex items-center gap-1">
                 <span>View Full Industry Blueprint</span>
                 <ArrowRight className="w-3 h-3" />
+              </div>
               </div>
             </div>
           ))}
