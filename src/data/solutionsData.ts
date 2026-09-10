@@ -3,7 +3,7 @@ import { SolutionItem, CaseStudy } from "../types";
 export const SOLUTIONS: SolutionItem[] = [
   {
     id: "d365-fo",
-    title: "Dynamics 365 Finance & Operations",
+    title: "Dynamics 365 Business Central",
     tagline: "Global ERP Modernization & Intelligent Supply Chain",
     badge: "Enterprise ERP",
     color: "from-blue-500 to-indigo-600",
