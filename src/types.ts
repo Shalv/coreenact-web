@@ -54,6 +54,7 @@ export interface ServiceItem {
   badge: string;
   iconName: string;
   color: string;
+  image: string;
   description: string;
   phases: string[];
   deliverables: string[];

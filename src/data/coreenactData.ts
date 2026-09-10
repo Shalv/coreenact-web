@@ -251,6 +251,8 @@ export const SOLUTION_PILLARS = [
 export const SERVICES_CATALOG: ServiceItem[] = [
   {
     id: "erp-consulting",
+    image:
+      "https://images.unsplash.com/photo-1581091877018-dac6a371d50f?auto=format&fit=crop&w=1200&q=80",
     title: "ERP Implementation & Consulting",
     subtitle: "Turnkey Microsoft Dynamics 365 Business Central & F&O Deployments",
     badge: "Flagship Service",
@@ -280,6 +282,8 @@ export const SERVICES_CATALOG: ServiceItem[] = [
   },
   {
     id: "nav-migration",
+    image:
+      "https://images.unsplash.com/photo-1619410283995-43d9134e7656?auto=format&fit=crop&w=1200&q=80",
     title: "NAV to Cloud Migration",
     subtitle: "De-risk your modernization from Dynamics NAV to Business Central SaaS",
     badge: "Cloud Modernization",
@@ -308,6 +312,8 @@ export const SERVICES_CATALOG: ServiceItem[] = [
   },
   {
     id: "erp-audit",
+    image:
+      "https://images.unsplash.com/photo-1573166364366-3f4f8b1857ea?auto=format&fit=crop&w=1200&q=80",
     title: "ERP Audit & Health Check",
     subtitle: "Independent diagnostics to uncover performance bottlenecks and security risks",
     badge: "Optimization",
@@ -336,6 +342,8 @@ export const SERVICES_CATALOG: ServiceItem[] = [
   },
   {
     id: "global-rollouts",
+    image:
+      "https://images.unsplash.com/photo-1596564309076-01c1868b07a4?auto=format&fit=crop&w=1200&q=80",
     title: "Global ERP Rollouts",
     subtitle: "Governed multi-entity deployment across regions and subsidiaries",
     badge: "Multi-Entity",
@@ -364,6 +372,8 @@ export const SERVICES_CATALOG: ServiceItem[] = [
   },
   {
     id: "india-localization",
+    image:
+      "https://images.unsplash.com/photo-1581089781785-603411fa81e5?auto=format&fit=crop&w=1200&q=80",
     title: "India Localization & Tax Compliance",
     subtitle: "Complete GST, TDS, TCS, e-Invoicing & e-Way Bill Automation",
     badge: "Statutory Compliance",
@@ -392,6 +402,8 @@ export const SERVICES_CATALOG: ServiceItem[] = [
   },
   {
     id: "security-governance",
+    image:
+      "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&w=1200&q=80",
     title: "Security, Governance & Compliance",
     subtitle: "Zero-trust identity, segregation of duties and audit trails",
     badge: "Cybersecurity",
@@ -420,6 +432,8 @@ export const SERVICES_CATALOG: ServiceItem[] = [
   },
   {
     id: "managed-services",
+    image:
+      "https://images.unsplash.com/photo-1556740714-a8395b3bf30f?auto=format&fit=crop&w=1200&q=80",
     title: "Continuous Managed Services & Support",
     subtitle: "Dedicated SLA-driven support and continuous post-go-live evolution",
     badge: "24/7 SLA",

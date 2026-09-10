@@ -240,7 +240,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                     <label className="block text-xs font-bold text-slate-700 mb-1">
                       Implementation Target Timeframe
                     </label>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                       {["Immediate (< 3 mo)", "3 - 6 months", "Strategic Planning"].map((t) => (
                         <button
                           type="button"

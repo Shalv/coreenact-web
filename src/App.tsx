@@ -113,31 +113,31 @@ export default function App() {
       {/* Page Breadcrumb / Bar for Subpages */}
       {currentPage !== "home" && (
         <div className="pt-36 pb-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60">
-          <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-sm">
-            <div className="flex items-center gap-2.5 text-slate-500 dark:text-slate-400">
+          <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-sm">
+            <div className="flex items-center gap-2.5 text-slate-500 dark:text-slate-400 min-w-0">
               <button
                 onClick={() => handleSelectPage("home")}
-                className="hover:text-blue-600 dark:hover:text-sky-400 transition flex items-center gap-1.5 font-semibold cursor-pointer"
+                className="hover:text-blue-600 dark:hover:text-sky-400 transition flex items-center gap-1.5 font-semibold cursor-pointer shrink-0"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Home</span>
               </button>
-              <ChevronRight className="w-4 h-4 text-slate-400 dark:text-slate-600" />
-              <span className="text-blue-700 dark:text-sky-400 font-bold capitalize font-mono text-sm">
+              <ChevronRight className="w-4 h-4 text-slate-400 dark:text-slate-600 shrink-0" />
+              <span className="text-blue-700 dark:text-sky-400 font-bold capitalize font-mono text-sm truncate">
                 {currentPage.replace("-", " ")}
               </span>
             </div>
 
-            <div className="flex items-center gap-3.5">
+            <div className="flex items-center gap-3 sm:gap-3.5 shrink-0">
               <button
                 onClick={() => setIsContactOpen(true)}
-                className="text-sm text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-sky-400 font-medium cursor-pointer"
+                className="hidden sm:inline text-sm text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-sky-400 font-medium cursor-pointer"
               >
                 Book D365 Consultation
               </button>
               <button
                 onClick={() => handleSelectPage("contact")}
-                className="px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition cursor-pointer"
+                className="px-3.5 sm:px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition cursor-pointer whitespace-nowrap"
               >
                 Contact Us
               </button>

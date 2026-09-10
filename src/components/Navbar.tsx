@@ -160,9 +160,28 @@ export const Navbar: React.FC<NavbarProps> = ({
             ))}
           </nav>
 
-          {/* Action CTAs (Theme button removed, compact button sizing, Support Login added, Coreenact AI at end) */}
+          {/* Action CTAs (Theme button removed, compact button sizing, Coreenact AI + Support Login now in last position) */}
           <div className="hidden lg:flex items-center gap-2">
-            {/* Support Login External Portal Link */}
+            {/* Book Consultation Button - Compact */}
+            <button
+              onClick={onOpenContact}
+              className="px-3.5 py-2 rounded-lg font-bold text-xs cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center gap-1.5"
+            >
+              <span>Book Consultation</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+
+            {/* Coreenact AI Multi-turn Chat Launcher - Compact */}
+            <button
+              onClick={onOpenGeminiChat}
+              className="px-3 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-xs"
+              title="Open Coreenact AI Advisor"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-cyan-200 animate-pulse" />
+              <span>Coreenact AI</span>
+            </button>
+
+            {/* Support Login External Portal Link (Last Position) */}
             <a
               href="https://support.coreenact.com/"
               target="_blank"
@@ -173,29 +192,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Support login</span>
               <ExternalLink className="w-3 h-3 text-slate-500 dark:text-slate-400" />
             </a>
-
-            {/* Book Consultation Button - Compact */}
-            <button
-              onClick={onOpenContact}
-              className="px-3.5 py-2 rounded-lg font-bold text-xs cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center gap-1.5"
-            >
-              <span>Book Consultation</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-
-            {/* Coreenact AI Multi-turn Chat Launcher (In Last Position) - Compact */}
-            <button
-              onClick={onOpenGeminiChat}
-              className="px-3 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-xs"
-              title="Open Coreenact AI Advisor"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-cyan-200 animate-pulse" />
-              <span>Coreenact AI</span>
-            </button>
           </div>
 
-          {/* Mobile Menu Toggle Button (Theme button removed) */}
-          <div className="flex md:hidden items-center gap-2">
+          {/* Mobile/Tablet Menu Toggle Button (visible until desktop CTAs appear at lg, closing the md-lg gap) */}
+          <div className="flex lg:hidden items-center gap-2">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200"
@@ -213,7 +213,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="md:hidden bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 px-5 py-5 space-y-3 text-left shadow-xl"
+            className="lg:hidden bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-slate-800 px-5 py-5 space-y-3 text-left shadow-xl max-h-[calc(100vh-6rem)] overflow-y-auto"
           >
             <div className="space-y-1">
               {navItems.map((item) => (
@@ -233,16 +233,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-2">
-              <a
-                href="https://support.coreenact.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 shadow-2xs"
-              >
-                <span>Support login</span>
-                <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
-              </a>
-
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
@@ -264,6 +254,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <Sparkles className="w-3.5 h-3.5 text-cyan-200 animate-pulse" />
                 <span>Open Coreenact AI Advisor</span>
               </button>
+
+              {/* Support Login (Last Position) */}
+              <a
+                href="https://support.coreenact.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-2.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 shadow-2xs"
+              >
+                <span>Support login</span>
+                <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
+              </a>
 
               <div className="text-[11px] text-slate-500 text-center pt-1.5">
                 Offices: New Delhi, India • Mississauga, Canada
