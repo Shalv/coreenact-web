@@ -85,79 +85,87 @@ export const Navbar: React.FC<NavbarProps> = ({
       }`}
     >
       {/* Top Utility Bar */}
-      <div className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200/80 dark:border-slate-800 py-2 px-4 text-center text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
-        <span className="flex items-center gap-2 text-blue-700 dark:text-sky-400 font-bold">
-          <MicrosoftLogo className="w-3.5 h-3.5" />
-          Official Microsoft Solutions Partner
+      <div className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200/80 dark:border-slate-800 py-1.5 px-4 text-center text-xs text-slate-600 dark:text-slate-300 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+        <span className="flex items-center gap-2 text-blue-700 dark:text-sky-400 font-bold whitespace-nowrap shrink-0">
+          <MicrosoftLogo className="w-3.5 h-3.5 shrink-0" />
+          <span>Official Microsoft Solutions Partner</span>
         </span>
         <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
-        <span>
+        <span className="whitespace-nowrap shrink-0">
           Enterprise Inquiries:{" "}
           <a
             href={`mailto:${COREENACT_CONTACT.email}`}
-            className="text-slate-900 dark:text-slate-100 hover:text-blue-700 dark:hover:text-sky-400 font-mono font-bold transition"
+            className="text-slate-900 dark:text-slate-100 hover:text-blue-700 dark:hover:text-sky-400 font-mono font-bold transition whitespace-nowrap"
           >
             {COREENACT_CONTACT.email}
           </a>
         </span>
         <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
-        <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 font-medium">
-          <MapPin className="w-4 h-4 text-blue-600 dark:text-sky-400" />
-          Offices in New Delhi (India) & Mississauga (Canada)
+        <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 font-medium whitespace-nowrap shrink-0">
+          <MapPin className="w-4 h-4 text-blue-600 dark:text-sky-400 shrink-0" />
+          <span>Offices in New Delhi (India) & Mississauga (Canada)</span>
         </span>
       </div>
 
       {/* Main Navigation Bar */}
       <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Official Attached Logo - Increased scale and prominence */}
+        <div className="flex items-center justify-between h-20 gap-3">
+          {/* Official Attached Logo */}
           <div
-            className="flex items-center gap-3.5 cursor-pointer group"
+            className="flex items-center gap-3 cursor-pointer group shrink-0"
             onClick={() => handlePageClick("home")}
             title="Coreenact - Microsoft Dynamics 365 Business Central Partner"
           >
-            <div className="flex items-center transition group-hover:opacity-90 dark:bg-white/95 dark:px-3 dark:py-1.5 dark:rounded-xl">
+            <div className="flex items-center transition group-hover:opacity-90 dark:bg-white/95 dark:px-2.5 dark:py-1 dark:rounded-xl shrink-0">
               <img
                 src="/coreenact-logo-transparent.png"
                 alt="Coreenact Solutions"
-                className="h-11 sm:h-13 w-auto object-contain"
+                className="h-10 sm:h-12 w-auto object-contain shrink-0"
               />
             </div>
-            <div className="hidden lg:flex items-center gap-2.5 border-l border-slate-200 dark:border-slate-800 pl-3.5">
-              <MicrosoftLogo className="w-6 h-6 shrink-0" />
+            {/* Full badge on 2XL screens */}
+            <div className="hidden 2xl:flex items-center gap-2 border-l border-slate-200 dark:border-slate-800 pl-3 shrink-0">
+              <MicrosoftLogo className="w-5 h-5 shrink-0" />
               <div className="flex flex-col text-left">
-                <span className="text-[11px] font-extrabold tracking-wider text-blue-700 dark:text-sky-400 uppercase font-mono">
+                <span className="text-[10px] font-extrabold tracking-wider text-blue-700 dark:text-sky-400 uppercase font-mono whitespace-nowrap">
                   Microsoft Partner
                 </span>
-                <span className="text-xs font-semibold text-slate-600 dark:text-slate-400">
+                <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 whitespace-nowrap">
                   Dynamics 365 Business Central
                 </span>
               </div>
             </div>
+            {/* Compact badge on XL screens */}
+            <div className="hidden xl:flex 2xl:hidden items-center gap-1.5 border-l border-slate-200 dark:border-slate-800 pl-2.5 shrink-0">
+              <MicrosoftLogo className="w-4 h-4 shrink-0" />
+              <span className="text-[10px] font-extrabold tracking-wider text-blue-700 dark:text-sky-400 uppercase font-mono whitespace-nowrap">
+                Microsoft Partner
+              </span>
+            </div>
           </div>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-1.5 bg-slate-100/90 p-1.5 rounded-full border border-slate-200/80 shadow-2xs">
+          {/* Desktop Navigation Links (XL and above) */}
+          <nav className="hidden xl:flex items-center gap-1 2xl:gap-1.5 bg-slate-100/90 dark:bg-slate-900/90 p-1 2xl:p-1.5 rounded-full border border-slate-200/80 dark:border-slate-800 shadow-2xs shrink-0">
             {navItems.map((item) => {
               const isActive = activePage === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => handlePageClick(item.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-semibold transition cursor-pointer ${
+                  className={`px-3 py-1.5 2xl:px-4 2xl:py-2 rounded-full text-xs 2xl:text-sm font-semibold transition cursor-pointer whitespace-nowrap shrink-0 ${
                     isActive
                       ? "bg-blue-600 text-white shadow-xs"
-                      : "text-slate-700 hover:text-blue-700 hover:bg-white"
+                      : "text-slate-700 hover:text-blue-700 hover:bg-white dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-sky-400"
                   }`}
                 >
-                  <span>{item.label}</span>
+                  <span className="whitespace-nowrap">{item.label}</span>
                 </button>
               );
             })}
           </nav>
 
-          {/* Medium Screen Nav Links */}
-          <nav className="hidden md:flex xl:hidden items-center gap-1 bg-slate-100/90 p-1.5 rounded-full border border-slate-200/80 shadow-2xs">
+          {/* Compact Nav Links for Large laptops (lg: 1024px to 1279px) */}
+          <nav className="hidden lg:flex xl:hidden items-center gap-0.5 bg-slate-100/90 dark:bg-slate-900/90 p-1 rounded-full border border-slate-200/80 dark:border-slate-800 shadow-2xs shrink-0">
             {[
               { id: "solutions", label: "Solutions" },
               { id: "services", label: "Services" },
@@ -167,29 +175,29 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 key={item.id}
                 onClick={() => handlePageClick(item.id as PageType)}
-                className={`px-3.5 py-1.5 rounded-full text-sm font-semibold transition cursor-pointer ${
+                className={`px-2.5 py-1 rounded-full text-xs font-semibold transition cursor-pointer whitespace-nowrap shrink-0 ${
                   activePage === item.id
                     ? "bg-blue-600 text-white shadow-xs"
-                    : "text-slate-700 hover:text-blue-700 hover:bg-white"
+                    : "text-slate-700 hover:text-blue-700 hover:bg-white dark:text-slate-200 dark:hover:bg-slate-800"
                 }`}
               >
-                {item.label}
+                <span className="whitespace-nowrap">{item.label}</span>
               </button>
             ))}
           </nav>
 
           {/* Action CTAs: Add-on (with dropdown), Book Consultation (second last), and Support Login (last) */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-1.5 xl:gap-2 shrink-0">
             {/* Add-on Dropdown Menu Button */}
-            <div className="relative" ref={addonsRef}>
+            <div className="relative shrink-0" ref={addonsRef}>
               <button
                 onClick={() => setAddonsDropdownOpen(!addonsDropdownOpen)}
-                className="px-3.5 py-2 rounded-lg font-bold text-xs cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center gap-1.5"
+                className="px-2.5 xl:px-3.5 py-2 rounded-lg font-bold text-xs cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center gap-1.5 whitespace-nowrap shrink-0"
                 title="Explore Business Central Add-ons"
               >
-                <span>Add-on</span>
+                <span className="whitespace-nowrap">Add-on</span>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                  className={`w-3.5 h-3.5 shrink-0 transition-transform duration-200 ${
                     addonsDropdownOpen ? "rotate-180" : ""
                   }`}
                 />
@@ -223,10 +231,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Book Consultation Button (Shifted Right to Second Last Position) */}
             <button
               onClick={() => onOpenContact()}
-              className="px-3.5 py-2 rounded-lg font-bold text-xs cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center gap-1.5"
+              className="px-2.5 xl:px-3.5 py-2 rounded-lg font-bold text-xs cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center gap-1.5 whitespace-nowrap shrink-0"
             >
-              <span>Book Consultation</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span className="whitespace-nowrap">Book Consultation</span>
+              <ArrowRight className="w-3.5 h-3.5 shrink-0" />
             </button>
 
             {/* Support Login External Portal Link (Last Position) */}
@@ -234,16 +242,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               href="https://support.coreenact.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-2 rounded-lg text-xs font-semibold text-slate-700 hover:text-blue-700 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 dark:bg-slate-900 dark:text-slate-200 dark:border-slate-800 transition flex items-center gap-1.5 shadow-2xs"
+              className="px-2.5 xl:px-3 py-2 rounded-lg text-xs font-semibold text-slate-700 hover:text-blue-700 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 dark:bg-slate-900 dark:text-slate-200 dark:border-slate-800 transition flex items-center gap-1.5 shadow-2xs whitespace-nowrap shrink-0"
               title="Access Coreenact Enterprise Support Portal (https://support.coreenact.com/)"
             >
-              <span>Support login</span>
-              <ExternalLink className="w-3 h-3 text-slate-500 dark:text-slate-400" />
+              <span className="whitespace-nowrap">Support login</span>
+              <ExternalLink className="w-3 h-3 text-slate-500 dark:text-slate-400 shrink-0" />
             </a>
           </div>
 
-          {/* Mobile/Tablet Menu Toggle Button (visible until desktop CTAs appear at lg, closing the md-lg gap) */}
-          <div className="flex lg:hidden items-center gap-2">
+          {/* Mobile/Tablet Menu Toggle Button */}
+          <div className="flex lg:hidden items-center gap-2 shrink-0">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200"
