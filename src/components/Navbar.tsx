@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Mail,
@@ -8,17 +8,21 @@ import {
   MapPin,
   Sparkles,
   ExternalLink,
+  ChevronDown,
 } from "lucide-react";
 import { PageType } from "../types";
 import { COREENACT_CONTACT } from "../data/coreenactData";
 import { MicrosoftLogo } from "./icons/MicrosoftIcons";
+import { AddonsListCard } from "./AddonsListCard";
+import { AddonItem } from "../data/addonsData";
 
 interface NavbarProps {
   activePage?: PageType;
   onSelectPage?: (page: PageType) => void;
-  onOpenContact: () => void;
+  onOpenContact: (initialInterest?: string) => void;
   onOpenGeminiChat?: () => void;
   onNavigate?: (sectionId: string) => void;
+  onSelectAddon?: (addon: AddonItem) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -27,9 +31,13 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenContact,
   onOpenGeminiChat,
   onNavigate,
+  onSelectAddon,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [addonsDropdownOpen, setAddonsDropdownOpen] = useState(false);
+  const [mobileAddonsOpen, setMobileAddonsOpen] = useState(false);
+  const addonsRef = useRef<HTMLDivElement>(null);
 
   const handlePageClick = (page: PageType) => {
     if (typeof onSelectPage === "function") {
@@ -47,6 +55,16 @@ export const Navbar: React.FC<NavbarProps> = ({
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (addonsRef.current && !addonsRef.current.contains(event.target as Node)) {
+        setAddonsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const navItems: Array<{ id: PageType; label: string }> = [
@@ -160,25 +178,55 @@ export const Navbar: React.FC<NavbarProps> = ({
             ))}
           </nav>
 
-          {/* Action CTAs (Theme button removed, compact button sizing, Coreenact AI + Support Login now in last position) */}
+          {/* Action CTAs: Add-on (with dropdown), Book Consultation (second last), and Support Login (last) */}
           <div className="hidden lg:flex items-center gap-2">
-            {/* Book Consultation Button - Compact */}
+            {/* Add-on Dropdown Menu Button */}
+            <div className="relative" ref={addonsRef}>
+              <button
+                onClick={() => setAddonsDropdownOpen(!addonsDropdownOpen)}
+                className="px-3.5 py-2 rounded-lg font-bold text-xs cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center gap-1.5"
+                title="Explore Business Central Add-ons"
+              >
+                <span>Add-on</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    addonsDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {/* Add-on Dropdown Menu */}
+              <AnimatePresence>
+                {addonsDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute left-0 sm:left-auto sm:-right-24 md:-right-16 lg:right-0 mt-2 w-[calc(100vw-2rem)] sm:w-[540px] md:w-[580px] max-w-[580px] z-50 shadow-2xl"
+                  >
+                    <AddonsListCard
+                      onSelectAddon={(addon) => {
+                        setAddonsDropdownOpen(false);
+                        onSelectAddon?.(addon);
+                      }}
+                      onOpenConsultation={(addonName) => {
+                        setAddonsDropdownOpen(false);
+                        onOpenContact(addonName);
+                      }}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Book Consultation Button (Shifted Right to Second Last Position) */}
             <button
-              onClick={onOpenContact}
+              onClick={() => onOpenContact()}
               className="px-3.5 py-2 rounded-lg font-bold text-xs cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center gap-1.5"
             >
               <span>Book Consultation</span>
               <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-
-            {/* Coreenact AI Multi-turn Chat Launcher - Compact */}
-            <button
-              onClick={onOpenGeminiChat}
-              className="px-3 py-2 rounded-lg text-xs font-bold transition flex items-center gap-1.5 cursor-pointer bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-xs"
-              title="Open Coreenact AI Advisor"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-cyan-200 animate-pulse" />
-              <span>Coreenact AI</span>
             </button>
 
             {/* Support Login External Portal Link (Last Position) */}
@@ -233,6 +281,47 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-2">
+              {/* Mobile Add-on Expandable Menu (First position in actions) */}
+              <div className="space-y-2">
+                <button
+                  onClick={() => setMobileAddonsOpen(!mobileAddonsOpen)}
+                  className="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
+                >
+                  <span>Add-on</span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                      mobileAddonsOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+
+                <AnimatePresence>
+                  {mobileAddonsOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <AddonsListCard
+                        className="border-blue-800/40 p-2 sm:p-3"
+                        onSelectAddon={(addon) => {
+                          setMobileMenuOpen(false);
+                          setMobileAddonsOpen(false);
+                          onSelectAddon?.(addon);
+                        }}
+                        onOpenConsultation={(addonName) => {
+                          setMobileMenuOpen(false);
+                          setMobileAddonsOpen(false);
+                          onOpenContact(addonName);
+                        }}
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Book Consultation (Shifted right to Second Last) */}
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
@@ -242,17 +331,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <span>Book Consultation</span>
                 <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenGeminiChat?.();
-                }}
-                className="w-full py-2.5 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-cyan-200 animate-pulse" />
-                <span>Open Coreenact AI Advisor</span>
               </button>
 
               {/* Support Login (Last Position) */}

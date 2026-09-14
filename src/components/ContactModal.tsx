@@ -6,9 +6,14 @@ import confetti from "canvas-confetti";
 interface ContactModalProps {
   isOpen: boolean;
   onClose: () => void;
+  initialInterest?: string;
 }
 
-export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
+export const ContactModal: React.FC<ContactModalProps> = ({
+  isOpen,
+  onClose,
+  initialInterest,
+}) => {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [statusInfo, setStatusInfo] = useState<{ message: string; mailtoUrl?: string } | null>(null);
@@ -17,10 +22,20 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     email: "",
     company: "",
     phone: "",
-    interest: "Dynamics 365 Business Central",
+    interest: initialInterest || "Dynamics 365 Business Central",
     timeframe: "Within 3 months",
     notes: "",
   });
+
+  React.useEffect(() => {
+    if (initialInterest) {
+      setFormData((prev) => ({
+        ...prev,
+        interest: initialInterest,
+        notes: prev.notes ? prev.notes : `Interested in BC Add-on module: ${initialInterest}`,
+      }));
+    }
+  }, [initialInterest, isOpen]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -226,13 +241,26 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                       onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
                       className="w-full py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-300 focus:border-blue-600 text-xs text-slate-900 focus:bg-white"
                     >
-                      <option>Dynamics 365 Business Central</option>
-                      <option>Dynamics NAV to Business Central Cloud Migration</option>
-                      <option>Dynamics 365 Finance & Supply Chain</option>
-                      <option>India GST & E-Invoicing Localization</option>
-                      <option>Copilot & Automated Workflows in BC</option>
-                      <option>Power Platform & Power BI Integration</option>
-                      <option>Continuous 24/7 Managed Services</option>
+                      <optgroup label="Core ERP Services">
+                        <option>Dynamics 365 Business Central</option>
+                        <option>Dynamics NAV to Business Central Cloud Migration</option>
+                        <option>Dynamics 365 Finance & Supply Chain</option>
+                        <option>India GST & E-Invoicing Localization</option>
+                        <option>Copilot & Automated Workflows in BC</option>
+                        <option>Power Platform & Power BI Integration</option>
+                        <option>Continuous 24/7 Managed Services</option>
+                      </optgroup>
+                      <optgroup label="Business Central Add-ons">
+                        <option>Vendor & Customer Portal</option>
+                        <option>HRMS Portal</option>
+                        <option>Visitor Management App</option>
+                        <option>QR & BAR Code</option>
+                        <option>Signing Pad / Handwritten</option>
+                        <option>In App Approval System</option>
+                        <option>Whatsapp & Shopify Integration with BC</option>
+                        <option>Digital Class – 3 & 2 Signature</option>
+                        <option>E-Invoices & E-way Bills</option>
+                      </optgroup>
                     </select>
                   </div>
 

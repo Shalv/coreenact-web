@@ -14,6 +14,10 @@ import { Footer } from "./components/Footer";
 import { ContactModal } from "./components/ContactModal";
 import { GeminiChatDrawer } from "./components/GeminiChatDrawer";
 import { CustomerQueryBar } from "./components/CustomerQueryBar";
+import { AddonsListCard } from "./components/AddonsListCard";
+import { AddonDetailModal } from "./components/AddonDetailModal";
+import { AddonsDrawer } from "./components/AddonsDrawer";
+import { AddonItem } from "./data/addonsData";
 import { PageType, KnowledgeSource } from "./types";
 import {
   ArrowLeft,
@@ -23,6 +27,7 @@ import {
   Mail,
   ChevronRight,
   Sparkles,
+  Layers,
 } from "lucide-react";
 import { COREENACT_CONTACT } from "./data/coreenactData";
 
@@ -32,6 +37,24 @@ export default function App() {
   const [isGeminiChatOpen, setIsGeminiChatOpen] = useState(false);
   const [geminiPresetPrompt, setGeminiPresetPrompt] = useState<string | null>(null);
   const [geminiPresetSource, setGeminiPresetSource] = useState<KnowledgeSource>("hybrid");
+
+  // Add-on states
+  const [selectedAddon, setSelectedAddon] = useState<AddonItem | null>(null);
+  const [isAddonDetailOpen, setIsAddonDetailOpen] = useState(false);
+  const [isAddonsDrawerOpen, setIsAddonsDrawerOpen] = useState(false);
+  const [contactInterest, setContactInterest] = useState<string>("Dynamics 365 Business Central");
+
+  const handleOpenContact = (interest?: string) => {
+    if (interest) {
+      setContactInterest(interest);
+    }
+    setIsContactOpen(true);
+  };
+
+  const handleSelectAddon = (addon: AddonItem) => {
+    setSelectedAddon(addon);
+    setIsAddonDetailOpen(true);
+  };
 
   const handleOpenGeminiChat = (promptText?: string, source?: KnowledgeSource) => {
     if (promptText) {
@@ -105,9 +128,10 @@ export default function App() {
       <Navbar
         activePage={currentPage}
         onSelectPage={handleSelectPage}
-        onOpenContact={() => setIsContactOpen(true)}
+        onOpenContact={handleOpenContact}
         onOpenGeminiChat={() => handleOpenGeminiChat()}
         onNavigate={handleNavigate}
+        onSelectAddon={handleSelectAddon}
       />
 
       {/* Page Breadcrumb / Bar for Subpages */}
@@ -235,6 +259,29 @@ export default function App() {
             {/* 3b. Interactive Real Microsoft Technology Stack Showcase */}
             <TechStackShowcase onOpenContact={() => setIsContactOpen(true)} />
 
+            {/* 3c. Business Central Add-on Suite Showcase */}
+            <section id="addons" className="py-16 bg-[#040817] text-white border-y border-blue-900/40 relative overflow-hidden">
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/80 border border-blue-800/60 text-sky-300 text-xs font-mono mb-3">
+                    <span className="w-2 h-2 bg-[#0078d4] inline-block shadow-xs shadow-blue-500/50" />
+                    <span>MICROSOFT DYNAMICS 365 BC EXTENSIONS</span>
+                  </div>
+                  <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-heading">
+                    Business Central Add-on Suite
+                  </h2>
+                  <p className="text-sm text-slate-300 max-w-xl mx-auto mt-2">
+                    Pre-built enterprise add-ons that integrate directly with Business Central to automate workflows, capture approvals, and bridge external channels.
+                  </p>
+                </div>
+
+                <AddonsListCard
+                  onSelectAddon={handleSelectAddon}
+                  onOpenConsultation={(addonName) => handleOpenContact(addonName)}
+                />
+              </div>
+            </section>
+
             {/* 4. Interactive ROI & 3-Year TCO Calculator */}
             <RoiCalculator
               onOpenContact={() => setIsContactOpen(true)}
@@ -302,26 +349,49 @@ export default function App() {
         onOpenGeminiChat={() => handleOpenGeminiChat()}
       />
 
-      {/* Floating Action Button for Coreenact AI Advisor */}
+      {/* Floating Action Button for Add-on Suite (Same UI as original floating button) */}
       <div className="fixed bottom-6 right-6 z-40">
         <button
-          onClick={() => handleOpenGeminiChat()}
+          onClick={() => setIsAddonsDrawerOpen(true)}
           className="relative group p-3.5 sm:p-4 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-700 hover:to-indigo-800 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center gap-2.5 cursor-pointer border border-blue-400/40"
-          title="Open Free Coreenact AI Advisor"
+          title="Explore Microsoft Dynamics 365 Business Central Add-ons"
         >
           <div className="relative">
-            <Sparkles className="w-5 h-5 text-cyan-200 animate-pulse" />
+            <Layers className="w-5 h-5 text-cyan-200" />
           </div>
           <div className="text-left hidden sm:block">
-            <div className="font-bold text-xs leading-none flex items-center gap-1.5">
-              <span>Coreenact AI</span>
-              <span className="text-[10px] bg-emerald-500/80 text-white px-1 py-0.2 rounded font-normal">Free</span>
+            <div className="font-bold text-xs leading-none flex items-center gap-1.5 text-white">
+              <span>Add-on</span>
+              <span className="text-[10px] bg-emerald-500/80 text-white px-1 py-0.2 rounded font-normal">
+                9 Modules
+              </span>
             </div>
-            <div className="text-[10px] text-cyan-200/80 font-mono mt-0.5 leading-none">Website RAG • Google Grounded</div>
+            <div className="text-[10px] text-cyan-200/80 font-mono mt-0.5 leading-none">
+              Dynamics 365 BC Suite
+            </div>
           </div>
           <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full border-2 border-white dark:border-slate-900 animate-pulse" />
         </button>
       </div>
+
+      {/* Add-on Detailed Modal */}
+      <AddonDetailModal
+        addon={selectedAddon}
+        isOpen={isAddonDetailOpen}
+        onClose={() => {
+          setIsAddonDetailOpen(false);
+          setSelectedAddon(null);
+        }}
+        onOpenConsultation={(addonName) => handleOpenContact(addonName)}
+      />
+
+      {/* Add-ons Sliding Drawer */}
+      <AddonsDrawer
+        isOpen={isAddonsDrawerOpen}
+        onClose={() => setIsAddonsDrawerOpen(false)}
+        onSelectAddon={handleSelectAddon}
+        onOpenConsultation={handleOpenContact}
+      />
 
       {/* Multi-turn Gemini Chatbot Drawer */}
       <GeminiChatDrawer
@@ -338,6 +408,7 @@ export default function App() {
       <ContactModal
         isOpen={isContactOpen}
         onClose={() => setIsContactOpen(false)}
+        initialInterest={contactInterest}
       />
     </div>
   );
