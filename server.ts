@@ -10,7 +10,7 @@ import {
   getEnquiriesFromDb,
   getDbStatus,
   type EnquiryRecord,
-} from "./server/awsDb";
+} from "./server/db";
 
 dotenv.config();
 
@@ -53,7 +53,7 @@ app.get("/api/health", (_req, res) => {
   });
 });
 
-// 2. Customer Enquiry and Consultation Booking Mailer (/api/enquiry) with AWS Database Persistence
+// 2. Customer Enquiry and Consultation Booking Mailer (/api/enquiry) with Database Persistence
 
 app.post("/api/enquiry", async (req, res) => {
   try {
@@ -81,6 +81,7 @@ app.post("/api/enquiry", async (req, res) => {
     const selectedService = service || interest || "Dynamics 365 Business Central Consultation";
     const selectedOfficeOrTime = office || timeframe || "Immediate Review";
     const sourceTitle = source === "contact_page" ? "Contact Page Inquiry" : "Book Consultation Request";
+    const sourceTag = source === "contact_page" ? "Contact Lead" : "Consultation Booking";
     const timestamp = new Date().toISOString();
     const formattedDate = new Date().toLocaleString("en-US", { timeZoneName: "short" });
 
@@ -100,7 +101,7 @@ app.post("/api/enquiry", async (req, res) => {
       emailDispatched: false,
     };
 
-    const emailSubject = `[Coreenact Lead] ${name} (${company || "Individual"}) - ${selectedService}`;
+    const emailSubject = `[Coreenact ${sourceTag}] ${name} (${company || "Individual"}) - ${selectedService}`;
 
     const emailText = `
 NEW INQUIRY RECEIVED FOR COREENACT TECHNOLOGIES
@@ -240,10 +241,10 @@ Reply directly to this email to follow up with ${name} (${email}).
 
     enquiryRecord.emailDispatched = emailDispatched;
 
-    // Save to AWS Database (DynamoDB or RDS Postgres, with memory fallback)
+    // Save to Database (Postgres or in-memory fallback)
     const dbResult = await saveEnquiryToDb(enquiryRecord);
 
-    const mailtoSubject = encodeURIComponent(`[Coreenact Enquiry] ${name} - ${selectedService}`);
+    const mailtoSubject = encodeURIComponent(`[Coreenact ${sourceTag}] ${name} - ${selectedService}`);
     const mailtoBody = encodeURIComponent(
       `Hi Coreenact Team,\n\nI have submitted an inquiry with the following details:\n\n` +
       `Full Name: ${name}\n` +
@@ -296,7 +297,7 @@ app.get("/api/enquiries", async (req, res) => {
   }
 });
 
-// Database connectivity status & diagnostic endpoint for AWS & Vercel
+// Database connectivity status & diagnostic endpoint
 app.get("/api/db-status", async (_req, res) => {
   try {
     const status = await getDbStatus();

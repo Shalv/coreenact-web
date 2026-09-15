@@ -26,6 +26,9 @@ export const ContactPage: React.FC<ContactPageProps> = ({
     mailtoUrl?: string;
     enquiryId?: string;
     database?: { saved: boolean; storage: string; recordId: string };
+    targetEmail?: string;
+    emailDispatched?: boolean;
+    smtpNote?: string;
   } | null>(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -57,10 +60,13 @@ export const ContactPage: React.FC<ContactPageProps> = ({
       });
       const data = await res.json();
       setStatusInfo({
-        message: data.message || "Inquiry received and routed to info@coreenact.com",
+        message: data.message || "Inquiry received and routed successfully",
         mailtoUrl: data.mailtoUrl,
         enquiryId: data.enquiryId,
         database: data.database,
+        targetEmail: data.targetEmail || "info@coreenact.com",
+        emailDispatched: data.emailDispatched,
+        smtpNote: data.smtpNote,
       });
       setSubmitted(true);
       confetti({
@@ -72,7 +78,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({
     } catch {
       setStatusInfo({
         message: "Inquiry recorded for info@coreenact.com",
-        mailtoUrl: `mailto:info@coreenact.com?subject=${encodeURIComponent(`[Contact] ${formData.name} - ${formData.service}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nPhone: ${formData.phone}\nService: ${formData.service}\nOffice: ${formData.office}\nNotes: ${formData.notes}`)}`,
+        targetEmail: "info@coreenact.com",
+        mailtoUrl: `mailto:info@coreenact.com?subject=${encodeURIComponent(`[Coreenact Contact Lead] ${formData.name} - ${formData.service}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nPhone: ${formData.phone}\nService: ${formData.service}\nOffice: ${formData.office}\nNotes: ${formData.notes}`)}`,
       });
       setSubmitted(true);
     } finally {
@@ -228,13 +235,13 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                     <CheckCircle2 className="w-9 h-9" />
                   </div>
                   <div className="text-2xl font-bold text-slate-900">
-                    Inquiry Dispatched to info@coreenact.com!
+                    Inquiry Dispatched to {statusInfo?.targetEmail || "info@coreenact.com"}!
                   </div>
                   
                   <div className="p-4 rounded-2xl bg-blue-50/80 border border-blue-200 text-left text-xs space-y-2 max-w-lg mx-auto">
                     <div className="flex items-center gap-2 font-bold text-blue-900 text-sm">
                       <Mail className="w-4 h-4 text-blue-600 shrink-0" />
-                      <span>Transmitted to Executive Inbox (info@coreenact.com)</span>
+                      <span>Transmitted to Executive Inbox ({statusInfo?.targetEmail || "info@coreenact.com"})</span>
                     </div>
                     <p className="text-slate-600 leading-relaxed text-xs">
                       Thank you, <span className="font-bold text-slate-900">{formData.name}</span>. Your project parameters for <span className="font-bold text-blue-700">{formData.service}</span> ({formData.office}) have been forwarded to our practice leads.

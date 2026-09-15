@@ -21,6 +21,9 @@ export const ContactModal: React.FC<ContactModalProps> = ({
     mailtoUrl?: string;
     enquiryId?: string;
     database?: { saved: boolean; storage: string; recordId: string };
+    targetEmail?: string;
+    emailDispatched?: boolean;
+    smtpNote?: string;
   } | null>(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -62,10 +65,13 @@ export const ContactModal: React.FC<ContactModalProps> = ({
       });
       const data = await res.json();
       setStatusInfo({
-        message: data.message || "Inquiry received and routed to info@coreenact.com",
+        message: data.message || "Inquiry received and routed successfully",
         mailtoUrl: data.mailtoUrl,
         enquiryId: data.enquiryId,
         database: data.database,
+        targetEmail: data.targetEmail || "info@coreenact.com",
+        emailDispatched: data.emailDispatched,
+        smtpNote: data.smtpNote,
       });
       setSubmitted(true);
       confetti({
@@ -77,7 +83,8 @@ export const ContactModal: React.FC<ContactModalProps> = ({
     } catch {
       setStatusInfo({
         message: "Inquiry recorded for info@coreenact.com",
-        mailtoUrl: `mailto:info@coreenact.com?subject=${encodeURIComponent(`[Consultation] ${formData.name}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nPhone: ${formData.phone}\nService: ${formData.interest}\nTimeframe: ${formData.timeframe}\nNotes: ${formData.notes}`)}`,
+        targetEmail: "info@coreenact.com",
+        mailtoUrl: `mailto:info@coreenact.com?subject=${encodeURIComponent(`[Coreenact Consultation Booking] ${formData.name}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nPhone: ${formData.phone}\nService: ${formData.interest}\nTimeframe: ${formData.timeframe}\nNotes: ${formData.notes}`)}`,
       });
       setSubmitted(true);
     } finally {
@@ -136,7 +143,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                   <div className="p-3.5 rounded-xl bg-blue-50/70 border border-blue-200/80 text-left text-xs space-y-1.5 max-w-md mx-auto">
                     <div className="flex items-center gap-1.5 font-bold text-blue-900">
                       <Mail className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                      <span>Inquiry Dispatched to info@coreenact.com</span>
+                      <span>Inquiry Dispatched to {statusInfo?.targetEmail || "info@coreenact.com"}</span>
                     </div>
                     <p className="text-slate-600 text-[11px] leading-relaxed">
                       All consultation parameters for <span className="font-semibold text-slate-800">{formData.name}</span> ({formData.email}) regarding <span className="font-semibold text-slate-800">{formData.interest}</span> have been sent to our executive team.
