@@ -20,7 +20,6 @@ interface NavbarProps {
   activePage?: PageType;
   onSelectPage?: (page: PageType) => void;
   onOpenContact: (initialInterest?: string) => void;
-  onOpenGeminiChat?: () => void;
   onNavigate?: (sectionId: string) => void;
   onSelectAddon?: (addon: AddonItem) => void;
 }
@@ -29,7 +28,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   activePage = "home",
   onSelectPage,
   onOpenContact,
-  onOpenGeminiChat,
   onNavigate,
   onSelectAddon,
 }) => {

@@ -12,13 +12,11 @@ import { GlobalHubs } from "./components/GlobalHubs";
 import { TechStackShowcase } from "./components/TechStackShowcase";
 import { Footer } from "./components/Footer";
 import { ContactModal } from "./components/ContactModal";
-import { GeminiChatDrawer } from "./components/GeminiChatDrawer";
-import { CustomerQueryBar } from "./components/CustomerQueryBar";
 import { AddonsListCard } from "./components/AddonsListCard";
 import { AddonDetailModal } from "./components/AddonDetailModal";
 import { AddonsDrawer } from "./components/AddonsDrawer";
 import { AddonItem } from "./data/addonsData";
-import { PageType, KnowledgeSource } from "./types";
+import { PageType } from "./types";
 import {
   ArrowLeft,
   Briefcase,
@@ -34,9 +32,6 @@ import { COREENACT_CONTACT } from "./data/coreenactData";
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageType>("home");
   const [isContactOpen, setIsContactOpen] = useState(false);
-  const [isGeminiChatOpen, setIsGeminiChatOpen] = useState(false);
-  const [geminiPresetPrompt, setGeminiPresetPrompt] = useState<string | null>(null);
-  const [geminiPresetSource, setGeminiPresetSource] = useState<KnowledgeSource>("hybrid");
 
   // Add-on states
   const [selectedAddon, setSelectedAddon] = useState<AddonItem | null>(null);
@@ -54,16 +49,6 @@ export default function App() {
   const handleSelectAddon = (addon: AddonItem) => {
     setSelectedAddon(addon);
     setIsAddonDetailOpen(true);
-  };
-
-  const handleOpenGeminiChat = (promptText?: string, source?: KnowledgeSource) => {
-    if (promptText) {
-      setGeminiPresetPrompt(promptText);
-    }
-    if (source) {
-      setGeminiPresetSource(source);
-    }
-    setIsGeminiChatOpen(true);
   };
 
   const handleNavigate = (target: string) => {
@@ -129,7 +114,6 @@ export default function App() {
         activePage={currentPage}
         onSelectPage={handleSelectPage}
         onOpenContact={handleOpenContact}
-        onOpenGeminiChat={() => handleOpenGeminiChat()}
         onNavigate={handleNavigate}
         onSelectAddon={handleSelectAddon}
       />
@@ -245,12 +229,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* 2. Customer Query AI Assistant (Website Content or Google Search Grounded - Free Tier) */}
-            <CustomerQueryBar
-              onOpenChatWithPrompt={(prompt, source) => handleOpenGeminiChat(prompt, source)}
-            />
-
-            {/* 3. Enterprise Solutions & 5 Pillars + EdCore */}
+            {/* 2. Enterprise Solutions & 5 Pillars + EdCore */}
             <SolutionsGrid
               onSelectSolution={() => setIsContactOpen(true)}
               onOpenContact={() => setIsContactOpen(true)}
@@ -346,7 +325,6 @@ export default function App() {
       {/* Dark Footer as requested */}
       <Footer
         onNavigate={handleSelectPage}
-        onOpenGeminiChat={() => handleOpenGeminiChat()}
       />
 
       {/* Floating Action Button for Add-on Suite (Same UI as original floating button) */}
@@ -391,17 +369,6 @@ export default function App() {
         onClose={() => setIsAddonsDrawerOpen(false)}
         onSelectAddon={handleSelectAddon}
         onOpenConsultation={handleOpenContact}
-      />
-
-      {/* Multi-turn Gemini Chatbot Drawer */}
-      <GeminiChatDrawer
-        isOpen={isGeminiChatOpen}
-        onClose={() => {
-          setIsGeminiChatOpen(false);
-          setGeminiPresetPrompt(null);
-        }}
-        initialPrompt={geminiPresetPrompt}
-        initialSource={geminiPresetSource}
       />
 
       {/* Contact & Architecture Discovery Modal */}
