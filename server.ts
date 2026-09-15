@@ -203,6 +203,9 @@ Reply directly to this email to follow up with ${name} (${email}).
             user: process.env.SMTP_USER,
             pass: process.env.SMTP_PASS,
           },
+          tls: {
+            rejectUnauthorized: false,
+          },
         });
 
         await transporter.sendMail({
