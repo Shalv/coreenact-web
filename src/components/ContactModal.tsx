@@ -147,18 +147,6 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                         <span className="font-bold text-blue-700">{statusInfo.enquiryId}</span>
                       </div>
                     )}
-                    {statusInfo?.database && (
-                      <div className="flex items-center justify-between text-[10px]">
-                        <span className="text-slate-400">Storage:</span>
-                        <span className="font-semibold text-emerald-700">
-                          {statusInfo.database.storage === "dynamodb"
-                            ? "AWS DynamoDB (Recorded)"
-                            : statusInfo.database.storage === "rds-postgres"
-                            ? "AWS RDS Postgres (Recorded)"
-                            : "Server Memory Cache"}
-                        </span>
-                      </div>
-                    )}
                   </div>
                   <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
                     Our Principal Solutions Architects will follow up at <span className="font-semibold text-blue-700">{formData.email}</span> within 4 business hours.

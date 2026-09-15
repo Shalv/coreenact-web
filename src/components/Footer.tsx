@@ -1,5 +1,5 @@
 import React from "react";
-import { Sparkles, Shield, MapPin, Mail, Phone, ExternalLink, ArrowRight, Database } from "lucide-react";
+import { Sparkles, Shield, MapPin, Mail, Phone, ExternalLink, ArrowRight } from "lucide-react";
 import { COREENACT_CONTACT } from "../data/coreenactData";
 import { PageType } from "../types";
 import { MicrosoftLogo } from "./icons/MicrosoftIcons";
@@ -7,10 +7,9 @@ import { MicrosoftLogo } from "./icons/MicrosoftIcons";
 interface FooterProps {
   onNavigate?: (page: PageType) => void;
   onOpenGeminiChat?: () => void;
-  onOpenAwsDb?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenGeminiChat, onOpenAwsDb }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenGeminiChat }) => {
   const handleLink = (page: PageType) => {
     if (onNavigate) {
       onNavigate(page);
@@ -241,21 +240,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenGeminiChat, on
 
         {/* Bottom bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-400">
-          <div className="flex flex-wrap items-center gap-3">
-            <span>© {new Date().getFullYear()} Coreenact Solutions. All rights reserved.</span>
-            {onOpenAwsDb && (
-              <>
-                <span>•</span>
-                <button
-                  onClick={onOpenAwsDb}
-                  className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-amber-400 transition cursor-pointer"
-                  title="Configure and monitor AWS Database connection for Vercel forms"
-                >
-                  <Database className="w-3.5 h-3.5 text-amber-500" />
-                  <span>AWS Database Status</span>
-                </button>
-              </>
-            )}
+          <div>
+            © {new Date().getFullYear()} Coreenact Solutions. All rights reserved.
           </div>
           <div className="flex items-center gap-4 text-xs sm:text-sm">
             <span className="inline-flex items-center gap-1.5 text-slate-400">

@@ -251,18 +251,6 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                         <span className="font-bold text-blue-700">{statusInfo.enquiryId}</span>
                       </div>
                     )}
-                    {statusInfo?.database && (
-                      <div className="pt-1 flex items-center justify-between text-[11px]">
-                        <span className="text-slate-400">Database:</span>
-                        <span className="font-semibold text-emerald-700">
-                          {statusInfo.database.storage === "dynamodb"
-                            ? "AWS DynamoDB (Recorded)"
-                            : statusInfo.database.storage === "rds-postgres"
-                            ? "AWS RDS Postgres (Recorded)"
-                            : "Serverless Memory Cache"}
-                        </span>
-                      </div>
-                    )}
                   </div>
 
                   <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
