@@ -5,6 +5,12 @@ import { fileURLToPath } from "url";
 import { GoogleGenAI, ThinkingLevel, GenerateVideosOperation } from "@google/genai";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
+import {
+  saveEnquiryToDb,
+  getEnquiriesFromDb,
+  getDbStatus,
+  type EnquiryRecord,
+} from "./server/awsDb";
 
 dotenv.config();
 
@@ -47,24 +53,7 @@ app.get("/api/health", (_req, res) => {
   });
 });
 
-// 2. Customer Enquiry and Consultation Booking Mailer (/api/enquiry)
-interface EnquiryRecord {
-  id: string;
-  source: "contact_page" | "book_consultation";
-  name: string;
-  email: string;
-  company?: string;
-  phone?: string;
-  service?: string;
-  interest?: string;
-  office?: string;
-  timeframe?: string;
-  notes?: string;
-  receivedAt: string;
-  emailDispatched: boolean;
-}
-
-const enquiriesStore: EnquiryRecord[] = [];
+// 2. Customer Enquiry and Consultation Booking Mailer (/api/enquiry) with AWS Database Persistence
 
 app.post("/api/enquiry", async (req, res) => {
   try {
@@ -247,10 +236,9 @@ Reply directly to this email to follow up with ${name} (${email}).
     }
 
     enquiryRecord.emailDispatched = emailDispatched;
-    enquiriesStore.unshift(enquiryRecord);
-    if (enquiriesStore.length > 100) {
-      enquiriesStore.pop();
-    }
+
+    // Save to AWS Database (DynamoDB or RDS Postgres, with memory fallback)
+    const dbResult = await saveEnquiryToDb(enquiryRecord);
 
     const mailtoSubject = encodeURIComponent(`[Coreenact Enquiry] ${name} - ${selectedService}`);
     const mailtoBody = encodeURIComponent(
@@ -272,6 +260,12 @@ Reply directly to this email to follow up with ${name} (${email}).
       targetEmail: recipient,
       enquiryId: enquiryRecord.id,
       emailDispatched,
+      database: {
+        saved: dbResult.success,
+        storage: dbResult.storage,
+        recordId: dbResult.recordId,
+        error: dbResult.error,
+      },
       smtpNote,
       mailtoUrl,
     });
@@ -284,12 +278,29 @@ Reply directly to this email to follow up with ${name} (${email}).
   }
 });
 
-app.get("/api/enquiries", (_req, res) => {
-  res.json({
-    count: enquiriesStore.length,
-    targetEmail: process.env.NOTIFICATION_EMAIL || "info@coreenact.com",
-    enquiries: enquiriesStore,
-  });
+app.get("/api/enquiries", async (req, res) => {
+  try {
+    const limit = Math.min(Number(req.query.limit) || 50, 100);
+    const dbData = await getEnquiriesFromDb(limit);
+    res.json({
+      count: dbData.count,
+      storageSource: dbData.source,
+      targetEmail: process.env.NOTIFICATION_EMAIL || "info@coreenact.com",
+      enquiries: dbData.enquiries,
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: "Failed to fetch enquiries", details: err.message });
+  }
+});
+
+// Database connectivity status & diagnostic endpoint for AWS & Vercel
+app.get("/api/db-status", async (_req, res) => {
+  try {
+    const status = await getDbStatus();
+    res.json(status);
+  } catch (err: any) {
+    res.status(500).json({ error: "Failed to retrieve database status", details: err.message });
+  }
 });
 
 // Official Coreenact Website Knowledge Base for RAG and accurate answers
@@ -1073,6 +1084,11 @@ app.post("/api/video-download", async (req, res) => {
 
 // Vite middleware / production serving
 async function startServer() {
+  // When running inside Vercel serverless functions, Vercel routes directly to exported app
+  if (process.env.VERCEL) {
+    return;
+  }
+
   if (process.env.NODE_ENV !== "production") {
     const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({

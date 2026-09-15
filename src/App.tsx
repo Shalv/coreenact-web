@@ -17,6 +17,7 @@ import { CustomerQueryBar } from "./components/CustomerQueryBar";
 import { AddonsListCard } from "./components/AddonsListCard";
 import { AddonDetailModal } from "./components/AddonDetailModal";
 import { AddonsDrawer } from "./components/AddonsDrawer";
+import { AwsDatabaseModal } from "./components/AwsDatabaseModal";
 import { AddonItem } from "./data/addonsData";
 import { PageType, KnowledgeSource } from "./types";
 import {
@@ -42,6 +43,7 @@ export default function App() {
   const [selectedAddon, setSelectedAddon] = useState<AddonItem | null>(null);
   const [isAddonDetailOpen, setIsAddonDetailOpen] = useState(false);
   const [isAddonsDrawerOpen, setIsAddonsDrawerOpen] = useState(false);
+  const [isAwsDbOpen, setIsAwsDbOpen] = useState(false);
   const [contactInterest, setContactInterest] = useState<string>("Dynamics 365 Business Central");
 
   const handleOpenContact = (interest?: string) => {
@@ -347,6 +349,7 @@ export default function App() {
       <Footer
         onNavigate={handleSelectPage}
         onOpenGeminiChat={() => handleOpenGeminiChat()}
+        onOpenAwsDb={() => setIsAwsDbOpen(true)}
       />
 
       {/* Floating Action Button for Add-on Suite (Same UI as original floating button) */}
@@ -409,6 +412,12 @@ export default function App() {
         isOpen={isContactOpen}
         onClose={() => setIsContactOpen(false)}
         initialInterest={contactInterest}
+      />
+
+      {/* AWS Database Connection & Diagnostics Modal */}
+      <AwsDatabaseModal
+        isOpen={isAwsDbOpen}
+        onClose={() => setIsAwsDbOpen(false)}
       />
     </div>
   );

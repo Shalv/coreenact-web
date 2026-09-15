@@ -238,7 +238,7 @@ export const RoiCalculator: React.FC<RoiCalculatorProps> = ({
                   Estimated Business Central Value
                 </h3>
                 <p className="text-xs text-slate-600">
-                  Based on validated Coreenact migration benchmarks from 100+ mid-market and enterprise rollouts.
+                  Based on validated Coreenact migration benchmarks from 20+ mid-market and enterprise rollouts.
                 </p>
               </div>
 

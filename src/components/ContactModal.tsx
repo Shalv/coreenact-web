@@ -16,7 +16,12 @@ export const ContactModal: React.FC<ContactModalProps> = ({
 }) => {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [statusInfo, setStatusInfo] = useState<{ message: string; mailtoUrl?: string } | null>(null);
+  const [statusInfo, setStatusInfo] = useState<{
+    message: string;
+    mailtoUrl?: string;
+    enquiryId?: string;
+    database?: { saved: boolean; storage: string; recordId: string };
+  } | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -59,6 +64,8 @@ export const ContactModal: React.FC<ContactModalProps> = ({
       setStatusInfo({
         message: data.message || "Inquiry received and routed to info@coreenact.com",
         mailtoUrl: data.mailtoUrl,
+        enquiryId: data.enquiryId,
+        database: data.database,
       });
       setSubmitted(true);
       confetti({
@@ -134,6 +141,24 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                     <p className="text-slate-600 text-[11px] leading-relaxed">
                       All consultation parameters for <span className="font-semibold text-slate-800">{formData.name}</span> ({formData.email}) regarding <span className="font-semibold text-slate-800">{formData.interest}</span> have been sent to our executive team.
                     </p>
+                    {statusInfo?.enquiryId && (
+                      <div className="pt-1.5 border-t border-blue-200/60 flex items-center justify-between font-mono text-[10px]">
+                        <span className="text-slate-400">Reference:</span>
+                        <span className="font-bold text-blue-700">{statusInfo.enquiryId}</span>
+                      </div>
+                    )}
+                    {statusInfo?.database && (
+                      <div className="flex items-center justify-between text-[10px]">
+                        <span className="text-slate-400">Storage:</span>
+                        <span className="font-semibold text-emerald-700">
+                          {statusInfo.database.storage === "dynamodb"
+                            ? "AWS DynamoDB (Recorded)"
+                            : statusInfo.database.storage === "rds-postgres"
+                            ? "AWS RDS Postgres (Recorded)"
+                            : "Server Memory Cache"}
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
                     Our Principal Solutions Architects will follow up at <span className="font-semibold text-blue-700">{formData.email}</span> within 4 business hours.

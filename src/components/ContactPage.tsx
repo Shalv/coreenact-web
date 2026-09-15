@@ -21,7 +21,12 @@ export const ContactPage: React.FC<ContactPageProps> = ({
 }) => {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [statusInfo, setStatusInfo] = useState<{ message: string; mailtoUrl?: string } | null>(null);
+  const [statusInfo, setStatusInfo] = useState<{
+    message: string;
+    mailtoUrl?: string;
+    enquiryId?: string;
+    database?: { saved: boolean; storage: string; recordId: string };
+  } | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -54,6 +59,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({
       setStatusInfo({
         message: data.message || "Inquiry received and routed to info@coreenact.com",
         mailtoUrl: data.mailtoUrl,
+        enquiryId: data.enquiryId,
+        database: data.database,
       });
       setSubmitted(true);
       confetti({
@@ -238,6 +245,24 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                       {formData.company && <div><span className="text-slate-400">Company:</span> {formData.company}</div>}
                       {formData.phone && <div><span className="text-slate-400">Phone:</span> {formData.phone}</div>}
                     </div>
+                    {statusInfo?.enquiryId && (
+                      <div className="pt-2 border-t border-blue-200/60 flex items-center justify-between font-mono text-[11px]">
+                        <span className="text-slate-400">Ref ID:</span>
+                        <span className="font-bold text-blue-700">{statusInfo.enquiryId}</span>
+                      </div>
+                    )}
+                    {statusInfo?.database && (
+                      <div className="pt-1 flex items-center justify-between text-[11px]">
+                        <span className="text-slate-400">Database:</span>
+                        <span className="font-semibold text-emerald-700">
+                          {statusInfo.database.storage === "dynamodb"
+                            ? "AWS DynamoDB (Recorded)"
+                            : statusInfo.database.storage === "rds-postgres"
+                            ? "AWS RDS Postgres (Recorded)"
+                            : "Serverless Memory Cache"}
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
