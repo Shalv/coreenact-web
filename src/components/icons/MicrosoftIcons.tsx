@@ -84,18 +84,33 @@ export const PowerBIIcon: React.FC<{ className?: string }> = ({ className = "w-5
 );
 
 export const DynamicsIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
-  <svg viewBox="0 0 32 32" className={className} aria-label="Microsoft Dynamics 365" role="img">
+  <svg viewBox="0 0 32 32" className={className} aria-label="Microsoft Dynamics 365" role="img" fill="none">
     <defs>
-      <linearGradient id="d365Grad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="#0FAFE3" />
-        <stop offset="100%" stopColor="#0060A9" />
+      <linearGradient id="d365Grad1" x1="4" y1="4" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stopColor="#00A4EF" />
+        <stop offset="100%" stopColor="#0078D4" />
+      </linearGradient>
+      <linearGradient id="d365Grad2" x1="8" y1="8" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stopColor="#0078D4" />
+        <stop offset="100%" stopColor="#004E8C" />
       </linearGradient>
     </defs>
     <path
-      d="M16 4c6.6 0 12 5.4 12 12s-5.4 12-12 12c-3.7 0-7-1.7-9.2-4.3a1.4 1.4 0 0 1 2.1-1.8A9.2 9.2 0 1 0 16 6.8a1.4 1.4 0 0 1 0-2.8Z"
-      fill="url(#d365Grad)"
+      d="M5 5.5h10l-4.5 10H5V5.5z"
+      fill="url(#d365Grad1)"
     />
-    <circle cx="6" cy="19.5" r="2.1" fill="#0FAFE3" />
+    <path
+      d="M10.5 15.5h11l-5.5 12H5l5.5-12z"
+      fill="url(#d365Grad2)"
+    />
+    <path
+      d="M16 5.5h11v10h-6.5L16 5.5z"
+      fill="url(#d365Grad1)"
+    />
+    <path
+      d="M21.5 15.5H27V27.5h-11l5.5-12z"
+      fill="url(#d365Grad2)"
+    />
   </svg>
 );
 
@@ -111,17 +126,27 @@ export const TeamsIcon: React.FC<{ className?: string }> = ({ className = "w-5 h
 );
 
 export const CopilotIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
-  <svg viewBox="0 0 32 32" className={className} aria-label="Microsoft Copilot" role="img">
+  <svg viewBox="0 0 24 24" className={className} aria-label="Microsoft Copilot" role="img" fill="none">
     <defs>
-      <radialGradient id="copilotGrad" cx="30%" cy="30%" r="80%">
-        <stop offset="0%" stopColor="#7FD5F0" />
-        <stop offset="45%" stopColor="#5B7CF0" />
-        <stop offset="100%" stopColor="#8C4FE0" />
-      </radialGradient>
+      <linearGradient id="copilotRibbonBlue" x1="2" y1="3" x2="16" y2="17" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stopColor="#00A4EF" />
+        <stop offset="50%" stopColor="#0078D4" />
+        <stop offset="100%" stopColor="#1E3A8A" />
+      </linearGradient>
+      <linearGradient id="copilotRibbonWarm" x1="8" y1="7" x2="22" y2="21" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stopColor="#FFB900" />
+        <stop offset="35%" stopColor="#F25022" />
+        <stop offset="70%" stopColor="#E01E5A" />
+        <stop offset="100%" stopColor="#B4009E" />
+      </linearGradient>
     </defs>
     <path
-      d="M16 3c1 4.4 2.2 6.9 4.5 9.5C22.8 15 26 16.4 29 17c-4.4 1-6.9 2.2-9.5 4.5C17 24 15.6 27.6 15 29c-1-4.4-2.2-6.9-4.5-9.5C8 17 4.4 15.6 3 15c4.4-1 6.9-2.2 9.5-4.5C15 8 15.6 4.4 16 3Z"
-      fill="url(#copilotGrad)"
+      d="M10.5 4.5C8.3 2.3 4.7 2.3 2.5 4.5C0.3 6.7 0.3 10.3 2.5 12.5L8.5 18.5C9.6 19.6 11.4 19.6 12.5 18.5L15.2 15.8C15.7 15.3 15.7 14.5 15.2 14L8 6.8C8.9 5.8 10.2 5.5 11.2 6.2L10.5 4.5Z"
+      fill="url(#copilotRibbonBlue)"
+    />
+    <path
+      d="M13.5 19.5C15.7 21.7 19.3 21.7 21.5 19.5C23.7 17.3 23.7 13.7 21.5 11.5L15.5 5.5C14.4 4.4 12.6 4.4 11.5 5.5L8.8 8.2C8.3 8.7 8.3 9.5 8.8 10L16 17.2C15.1 18.2 13.8 18.5 12.8 17.8L13.5 19.5Z"
+      fill="url(#copilotRibbonWarm)"
     />
   </svg>
 );

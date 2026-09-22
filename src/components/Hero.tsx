@@ -12,9 +12,8 @@ import {
   FileCheck2,
   Cpu,
   Layers,
-  Sparkles,
 } from "lucide-react";
-import { MicrosoftLogo, TechIcon } from "./icons/MicrosoftIcons";
+import { MicrosoftLogo, TechIcon, CopilotIcon } from "./icons/MicrosoftIcons";
 import heroConsultantImg from "../assets/images/indian_d365_consultant_1790050307568.jpg";
 import leadArchitectImg from "../assets/images/indian_lead_architect_1790050330867.jpg";
 
@@ -167,7 +166,7 @@ export const Hero: React.FC<HeroProps> = ({
 
                 <div className="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition">
                   <div className="w-8 h-8 rounded-md bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/60 dark:border-indigo-900 flex items-center justify-center text-indigo-700 dark:text-indigo-400 mb-2">
-                    <Sparkles className="w-4 h-4" />
+                    <CopilotIcon className="w-5 h-5" />
                   </div>
                   <div className="text-sm font-bold text-slate-900 dark:text-slate-100">Copilot in BC</div>
                   <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Bank recon & AI insights</div>

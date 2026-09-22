@@ -27,7 +27,7 @@ export const SOLUTIONS: SolutionItem[] = [
     badge: "Generative AI",
     color: "from-purple-500 to-pink-500",
     accentGradient: "linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%)",
-    iconName: "Sparkles",
+    iconName: "Bot",
     description:
       "Transform human productivity by embedding autonomous AI agents directly into Business Central, F&O, Teams, and customer engagement channels using Copilot Studio.",
     capabilities: [

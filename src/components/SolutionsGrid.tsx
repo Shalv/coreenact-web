@@ -3,24 +3,37 @@ import {
   ArrowRight,
   CheckCircle2,
   Calendar,
-  Sparkles,
   Layers,
+  Bot,
+  ScanText,
+  ShieldCheck,
+  Headphones,
+  Globe2,
+  Building2,
+  GraduationCap,
+  FileCheck,
+  Laptop,
+  Cpu,
 } from "lucide-react";
 import { SOLUTION_PILLARS } from "../data/coreenactData";
-import { MicrosoftLogo } from "./icons/MicrosoftIcons";
+import {
+  MicrosoftLogo,
+  DynamicsIcon,
+  CopilotIcon,
+  PowerAppsIcon,
+  PowerBIIcon,
+  FabricIcon,
+  AzureIcon,
+} from "./icons/MicrosoftIcons";
 import indianIndustryOpsImg from "../assets/images/indian_industry_ops_1790050360620.jpg";
 import indianLeadArchitectImg from "../assets/images/indian_lead_architect_1790050330867.jpg";
-import aiAgentInErpImg from "../assets/images/ai_agent_in_erp_1790057992613.jpg";
-import aiOcrScannerImg from "../assets/images/ai_ocr_scanner_1790058020101.jpg";
-import agenticAiPillarHeroImg from "../assets/images/agentic_ai_pillar_hero_1790059709152.jpg";
-import customAgenticAiCardImg from "../assets/images/custom_agentic_ai_card_1790059730772.jpg";
 
 const PILLAR_BANNER_IMAGES: Record<string, string> = {
   "run-transform": indianIndustryOpsImg,
   "data-ai-insights": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80",
   "scale-localize": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80",
   "secure-govern": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1600&q=80",
-  "ai-productivity": agenticAiPillarHeroImg,
+  "ai-productivity": "https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?auto=format&fit=crop&w=1600&q=80",
   "edcore-solution": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80",
 };
 
@@ -38,8 +51,8 @@ const SOLUTION_ITEM_IMAGES: Record<string, string> = {
   "Dynamics 365 Business Central": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
   "Dynamics 365 Finance & Operations": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
   "Dynamics 365 CRM": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
-  "AI Agent in ERP": aiAgentInErpImg,
-  "AI-OCR Document Recognition": aiOcrScannerImg,
+  "AI Agent in ERP": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+  "AI-OCR Document Recognition": "https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=800&q=80",
   "Power Apps & Power Automate": "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80",
 
   // Data, AI & Insights
@@ -60,7 +73,7 @@ const SOLUTION_ITEM_IMAGES: Record<string, string> = {
 
   // AI & Productivity
   "Microsoft Copilot for Business Central": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
-  "Custom Agentic AI Solutions": customAgenticAiCardImg,
+  "Custom Agentic AI Solutions": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
   "Digital Transformation Advisory": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
 
   // EdCore
@@ -68,6 +81,56 @@ const SOLUTION_ITEM_IMAGES: Record<string, string> = {
   "Automated Fee & Financial Accounting": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80",
   "Academic Planning & Timetable Engine": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
   "Integrated LMS & Student Portal": "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=800&q=80",
+};
+
+/** Helper to render authentic, best-in-class icons for each solution item */
+const getSolutionItemIcon = (name: string) => {
+  if (name.includes("Dynamics") || name.includes("Business Central")) {
+    return <DynamicsIcon className="w-3.5 h-3.5 shrink-0" />;
+  }
+  if (name.includes("Copilot")) {
+    return <CopilotIcon className="w-3.5 h-3.5 shrink-0" />;
+  }
+  if (name.includes("Agent")) {
+    return <Bot className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
+  }
+  if (name.includes("OCR")) {
+    return <ScanText className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
+  }
+  if (name.includes("Power Apps") || name.includes("Power Automate")) {
+    return <PowerAppsIcon className="w-3.5 h-3.5 shrink-0" />;
+  }
+  if (name.includes("Power BI")) {
+    return <PowerBIIcon className="w-3.5 h-3.5 shrink-0" />;
+  }
+  if (name.includes("Fabric") || name.includes("OneLake")) {
+    return <FabricIcon className="w-3.5 h-3.5 shrink-0" />;
+  }
+  if (name.includes("Azure") || name.includes("Synapse")) {
+    return <AzureIcon className="w-3.5 h-3.5 shrink-0" />;
+  }
+  if (name.includes("Security") || name.includes("Governance")) {
+    return <ShieldCheck className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
+  }
+  if (name.includes("Managed") || name.includes("Support") || name.includes("Audit")) {
+    return <Headphones className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
+  }
+  if (name.includes("Global")) {
+    return <Globe2 className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
+  }
+  if (name.includes("India") || name.includes("Localization") || name.includes("Statutory")) {
+    return <Building2 className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
+  }
+  if (name.includes("Student") || name.includes("Admissions") || name.includes("Academic")) {
+    return <GraduationCap className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
+  }
+  if (name.includes("Fee") || name.includes("Accounting")) {
+    return <FileCheck className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
+  }
+  if (name.includes("LMS") || name.includes("Portal")) {
+    return <Laptop className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
+  }
+  return <Cpu className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
 };
 
 const ITEM_TAGS: Record<string, string> = {
@@ -142,7 +205,7 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
                 : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700"
             }`}
           >
-            All 5 Pillars + EdCore
+            All Solutions + EdCore
           </button>
           {SOLUTION_PILLARS.map((pillar) => (
             <button
@@ -161,7 +224,7 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
 
         {/* Pillars Showcase with Images */}
         <div className="space-y-16">
-          {currentPillars.map((pillar, idx) => {
+          {currentPillars.map((pillar) => {
             const bannerImage = PILLAR_BANNER_IMAGES[pillar.id] || indianIndustryOpsImg;
 
             return (
@@ -185,7 +248,6 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
                       <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-blue-700 dark:text-sky-300 shadow-sm backdrop-blur-xs">
                         <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
                         <span>{pillar.badge}</span>
-                        <span className="text-slate-400 font-mono text-[11px]">Pillar 0{idx + 1}</span>
                       </div>
                       <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-slate-800 dark:text-slate-200 shadow-sm backdrop-blur-xs">
                         <MicrosoftLogo className="w-4 h-4" />
@@ -275,8 +337,9 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent" />
                                 <div className="absolute top-3 right-3">
-                                  <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-white/95 dark:bg-slate-900/95 text-blue-700 dark:text-sky-300 shadow-xs backdrop-blur-xs">
-                                    {tag}
+                                  <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-white/95 dark:bg-slate-900/95 text-blue-700 dark:text-sky-300 shadow-xs backdrop-blur-xs flex items-center gap-1.5">
+                                    {getSolutionItemIcon(item.name)}
+                                    <span>{tag}</span>
                                   </span>
                                 </div>
                                 <div className="absolute bottom-3 left-4 right-4">

@@ -8,7 +8,6 @@ import {
   Share2,
   Cpu,
   CheckCircle2,
-  Sparkles,
   ArrowRight,
   BarChart3,
   Zap,
@@ -173,7 +172,7 @@ export const DigitalMarketingSection: React.FC<DigitalMarketingSectionProps> = (
       case "Cpu":
         return <Cpu className="w-5 h-5" />;
       default:
-        return <Sparkles className="w-5 h-5" />;
+        return <TrendingUp className="w-5 h-5" />;
     }
   };
 
@@ -204,7 +203,7 @@ export const DigitalMarketingSection: React.FC<DigitalMarketingSectionProps> = (
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-sky-300 text-xs font-mono font-bold tracking-wide shadow-2xs">
-            <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-sky-400" />
+            <TrendingUp className="w-3.5 h-3.5 text-blue-600 dark:text-sky-400" />
             <span>COREENACT DIGITAL GROWTH LAB</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 dark:text-slate-100 font-heading">
@@ -674,7 +673,7 @@ export const DigitalMarketingSection: React.FC<DigitalMarketingSectionProps> = (
                       }
                       className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer"
                     >
-                      <Sparkles className="w-4 h-4" />
+                      <CheckCircle2 className="w-4 h-4" />
                       <span>Lock In This Customized Marketing Roadmap</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
@@ -862,7 +861,7 @@ export const DigitalMarketingSection: React.FC<DigitalMarketingSectionProps> = (
                 onClick={() => onOpenContact("Free 30-Minute Digital Marketing & SEO Audit")}
                 className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition flex items-center gap-2 cursor-pointer"
               >
-                <Sparkles className="w-4 h-4" />
+                <Target className="w-4 h-4" />
                 <span>Claim Free Digital Growth & SEO Audit</span>
                 <ArrowRight className="w-4 h-4" />
               </button>

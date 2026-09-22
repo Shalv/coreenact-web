@@ -25,7 +25,6 @@ import {
   Info,
   Mail,
   ChevronRight,
-  Sparkles,
   Layers,
   TrendingUp,
 } from "lucide-react";
@@ -207,7 +206,7 @@ export default function App() {
                       </p>
                     </div>
                     <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-blue-600 dark:text-sky-400">
-                      <span>Explore 7 Service Pillars</span>
+                      <span>Explore Service Offerings</span>
                       <ChevronRight className="w-3.5 h-3.5 ml-1" />
                     </div>
                   </div>
@@ -375,7 +374,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* 2. Enterprise Solutions & 5 Pillars + EdCore */}
+            {/* 2. Enterprise Solutions & EdCore */}
             <SolutionsGrid
               onSelectSolution={() => setIsContactOpen(true)}
               onOpenContact={() => setIsContactOpen(true)}

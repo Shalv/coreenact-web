@@ -6,7 +6,6 @@ import {
   Menu,
   X,
   MapPin,
-  Sparkles,
   ExternalLink,
   ChevronDown,
 } from "lucide-react";

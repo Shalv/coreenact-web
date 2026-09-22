@@ -4,7 +4,6 @@ import {
   Award,
   ArrowRight,
   Building2,
-  Sparkles,
 } from "lucide-react";
 import { CASE_STUDIES } from "../data/solutionsData";
 import { MicrosoftLogo, TechIcon } from "./icons/MicrosoftIcons";

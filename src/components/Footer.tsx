@@ -8,7 +8,7 @@ import {
   Globe,
   CheckCircle2,
   FileText,
-  Sparkles,
+  Calendar,
   ShieldCheck,
   Building2,
   Award,
@@ -148,7 +148,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   onClick={() => handleLink("contact")}
                   className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-sm shadow-md hover:shadow-lg transition flex items-center justify-center gap-2.5 cursor-pointer hover:scale-[1.02]"
                 >
-                  <Sparkles className="w-4 h-4 text-cyan-200" />
+                  <Calendar className="w-4 h-4 text-cyan-200" />
                   <span>Schedule Architecture Discovery</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>

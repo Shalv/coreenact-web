@@ -13,7 +13,6 @@ import {
   CheckCircle2,
   AlertTriangle,
   ArrowRight,
-  Sparkles,
   Calendar,
   Layers,
 } from "lucide-react";
@@ -74,7 +73,7 @@ export const IndustriesPage: React.FC<IndustriesPageProps> = ({
       {/* Header Banner */}
       <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 text-xs font-semibold">
-          <Sparkles className="w-3.5 h-3.5 text-[#005a9e] dark:text-sky-400" />
+          <Factory className="w-3.5 h-3.5 text-[#005a9e] dark:text-sky-400" />
           <span>Industry Solutions</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-heading">

@@ -12,7 +12,7 @@ import {
   Receipt,
   ArrowRight,
   ChevronRight,
-  Sparkles,
+  Layers,
 } from "lucide-react";
 
 interface AddonsListCardProps {
@@ -47,7 +47,7 @@ export const AddonsListCard: React.FC<AddonsListCardProps> = ({
       case "e-invoices-eway-bills":
         return <Receipt className="w-4 h-4 text-rose-400" />;
       default:
-        return <Sparkles className="w-4 h-4 text-blue-400" />;
+        return <Layers className="w-4 h-4 text-blue-400" />;
     }
   };
 
