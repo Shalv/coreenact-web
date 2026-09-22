@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { X, CheckCircle2, ShieldCheck, ArrowRight, Mail, User, Building, Phone } from "lucide-react";
+import { X, CheckCircle2, ShieldCheck, ArrowRight, Mail, User, Building } from "lucide-react";
 import confetti from "canvas-confetti";
 
 interface ContactModalProps {
@@ -84,7 +84,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
       setStatusInfo({
         message: "Inquiry recorded for info@coreenact.com",
         targetEmail: "info@coreenact.com",
-        mailtoUrl: `mailto:info@coreenact.com?subject=${encodeURIComponent(`[Coreenact Consultation Booking] ${formData.name}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nPhone: ${formData.phone}\nService: ${formData.interest}\nTimeframe: ${formData.timeframe}\nNotes: ${formData.notes}`)}`,
+        mailtoUrl: `mailto:info@coreenact.com?subject=${encodeURIComponent(`[Coreenact Consultation Booking] ${formData.name}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nService: ${formData.interest}\nTimeframe: ${formData.timeframe}\nNotes: ${formData.notes}`)}`,
       });
       setSubmitted(true);
     } finally {
@@ -217,38 +217,20 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1">
-                        Company Name *
-                      </label>
-                      <div className="relative">
-                        <Building className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                        <input
-                          type="text"
-                          required
-                          value={formData.company}
-                          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                          placeholder="Global Logistics Corp"
-                          className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-slate-50 border border-slate-300 focus:border-blue-600 text-xs text-slate-900 placeholder-slate-400 focus:bg-white"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-1">
-                        Phone Number
-                      </label>
-                      <div className="relative">
-                        <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                        <input
-                          type="tel"
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="+1 (555) 019-2834"
-                          className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-slate-50 border border-slate-300 focus:border-blue-600 text-xs text-slate-900 placeholder-slate-400 focus:bg-white"
-                        />
-                      </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                      Company Name *
+                    </label>
+                    <div className="relative">
+                      <Building className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+                      <input
+                        type="text"
+                        required
+                        value={formData.company}
+                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                        placeholder="Global Logistics Corp"
+                        className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-slate-50 border border-slate-300 focus:border-blue-600 text-xs text-slate-900 placeholder-slate-400 focus:bg-white"
+                      />
                     </div>
                   </div>
 

@@ -79,7 +79,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
       setStatusInfo({
         message: "Inquiry recorded for info@coreenact.com",
         targetEmail: "info@coreenact.com",
-        mailtoUrl: `mailto:info@coreenact.com?subject=${encodeURIComponent(`[Coreenact Contact Lead] ${formData.name} - ${formData.service}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nPhone: ${formData.phone}\nService: ${formData.service}\nOffice: ${formData.office}\nNotes: ${formData.notes}`)}`,
+        mailtoUrl: `mailto:info@coreenact.com?subject=${encodeURIComponent(`[Coreenact Contact Lead] ${formData.name} - ${formData.service}`)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nService: ${formData.service}\nOffice: ${formData.office}\nNotes: ${formData.notes}`)}`,
       });
       setSubmitted(true);
     } finally {
@@ -248,8 +248,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                     <div className="grid grid-cols-2 gap-2 pt-2 border-t border-blue-200/60 font-mono text-[11px] text-slate-700">
                       <div><span className="text-slate-400">Prospect:</span> {formData.name}</div>
                       <div><span className="text-slate-400">Email:</span> {formData.email}</div>
-                      {formData.company && <div><span className="text-slate-400">Company:</span> {formData.company}</div>}
-                      {formData.phone && <div><span className="text-slate-400">Phone:</span> {formData.phone}</div>}
+                      {formData.company && <div className="col-span-2"><span className="text-slate-400">Company:</span> {formData.company}</div>}
                     </div>
                     {statusInfo?.enquiryId && (
                       <div className="pt-2 border-t border-blue-200/60 flex items-center justify-between font-mono text-[11px]">
@@ -316,36 +315,20 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-1">
-                        Company Name *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.company}
-                        onChange={(e) =>
-                          setFormData({ ...formData, company: e.target.value })
-                        }
-                        placeholder="Acme Enterprises Ltd."
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm placeholder-slate-400 focus:outline-hidden focus:border-blue-600 focus:bg-white"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-1">
-                        Phone / WhatsApp
-                      </label>
-                      <input
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) =>
-                          setFormData({ ...formData, phone: e.target.value })
-                        }
-                        placeholder="+1 (555) 000-0000 / +91 ..."
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm placeholder-slate-400 focus:outline-hidden focus:border-blue-600 focus:bg-white"
-                      />
-                    </div>
+                  <div>
+                    <label className="block text-xs sm:text-sm font-bold text-slate-700 mb-1">
+                      Company Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.company}
+                      onChange={(e) =>
+                        setFormData({ ...formData, company: e.target.value })
+                      }
+                      placeholder="Acme Enterprises Ltd."
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm placeholder-slate-400 focus:outline-hidden focus:border-blue-600 focus:bg-white"
+                    />
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

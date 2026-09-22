@@ -15,7 +15,6 @@ import {
   Globe2,
   Award,
   Layers,
-  PhoneCall,
   DollarSign,
   IndianRupee,
   ChevronRight,

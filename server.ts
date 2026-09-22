@@ -113,7 +113,6 @@ Date: ${formattedDate}
 PROSPECT DETAILS:
 • Full Name: ${name}
 • Work Email: ${email}
-• Phone / WhatsApp: ${phone || "Not provided"}
 • Company / Organization: ${company || "Not provided"}
 • Service / Practice Interest: ${selectedService}
 • Office / Timeframe: ${selectedOfficeOrTime}
@@ -152,10 +151,6 @@ Reply directly to this email to follow up with ${name} (${email}).
         <tr style="border-bottom: 1px solid #f1f5f9;">
           <td style="padding: 10px 0; font-weight: 600; color: #64748b;">Work Email:</td>
           <td style="padding: 10px 0; color: #0078D4; font-weight: 600;"><a href="mailto:${email}" style="color: #0078D4; text-decoration: none;">${email}</a></td>
-        </tr>
-        <tr style="border-bottom: 1px solid #f1f5f9;">
-          <td style="padding: 10px 0; font-weight: 600; color: #64748b;">Phone / WhatsApp:</td>
-          <td style="padding: 10px 0; color: #0f172a;">${phone || "Not provided"}</td>
         </tr>
         <tr style="border-bottom: 1px solid #f1f5f9;">
           <td style="padding: 10px 0; font-weight: 600; color: #64748b;">Company Name:</td>
@@ -315,7 +310,7 @@ Tagline: Microsoft Dynamics 365 Business Central Specialists & Digital Transform
 Credentials: Microsoft Solutions Partner for Business Applications (ERP & Power Platform)
 
 Offices & Global Delivery Centers:
-- Global Delivery HQ (India): Plot 24, Okhla Phase III, New Delhi 110020, India. Phone: +91 99990 89255
+- Global Delivery HQ (India): Plot 24, Okhla Phase III, New Delhi 110020, India. Email: info@coreenact.com
 - North America Delivery Hub (Canada): 201 City Centre Drive, Suite 700, Mississauga, ON L5B 2T4, Canada.
 - Inquiries: info@coreenact.com | support@coreenact.com | sales@coreenact.com
 - Website: https://coreenact.com
@@ -465,7 +460,7 @@ Connect with our global enterprise advisory teams:
 
 - **Global Delivery Headquarters (India)**:
   - Address: Plot 24, Okhla Phase III, New Delhi 110020, India
-  - Direct Phone: **+91 99990 89255**
+  - Email: **info@coreenact.com**
   - Working Hours: Mon–Fri, 9:00 AM – 6:30 PM IST (24/7 Managed Support available)
 
 - **North America Delivery Hub (Canada)**:
@@ -491,7 +486,7 @@ Thank you for your question regarding Microsoft Dynamics 365 Business Central an
 - **Legacy Modernization**: Automated refactoring of legacy Dynamics NAV / GP C/AL code into clean, update-safe AL extensions.
 - **Global Delivery Reach**: Dual delivery centers in New Delhi, India (HQ) and Mississauga, Canada with 24/7 SLA-governed support.
 
-For personalized architectural discovery or a detailed demo, contact our consulting team at **sales@coreenact.com** or call **+91 99990 89255**.`;
+For personalized architectural discovery or a detailed demo, contact our consulting team at **sales@coreenact.com** or use our online consultation booking form.`;
 }
 
 /**

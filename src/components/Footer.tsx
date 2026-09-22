@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   MapPin,
   Mail,
-  Phone,
   ArrowRight,
   ArrowUp,
   Clock,
@@ -154,24 +153,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   <ArrowRight className="w-4 h-4" />
                 </button>
 
-                <div className="grid grid-cols-2 gap-2">
-                  <a
-                    href={`tel:${COREENACT_CONTACT.phone.replace(/\s+/g, "")}`}
-                    className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-900/90 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition text-center shadow-2xs"
-                    title="Call India Center of Excellence"
-                  >
-                    <Phone className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
-                    <span>India CoE</span>
-                  </a>
-                  <a
-                    href={`tel:${COREENACT_CONTACT.phoneCanada.replace(/[\s+()-]/g, "")}`}
-                    className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-900/90 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition text-center shadow-2xs"
-                    title="Call Canada Americas Desk"
-                  >
-                    <Phone className="w-3.5 h-3.5 text-indigo-600 dark:text-blue-400" />
-                    <span>Canada Hub</span>
-                  </a>
-                </div>
+                <a
+                  href={`mailto:${COREENACT_CONTACT.email}`}
+                  className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-900/90 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center justify-center gap-2 transition text-center shadow-2xs"
+                  title="Direct Enterprise Email Inquiries"
+                >
+                  <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
+                  <span>{COREENACT_CONTACT.email}</span>
+                </a>
 
                 <button
                   onClick={() => handleLink("case-studies")}
@@ -221,11 +210,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
               <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
                 <a
-                  href={`tel:${COREENACT_CONTACT.phone.replace(/\s+/g, "")}`}
+                  href={`mailto:${COREENACT_CONTACT.email}`}
                   className="font-mono font-bold text-blue-600 hover:text-blue-700 dark:text-cyan-300 dark:hover:text-cyan-200 transition flex items-center gap-1.5"
                 >
-                  <Phone className="w-3.5 h-3.5" />
-                  <span>{COREENACT_CONTACT.phone}</span>
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>{COREENACT_CONTACT.email}</span>
                 </a>
                 <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
                   AL / C-AL Engineering Center
@@ -268,11 +257,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
               <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
                 <a
-                  href={`tel:${COREENACT_CONTACT.phoneCanada.replace(/[\s+()-]/g, "")}`}
+                  href={`mailto:${COREENACT_CONTACT.email}`}
                   className="font-mono font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-300 dark:hover:text-indigo-200 transition flex items-center gap-1.5"
                 >
-                  <Phone className="w-3.5 h-3.5" />
-                  <span>{COREENACT_CONTACT.phoneCanada}</span>
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>{COREENACT_CONTACT.email}</span>
                 </a>
                 <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
                   North American Client Advisory

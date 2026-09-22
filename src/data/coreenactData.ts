@@ -2,8 +2,8 @@ import { ServiceItem, IndustryItem } from "../types";
 
 export const COREENACT_CONTACT = {
   email: "info@coreenact.com",
-  phone: "+91 11 4100 8920",
-  phoneCanada: "+1 (437) 833-2895",
+  phone: "",
+  phoneCanada: "",
   addressIndia: "Innov8, 3rd Floor, 211, Okhla Industrial Estate, Phase III, New Delhi – 110020, India",
   addressCanada: "4255 Sherwoodtowne Blvd, Ste 300, Mississauga, ON L4Z 1Y5, Canada",
   consultationUrl: "https://coreenact.com",
@@ -20,7 +20,6 @@ export const COREENACT_CONTACT = {
       coords: { lat: 28.5393, lng: 77.2678 },
       badge: "Delivery & Engineering CoE",
       timing: "Mon - Sat: 9:00 AM - 7:00 PM IST",
-      phoneText: "Request callback via inquiry form",
     },
     {
       id: "canada",
@@ -33,7 +32,6 @@ export const COREENACT_CONTACT = {
       coords: { lat: 43.5988, lng: -79.6441 },
       badge: "Americas Consulting Hub",
       timing: "Mon - Fri: 9:00 AM - 6:00 PM EST",
-      phoneText: "Request callback via inquiry form",
     },
   ],
   deliveryHighlights: [
