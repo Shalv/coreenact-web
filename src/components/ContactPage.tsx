@@ -90,18 +90,18 @@ export const ContactPage: React.FC<ContactPageProps> = ({
   return (
     <div className="py-12 sm:py-20 max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 text-left space-y-16">
       {/* Header Banner */}
-      <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold tracking-wider uppercase">
-          <Mail className="w-3.5 h-3.5 text-blue-600" />
+      <div className="text-center max-w-3xl mx-auto space-y-3">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 text-xs font-semibold">
+          <Mail className="w-3.5 h-3.5 text-[#005a9e] dark:text-sky-400" />
           <span>Contact Coreenact</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight font-heading">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-heading">
           Let’s Build Your{" "}
-          <span className="bg-gradient-to-r from-blue-700 via-indigo-600 to-sky-600 bg-clip-text text-transparent">
+          <span className="text-[#005a9e] dark:text-sky-400">
             Intelligent Digital Core
           </span>
         </h1>
-        <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
+        <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed">
           Connect directly with Coreenact’s Microsoft certified solution architects in New Delhi or Mississauga to scope your Dynamics 365 Business Central project, schedule a diagnostic audit, or request a custom proposal.
         </p>
       </div>
@@ -111,24 +111,24 @@ export const ContactPage: React.FC<ContactPageProps> = ({
         {/* Left Column: Official Contact & Offices (5 Cols) */}
         <div className="lg:col-span-5 space-y-6">
           {/* Direct Email Card */}
-          <div className="p-6 sm:p-7 rounded-3xl bg-blue-50/70 border border-blue-200 shadow-xs space-y-3">
+          <div className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
             <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 rounded-xl bg-blue-600 flex items-center justify-center text-white">
+              <div className="w-10 h-10 rounded-lg bg-[#005a9e] flex items-center justify-center text-white">
                 <Mail className="w-5 h-5" />
               </div>
               <div>
-                <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
+                <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   Primary Enterprise Email
                 </div>
                 <a
                   href={`mailto:${COREENACT_CONTACT.email}`}
-                  className="text-lg sm:text-xl font-black text-blue-900 hover:text-blue-700 font-mono transition"
+                  className="text-base sm:text-lg font-bold text-[#005a9e] dark:text-sky-400 hover:underline font-mono transition"
                 >
                   {COREENACT_CONTACT.email}
                 </a>
               </div>
             </div>
-            <p className="text-sm text-slate-600 leading-relaxed">
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
               Inquiries regarding Microsoft Dynamics 365 Business Central, NAV migrations, global rollouts, and custom AI agents are reviewed and answered within 4 business hours.
             </p>
           </div>
@@ -137,48 +137,48 @@ export const ContactPage: React.FC<ContactPageProps> = ({
           {COREENACT_CONTACT.offices.map((office) => (
             <div
               key={office.id}
-              className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200 space-y-4 shadow-xs hover:border-blue-300 transition-all duration-300 group"
+              className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4 shadow-xs hover:border-slate-300 dark:hover:border-slate-700 transition group"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
+                  <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-[#005a9e] dark:text-sky-400">
                     <Building className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-blue-600 transition">
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 transition">
                       {office.city} Office
                     </h3>
-                    <div className="text-xs text-slate-500 font-medium">
+                    <div className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                       {office.region}
                     </div>
                   </div>
                 </div>
-                <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800 border border-blue-200 font-mono">
+                <span className="px-2.5 py-0.5 rounded text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 font-mono">
                   {office.badge}
                 </span>
               </div>
 
-              <div className="space-y-2 text-sm text-slate-600">
+              <div className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
                 <div className="flex items-start gap-2">
-                  <MapPin className="w-4 h-4 text-blue-600 shrink-0 mt-1" />
+                  <MapPin className="w-4 h-4 text-[#005a9e] dark:text-sky-400 shrink-0 mt-1" />
                   <span className="leading-relaxed">{office.address}</span>
                 </div>
 
-                <div className="flex items-center gap-2 text-slate-500 text-xs pl-6">
+                <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs pl-6">
                   <span className="font-medium">Landmark:</span>
                   <span>{office.landmark}</span>
                 </div>
 
-                <div className="flex items-center gap-2 text-slate-500 text-xs pl-6">
+                <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-xs pl-6">
                   <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                   <span>{office.timing}</span>
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+              <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                 <button
                   onClick={() => onGroundLocation(office.city)}
-                  className="text-sm font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1.5 transition cursor-pointer"
+                  className="text-xs sm:text-sm font-semibold text-[#005a9e] dark:text-sky-400 hover:text-[#004a82] dark:hover:text-sky-300 flex items-center gap-1.5 transition cursor-pointer"
                 >
                   <Compass className="w-4 h-4" />
                   <span>View Location</span>
@@ -191,20 +191,20 @@ export const ContactPage: React.FC<ContactPageProps> = ({
           ))}
 
           {/* Strategic Delivery Centers */}
-          <div className="p-6 sm:p-7 rounded-3xl bg-slate-50 border border-slate-200 space-y-3">
-            <h4 className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider">
+          <div className="p-6 sm:p-7 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3">
+            <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider">
               Core Delivery Hubs & CoE
             </h4>
             <div className="space-y-2.5">
               {COREENACT_CONTACT.deliveryHighlights.map((c, i) => (
                 <div
                   key={i}
-                  className="text-sm text-slate-700 flex items-start gap-2.5"
+                  className="text-sm text-slate-700 dark:text-slate-300 flex items-start gap-2.5"
                 >
-                  <span className="w-2 h-2 rounded-full bg-blue-600 shrink-0 mt-1.5" />
+                  <span className="w-2 h-2 rounded-full bg-[#005a9e] dark:bg-sky-400 shrink-0 mt-1.5" />
                   <div>
-                    <span className="font-bold text-slate-900">{c.title} ({c.location}):</span>{" "}
-                    <span className="text-slate-600">{c.focus}</span>
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">{c.title} ({c.location}):</span>{" "}
+                    <span className="text-slate-600 dark:text-slate-400">{c.focus}</span>
                   </div>
                 </div>
               ))}
@@ -214,20 +214,19 @@ export const ContactPage: React.FC<ContactPageProps> = ({
 
         {/* Right Column: Interactive Consultation & Discovery Form (7 Cols) */}
         <div className="lg:col-span-7">
-          <div className="rounded-3xl p-1 bg-gradient-to-br from-blue-100 via-indigo-100 to-slate-200 shadow-md h-full">
-            <div className="rounded-[23px] bg-white p-6 sm:p-10 h-full flex flex-col justify-between space-y-6 border border-slate-200">
-              <div className="space-y-2">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200">
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>Architecture & Discovery Form</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-heading">
-                  Request a Dedicated Consultation
-                </h2>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  Tell us about your organization and requirements. Our Microsoft Solutions Practice Leads will analyze your current setup and provide a preliminary Business Central implementation blueprint.
-                </p>
+          <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs h-full p-6 sm:p-10 flex flex-col justify-between space-y-6">
+            <div className="space-y-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#005a9e] dark:text-sky-400" />
+                <span>Architecture & Discovery Form</span>
               </div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-heading">
+                Request a Dedicated Consultation
+              </h2>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                Tell us about your organization and requirements. Our Microsoft Solutions Practice Leads will analyze your current setup and provide a preliminary Business Central implementation blueprint.
+              </p>
+            </div>
 
               {submitted ? (
                 <div className="py-10 text-center space-y-5">
@@ -433,7 +432,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
+                    className="w-full py-3 rounded-lg bg-[#005a9e] hover:bg-[#004a82] text-white font-bold text-sm shadow-xs transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
                       <>
@@ -452,7 +451,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                     Direct inquiries can also be sent anytime to{" "}
                     <a
                       href={`mailto:${COREENACT_CONTACT.email}`}
-                      className="text-blue-600 underline font-mono font-medium"
+                      className="text-[#005a9e] dark:text-sky-400 underline font-mono font-medium"
                     >
                       {COREENACT_CONTACT.email}
                     </a>
@@ -460,7 +459,6 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                 </form>
               )}
             </div>
-          </div>
         </div>
       </div>
     </div>

@@ -78,26 +78,23 @@ export const AddonsListCard: React.FC<AddonsListCardProps> = ({
 
   return (
     <div
-      className={`bg-[#070e24] text-slate-100 rounded-2xl shadow-2xl border border-blue-900/50 relative overflow-hidden backdrop-blur-xl ${className}`}
+      className={`bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 relative overflow-hidden ${className}`}
       id="coreenact-addons-list-card"
     >
-      {/* Top Gradient Border Accent */}
-      <div className="h-1 w-full bg-gradient-to-r from-blue-600 via-sky-400 to-indigo-600" />
-
       {/* Header Bar */}
-      <div className="px-5 py-3.5 border-b border-slate-800/80 bg-[#060b1e]/90 flex items-center justify-between gap-3">
+      <div className="px-5 py-3.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
-          <span className="w-2.5 h-2.5 bg-blue-500 inline-block shadow-xs shadow-blue-500/60" />
+          <span className="w-2.5 h-2.5 bg-[#005a9e] dark:bg-sky-400 inline-block rounded-xs" />
           <div>
-            <h3 className="text-sm font-bold text-white tracking-tight flex items-center gap-2">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
               <span>Business Central Add-ons</span>
             </h3>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-slate-500 dark:text-slate-400">
               Plug & play enterprise extensions for Dynamics 365 BC
             </p>
           </div>
         </div>
-        <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-blue-950 text-cyan-300 border border-blue-700/60">
+        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
           9 Modules
         </span>
       </div>
@@ -114,23 +111,23 @@ export const AddonsListCard: React.FC<AddonsListCardProps> = ({
                 onOpenConsultation(addon.name);
               }
             }}
-            className="group w-full text-left p-2.5 rounded-xl bg-slate-900/60 hover:bg-blue-950/50 border border-slate-800/80 hover:border-blue-500/50 transition-all duration-150 flex items-start gap-2.5 cursor-pointer shadow-2xs"
+            className="group w-full text-left p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 transition flex items-start gap-2.5 cursor-pointer shadow-2xs"
             title={`View details for ${addon.name}`}
           >
             {/* Module Icon Tile */}
-            <div className="w-8 h-8 rounded-lg bg-slate-800/80 group-hover:bg-blue-900/60 border border-slate-700/60 group-hover:border-blue-400/50 flex items-center justify-center shrink-0 transition-colors mt-0.5">
+            <div className="w-8 h-8 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center shrink-0 transition-colors mt-0.5">
               {getAddonIcon(addon.id)}
             </div>
 
             {/* Info */}
             <div className="min-w-0 flex-1">
               <div className="flex items-center justify-between gap-1">
-                <span className="text-xs font-semibold text-slate-100 group-hover:text-white truncate">
+                <span className="text-xs font-semibold text-slate-900 dark:text-slate-100 group-hover:text-[#005a9e] dark:group-hover:text-sky-400 transition-colors truncate">
                   {addon.name}
                 </span>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-sky-400 group-hover:translate-x-0.5 transition-all shrink-0" />
+                <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#005a9e] dark:group-hover:text-sky-400 group-hover:translate-x-0.5 transition-all shrink-0" />
               </div>
-              <p className="text-[11px] text-slate-400 group-hover:text-sky-200/80 transition-colors truncate mt-0.5">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
                 {getAddonBadge(addon.id)}
               </p>
             </div>
@@ -139,13 +136,13 @@ export const AddonsListCard: React.FC<AddonsListCardProps> = ({
       </div>
 
       {/* Action Footer */}
-      <div className="px-4 py-3 bg-[#050917] border-t border-slate-800/90 flex flex-col sm:flex-row items-center justify-between gap-2.5">
-        <span className="text-[11px] text-slate-400 text-center sm:text-left">
+      <div className="px-4 py-3 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-2.5">
+        <span className="text-[11px] text-slate-500 dark:text-slate-400 text-center sm:text-left">
           Tailored for Indian GST, E-Invoicing & Supply Chain
         </span>
         <button
           onClick={() => onOpenConsultation?.("Enterprise Add-on Suite")}
-          className="w-full sm:w-auto px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+          className="w-full sm:w-auto px-3.5 py-1.5 rounded-lg bg-[#005a9e] hover:bg-[#004a82] text-white font-bold text-xs transition flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
         >
           <span>Request Add-on Demo</span>
           <ArrowRight className="w-3 h-3" />

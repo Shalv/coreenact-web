@@ -14,7 +14,9 @@ import {
 } from "lucide-react";
 import { ABOUT_COREENACT, COREENACT_CONTACT } from "../data/coreenactData";
 import { MicrosoftLogo, TechIcon } from "./icons/MicrosoftIcons";
-import enterpriseTeamImg from "../assets/images/enterprise_consulting_team_1790047798645.jpg";
+import enterpriseTeamImg from "../assets/images/indian_enterprise_team_1790050320734.jpg";
+import leadArchitectImg from "../assets/images/indian_lead_architect_1790050330867.jpg";
+import principalConsultantImg from "../assets/images/indian_d365_consultant_1790050307568.jpg";
 
 interface AboutPageProps {
   onOpenContact: () => void;
@@ -28,80 +30,80 @@ export const AboutPage: React.FC<AboutPageProps> = ({
   return (
     <div className="py-12 sm:py-20 max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 text-left space-y-16">
       {/* Header Banner */}
-      <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold tracking-wider uppercase">
-          <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+      <div className="text-center max-w-3xl mx-auto space-y-3">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 text-xs font-semibold">
+          <Sparkles className="w-3.5 h-3.5 text-[#005a9e] dark:text-sky-400" />
           <span>About Coreenact Solutions</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight font-heading">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-heading">
           Engineered for Enterprise{" "}
-          <span className="bg-gradient-to-r from-blue-700 via-indigo-600 to-sky-600 bg-clip-text text-transparent">
+          <span className="text-[#005a9e] dark:text-sky-400">
             Certainty & Velocity
           </span>
         </h1>
-        <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
+        <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed">
           Coreenact is an enterprise consulting and digital engineering firm specializing in Microsoft Dynamics 365 Business Central, cloud transformations, and automated business workflows.
         </p>
       </div>
 
-      {/* Hero Image Strip */}
-      <div className="relative rounded-3xl overflow-hidden shadow-md max-w-5xl mx-auto h-64 sm:h-80 group">
-        <img
-          src={enterpriseTeamImg}
-          alt="Coreenact Microsoft enterprise consulting team in executive board room"
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-          referrerPolicy="no-referrer"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent" />
-        <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-          <span className="text-white text-sm sm:text-base font-bold drop-shadow">
-            Certified architects. Real Microsoft technology. Measurable outcomes.
-          </span>
-          <span className="hidden sm:inline-flex items-center gap-1.5 bg-white/95 px-3 py-1.5 rounded-lg shadow-sm">
-            <MicrosoftLogo className="w-4 h-4" />
-            <span className="text-xs font-bold text-slate-800">Solutions Partner</span>
-          </span>
+      {/* Hero Image Strip - Nested Gradient Border */}
+      <div className="rounded-3xl p-[2px] bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 max-w-5xl mx-auto shadow-2xl shadow-blue-500/15">
+        <div className="relative rounded-[22px] overflow-hidden max-w-5xl mx-auto h-72 sm:h-96 group">
+          <img
+            src={enterpriseTeamImg}
+            alt="Coreenact Microsoft enterprise consulting team in modern executive center"
+            className="w-full h-full object-cover object-top"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
+          <div className="absolute bottom-5 left-6 right-6 flex flex-wrap items-center justify-between gap-3">
+            <span className="text-white text-base sm:text-lg font-bold drop-shadow-sm">
+              Certified Indian Architects • Global Multi-Entity Delivery • Real Microsoft Technology
+            </span>
+            <span className="inline-flex items-center gap-2 bg-white/95 dark:bg-slate-900/95 px-3.5 py-1.5 rounded-full shadow-md">
+              <MicrosoftLogo className="w-4 h-4" />
+              <span className="text-xs font-bold text-slate-900 dark:text-slate-100">Solutions Partner</span>
+            </span>
+          </div>
         </div>
       </div>
 
       {/* Core Company Story & Pillars */}
-      <div className="rounded-3xl p-1 bg-gradient-to-br from-blue-100 via-indigo-100 to-slate-200 shadow-md">
-        <div className="rounded-[23px] bg-white p-6 sm:p-10 space-y-8 border border-slate-200">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
-              <Building className="w-6 h-6" />
-            </div>
-            <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-heading">
-                The Coreenact Foundation
-              </h2>
-              <p className="text-sm text-slate-500">
-                ERP consulting, Microsoft Business Central, & Enterprise Automation
+      <div className="rounded-2xl bg-white dark:bg-slate-900 p-6 sm:p-10 space-y-8 border border-slate-200 dark:border-slate-800 shadow-xs">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-[#005a9e] dark:text-sky-400">
+            <Building className="w-5 h-5" />
+          </div>
+          <div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-heading">
+              The Coreenact Foundation
+            </h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              ERP consulting, Microsoft Business Central, & Enterprise Automation
+            </p>
+          </div>
+        </div>
+
+        <p className="text-slate-700 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
+          {ABOUT_COREENACT.story}
+        </p>
+
+        {/* Key Differentiators */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+          {ABOUT_COREENACT.pillars.map((pil, idx) => (
+            <div
+              key={idx}
+              className="p-6 sm:p-7 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-2.5"
+            >
+              <div className="flex items-center gap-2 text-[#005a9e] dark:text-sky-400 text-base font-semibold">
+                <CheckCircle2 className="w-5 h-5" />
+                <span>{pil.title}</span>
+              </div>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                {pil.description}
               </p>
             </div>
-          </div>
-
-          <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
-            {ABOUT_COREENACT.story}
-          </p>
-
-          {/* Key Differentiators */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
-            {ABOUT_COREENACT.pillars.map((pil, idx) => (
-              <div
-                key={idx}
-                className="p-6 sm:p-7 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5"
-              >
-                <div className="flex items-center gap-2 text-blue-700 text-base font-bold">
-                  <CheckCircle2 className="w-5 h-5" />
-                  <span>{pil.title}</span>
-                </div>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  {pil.description}
-                </p>
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
 
@@ -120,21 +122,21 @@ export const AboutPage: React.FC<AboutPageProps> = ({
           {ABOUT_COREENACT.methodology.map((m) => (
             <div
               key={m.step}
-              className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-blue-300 transition-all flex flex-col justify-between space-y-4 shadow-xs group"
+              className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition flex flex-col justify-between space-y-4 shadow-xs group"
             >
               <div>
-                <span className="text-3xl font-black text-blue-200 group-hover:text-blue-600 font-mono transition-colors">
+                <span className="text-3xl font-extrabold text-slate-300 dark:text-slate-700 group-hover:text-[#005a9e] dark:group-hover:text-sky-400 font-mono transition-colors">
                   {m.step}
                 </span>
-                <h3 className="text-base font-bold text-slate-900 mt-2 mb-2">
+                <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mt-2 mb-2">
                   {m.phase}
                 </h3>
-                <p className="text-sm text-slate-600 leading-relaxed">
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                   {m.description}
                 </p>
               </div>
-              <div className="w-full h-1 bg-slate-100 rounded-full overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-blue-600 to-indigo-600 w-2/3 group-hover:w-full transition-all duration-500" />
+              <div className="w-full h-1 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                <div className="h-full bg-[#005a9e] dark:bg-sky-400 w-2/3 group-hover:w-full transition-all duration-300" />
               </div>
             </div>
           ))}
@@ -144,97 +146,117 @@ export const AboutPage: React.FC<AboutPageProps> = ({
       {/* Practice Leadership & Enterprise Architects */}
       <div className="space-y-8">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold tracking-wider uppercase">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
             <span>Engineering Leadership</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-heading">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-heading">
             Enterprise Practice Leaders & Architects
           </h2>
-          <p className="text-slate-600 text-sm sm:text-base">
+          <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
             Every Coreenact engagement is personally guided by certified Microsoft Solution Architects with over a decade of deep ERP engineering experience.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {/* Architect Card 1 */}
-          <div className="rounded-3xl bg-white border border-slate-200 p-7 sm:p-8 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between space-y-6">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shadow-xs">
-                  <Cpu className="w-6 h-6" />
+          {/* Architect Card 1: Nested Gradient Bordered */}
+          <div className="rounded-3xl p-[2px] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 shadow-xl">
+            <div className="rounded-[22px] bg-white dark:bg-slate-900 overflow-hidden flex flex-col justify-between h-full">
+              {/* Photo & Header */}
+              <div className="relative h-56 w-full overflow-hidden bg-slate-900">
+                <img
+                  src={leadArchitectImg}
+                  alt="Lead Solutions Architect - Coreenact Indian Dynamics 365 Practice"
+                  className="w-full h-full object-cover object-top"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
+                <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between">
+                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/95 text-blue-900 shadow-md">
+                    Chief Architect
+                  </span>
+                  <span className="text-xs font-semibold text-sky-200">
+                    15+ Years NAV & Business Central
+                  </span>
                 </div>
-                <span className="px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200">
-                  Chief Architect
-                </span>
               </div>
-              <div>
-                <div className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">
-                  15+ Years NAV & Business Central
+
+              <div className="p-6 sm:p-7 space-y-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-xl font-extrabold text-slate-900 dark:text-slate-100">
+                    Lead Solutions Architect
+                  </h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 font-semibold flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <span>Microsoft Certified: Dynamics 365 Solutions Architect Expert</span>
+                  </p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+                    Specialized in large-scale legacy NAV-to-BC database refactoring, multi-entity financial structures, and India GST compliance engines.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900">
-                  Lead Solutions Architect
-                </h3>
-                <p className="text-xs text-slate-500 mt-1 font-semibold flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Microsoft Certified: Dynamics 365 Solutions Architect Expert</span>
-                </p>
-                <p className="text-sm text-slate-600 mt-3 leading-relaxed">
-                  Specialized in large-scale legacy NAV-to-BC database refactoring, multi-entity financial structures, and India GST compliance engines.
-                </p>
+
+                <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500" /> 20+ Global Go-Lives
+                  </span>
+                  <button
+                    onClick={onOpenContact}
+                    className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold transition shadow-xs flex items-center gap-1 cursor-pointer"
+                  >
+                    <span>Book Consultation</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
               </div>
-            </div>
-            <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-              <span className="text-xs font-semibold text-emerald-600 flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5" /> 20+ Global Go-Lives
-              </span>
-              <button
-                onClick={onOpenContact}
-                className="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 cursor-pointer"
-              >
-                <span>Book Consultation</span>
-                <ArrowRight className="w-3 h-3" />
-              </button>
             </div>
           </div>
 
-          {/* Architect Card 2 */}
-          <div className="rounded-3xl bg-white border border-slate-200 p-7 sm:p-8 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between space-y-6">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 shadow-xs">
-                  <Layers className="w-6 h-6" />
+          {/* Architect Card 2: Nested Gradient Bordered */}
+          <div className="rounded-3xl p-[2px] bg-gradient-to-br from-purple-600 via-pink-600 to-indigo-600 shadow-xl">
+            <div className="rounded-[22px] bg-white dark:bg-slate-900 overflow-hidden flex flex-col justify-between h-full">
+              {/* Photo & Header */}
+              <div className="relative h-56 w-full overflow-hidden bg-slate-900">
+                <img
+                  src={principalConsultantImg}
+                  alt="Principal Advisory Consultant - Coreenact Indian ERP Practice"
+                  className="w-full h-full object-cover object-top"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
+                <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between">
+                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/95 text-purple-900 shadow-md">
+                    Principal Advisory
+                  </span>
+                  <span className="text-xs font-semibold text-purple-200">
+                    Cloud ERP & AI Copilot Integration
+                  </span>
                 </div>
-                <span className="px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
-                  Principal Advisory
-                </span>
               </div>
-              <div>
-                <div className="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-1">
-                  Cloud ERP & AI Integration
+
+              <div className="p-6 sm:p-7 space-y-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-xl font-extrabold text-slate-900 dark:text-slate-100">
+                    Principal Advisory Consultant
+                  </h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 font-semibold flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <span>Microsoft Certified: Power Platform & Dynamics 365 Functional Lead</span>
+                  </p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+                    Directs manufacturing shop-floor automation, automated supply chain forecasting, and Microsoft Copilot workflows in Business Central.
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900">
-                  Principal Advisory Consultant
-                </h3>
-                <p className="text-xs text-slate-500 mt-1 font-semibold flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Microsoft Certified: Power Platform & Dynamics 365 Functional Lead</span>
-                </p>
-                <p className="text-sm text-slate-600 mt-3 leading-relaxed">
-                  Directs manufacturing shop-floor automation, automated supply chain forecasting, and Microsoft Copilot workflows in Business Central.
-                </p>
+
+                <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500" /> 100% On-Time Delivery
+                  </span>
+                  <button
+                    onClick={onOpenContact}
+                    className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-xs font-bold transition shadow-xs flex items-center gap-1 cursor-pointer"
+                  >
+                    <span>Book Consultation</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
               </div>
-            </div>
-            <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-              <span className="text-xs font-semibold text-emerald-600 flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5" /> 100% On-Time Delivery
-              </span>
-              <button
-                onClick={onOpenContact}
-                className="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 cursor-pointer"
-              >
-                <span>Book Consultation</span>
-                <ArrowRight className="w-3 h-3" />
-              </button>
             </div>
           </div>
         </div>
@@ -243,55 +265,55 @@ export const AboutPage: React.FC<AboutPageProps> = ({
       {/* Microsoft Credentials & Global Footprint */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Microsoft Credentials Card */}
-        <div className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200 shadow-xs space-y-6">
+        <div className="p-8 sm:p-10 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-white border border-blue-200 flex items-center justify-center shadow-xs">
-              <MicrosoftLogo className="w-7 h-7" />
+            <div className="w-10 h-10 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
+              <MicrosoftLogo className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-slate-900">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
                 Microsoft Solutions Partner
               </h3>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-slate-500 dark:text-slate-400">
                 Validated partner competencies across Business Applications & Cloud
               </p>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 hover:border-blue-300 hover:shadow-sm transition">
-              <div className="flex items-center gap-2 text-sm font-bold text-blue-700">
+            <div className="p-4 sm:p-5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1.5 hover:border-slate-300 dark:hover:border-slate-600 transition">
+              <div className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
                 <TechIcon label="Dynamics 365" className="w-5 h-5" />
                 <span>Dynamics 365</span>
               </div>
-              <div className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                 Business Central & Finance & Supply Chain certified architects
               </div>
             </div>
-            <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 hover:border-indigo-300 hover:shadow-sm transition">
-              <div className="flex items-center gap-2 text-sm font-bold text-indigo-700">
+            <div className="p-4 sm:p-5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1.5 hover:border-slate-300 dark:hover:border-slate-600 transition">
+              <div className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
                 <TechIcon label="Power Apps" className="w-5 h-5" />
                 <span>Power Platform</span>
               </div>
-              <div className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                 Power Apps, Power Automate RPA, and Power BI enterprise reporting
               </div>
             </div>
-            <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 hover:border-emerald-300 hover:shadow-sm transition">
-              <div className="flex items-center gap-2 text-sm font-bold text-emerald-700">
+            <div className="p-4 sm:p-5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1.5 hover:border-slate-300 dark:hover:border-slate-600 transition">
+              <div className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
                 <TechIcon label="Azure" className="w-5 h-5" />
                 <span>Azure AI & Cloud</span>
               </div>
-              <div className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                 Azure infrastructure, Copilot Studio, and secure cloud hosting
               </div>
             </div>
-            <div className="p-4 sm:p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 hover:border-amber-300 hover:shadow-sm transition">
-              <div className="flex items-center gap-2 text-sm font-bold text-amber-700">
+            <div className="p-4 sm:p-5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1.5 hover:border-slate-300 dark:hover:border-slate-600 transition">
+              <div className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
                 <TechIcon label="Entra" className="w-5 h-5" />
                 <span>Security & Trust</span>
               </div>
-              <div className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                 Microsoft Entra ID, Purview, and zero-trust identity governance
               </div>
             </div>
@@ -300,7 +322,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
           <div className="pt-2">
             <button
               onClick={onOpenContact}
-              className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-xs transition flex items-center gap-2 cursor-pointer"
+              className="px-6 py-3 rounded-lg bg-[#005a9e] hover:bg-[#004a82] text-white font-bold text-sm shadow-xs transition flex items-center gap-2 cursor-pointer"
             >
               <span>Connect with our Principal Architect</span>
               <ArrowRight className="w-4 h-4" />
@@ -309,16 +331,16 @@ export const AboutPage: React.FC<AboutPageProps> = ({
         </div>
 
         {/* Global Hubs Card */}
-        <div className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200 shadow-xs space-y-6">
+        <div className="p-8 sm:p-10 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
-              <Globe2 className="w-6 h-6" />
+            <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-[#005a9e] dark:text-sky-400">
+              <Globe2 className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-slate-900">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">
                 Global Delivery Footprint
               </h3>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-slate-500 dark:text-slate-400">
                 Offices in New Delhi, India and Mississauga, Canada
               </p>
             </div>
@@ -328,7 +350,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             {COREENACT_CONTACT.offices.map((office) => (
               <div
                 key={office.id}
-                className="rounded-2xl bg-slate-50 border border-slate-200 overflow-hidden space-y-2.5 group"
+                className="rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 overflow-hidden space-y-2.5 group"
               >
                 <div className="h-24 w-full overflow-hidden relative">
                   <img
@@ -338,30 +360,30 @@ export const AboutPage: React.FC<AboutPageProps> = ({
                         : "https://images.unsplash.com/photo-1517090504586-fde19ea6066f?auto=format&fit=crop&w=900&q=70"
                     }
                     alt={`${office.city} skyline`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent" />
                 </div>
                 <div className="px-5 space-y-2.5 pb-5">
                 <div className="flex items-center justify-between">
-                  <div className="text-base font-bold text-slate-900 flex items-center gap-2">
-                    <Building className="w-4 h-4 text-blue-600" />
+                  <div className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                    <Building className="w-4 h-4 text-[#005a9e] dark:text-sky-400" />
                     <span>
                       {office.city}, {office.country}
                     </span>
                   </div>
-                  <span className="px-2.5 py-0.5 rounded text-xs font-bold bg-blue-100 text-blue-800 font-mono">
+                  <span className="px-2.5 py-0.5 rounded text-xs font-semibold bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-mono">
                     {office.badge}
                   </span>
                 </div>
-                <p className="text-sm text-slate-600 leading-relaxed">{office.address}</p>
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">{office.address}</p>
                 <div className="pt-1.5 flex items-center justify-between text-sm">
-                  <span className="text-slate-500 font-mono text-xs">
+                  <span className="text-slate-500 dark:text-slate-400 font-mono text-xs">
                     {office.timing}
                   </span>
                   <button
                     onClick={() => onGroundLocation(office.city)}
-                    className="text-blue-600 hover:text-blue-700 font-bold flex items-center gap-1 text-sm cursor-pointer"
+                    className="text-[#005a9e] dark:text-sky-400 hover:text-[#004a82] dark:hover:text-sky-300 font-bold flex items-center gap-1 text-sm cursor-pointer"
                   >
                     <Compass className="w-3.5 h-3.5" />
                     <span>View Location</span>
@@ -372,11 +394,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             ))}
           </div>
 
-          <div className="text-sm text-slate-600 pt-2 flex items-center gap-2">
+          <div className="text-sm text-slate-600 dark:text-slate-400 pt-2 flex items-center gap-2">
             <span>Primary Contact:</span>
             <a
               href={`mailto:${COREENACT_CONTACT.email}`}
-              className="text-blue-600 hover:underline font-mono font-bold"
+              className="text-[#005a9e] dark:text-sky-400 hover:underline font-mono font-bold"
             >
               {COREENACT_CONTACT.email}
             </a>

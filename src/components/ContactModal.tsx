@@ -105,34 +105,34 @@ export const ContactModal: React.FC<ContactModalProps> = ({
           />
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            initial={{ opacity: 0, scale: 0.96, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-xl rounded-3xl p-1 bg-gradient-to-br from-blue-100 via-indigo-100 to-slate-200 shadow-2xl z-10 text-left"
+            exit={{ opacity: 0, scale: 0.96, y: 16 }}
+            transition={{ duration: 0.2 }}
+            className="relative w-full max-w-xl rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl z-10 text-left p-6 sm:p-8 max-h-[90vh] overflow-y-auto space-y-6"
           >
-            <div className="rounded-[23px] bg-white p-6 sm:p-8 max-h-[90vh] overflow-y-auto space-y-6 border border-slate-200">
-              <div className="flex items-center justify-between pb-4 border-b border-slate-200">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
-                    <ShieldCheck className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-slate-900 font-heading">
-                      Schedule Business Central Review
-                    </h3>
-                    <p className="text-[11px] text-slate-500">
-                      Direct consultation with Coreenact (info@coreenact.com) • New Delhi & Mississauga
-                    </p>
-                  </div>
+            <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-[#005a9e] dark:text-sky-400">
+                  <ShieldCheck className="w-4 h-4" />
                 </div>
-
-                <button
-                  onClick={onClose}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition cursor-pointer"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 font-heading">
+                    Schedule Business Central Review
+                  </h3>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                    Direct consultation with Coreenact (info@coreenact.com) • New Delhi & Mississauga
+                  </p>
+                </div>
               </div>
+
+              <button
+                onClick={onClose}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
 
               {submitted ? (
                 <div className="py-6 text-center space-y-4">
@@ -322,7 +322,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-700 shadow-md flex items-center justify-center gap-2 transition cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
+                    className="w-full py-3 rounded-lg font-bold text-sm text-white bg-[#005a9e] hover:bg-[#004a82] shadow-xs flex items-center justify-center gap-2 transition cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
                       <>
@@ -338,7 +338,6 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                   </button>
                 </form>
               )}
-            </div>
           </motion.div>
         </div>
       )}

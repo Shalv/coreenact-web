@@ -8,14 +8,14 @@ import {
 } from "lucide-react";
 import { CASE_STUDIES } from "../data/solutionsData";
 import { MicrosoftLogo, TechIcon } from "./icons/MicrosoftIcons";
+import indianEnterpriseTeamImg from "../assets/images/indian_enterprise_team_1790050320734.jpg";
+import indianConsultantImg from "../assets/images/indian_d365_consultant_1790050307568.jpg";
+import indianLeadArchitectImg from "../assets/images/indian_lead_architect_1790050330867.jpg";
 
 const CASE_IMAGES: Record<string, string> = {
-  "logistics-global":
-    "https://images.unsplash.com/photo-1494412651409-8963ce7935a7?auto=format&fit=crop&w=1400&q=75",
-  "medtech-retail":
-    "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1400&q=75",
-  "fintech-enterprise":
-    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1400&q=75",
+  "logistics-global": indianEnterpriseTeamImg,
+  "medtech-retail": indianConsultantImg,
+  "fintech-enterprise": indianLeadArchitectImg,
 };
 
 const CASE_TECH: Record<string, string[]> = {
@@ -38,167 +38,178 @@ export const CaseStudies: React.FC<CaseStudiesProps> = ({
     <section id="case-studies" className="py-24 bg-white border-t border-slate-200/80 relative overflow-hidden text-left">
       <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold tracking-wider uppercase">
-            <Award className="w-3.5 h-3.5 text-blue-600" />
-            <span>Proven Industry Impact</span>
+        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 text-xs font-semibold">
+            <Award className="w-3.5 h-3.5 text-[#005a9e] dark:text-sky-400" />
+            <span>Enterprise Case Studies</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-heading">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-heading">
             Industry Vertical{" "}
-            <span className="bg-gradient-to-r from-blue-700 via-indigo-600 to-sky-600 bg-clip-text text-transparent">
+            <span className="text-[#005a9e] dark:text-sky-400">
               Success Stories
             </span>
           </h2>
-          <p className="text-slate-600 text-base sm:text-lg">
+          <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg">
             See how mid-market and enterprise organizations replaced obsolete legacy software with Microsoft Dynamics 365, Azure Cloud, and automated workflows to drive verified business value.
           </p>
         </div>
 
-        {/* Vertical Selection Selector Bar - Only Vertical Name Shows */}
+        {/* Vertical Selection Selector Bar - Vibrant Gradient Active State */}
         <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
           {CASE_STUDIES.map((c) => (
             <button
               key={c.id}
               onClick={() => setSelectedCase(c.id)}
-              className={`px-5 py-3 rounded-2xl font-bold text-sm transition-all duration-200 flex items-center gap-2.5 border cursor-pointer ${
+              className={`px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 flex items-center gap-2 cursor-pointer ${
                 selectedCase === c.id
-                  ? "bg-blue-600 text-white border-blue-600 shadow-md scale-105"
-                  : "bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200"
+                  ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-md shadow-blue-500/25 scale-[1.02]"
+                  : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-750 hover:border-slate-300 shadow-2xs"
               }`}
             >
-              <Building2 className={`w-4 h-4 ${selectedCase === c.id ? "text-white" : "text-blue-600"}`} />
+              <Building2 className={`w-4 h-4 ${selectedCase === c.id ? "text-white" : "text-blue-600 dark:text-sky-400"}`} />
               <span>{c.industry}</span>
             </button>
           ))}
         </div>
 
-        {/* Highlighted Case Card */}
+        {/* Highlighted Case Card - Nested Gradient-Bordered Container */}
         <motion.div
           key={activeCase.id}
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="rounded-3xl p-1 bg-gradient-to-br from-blue-100 via-indigo-100 to-slate-200 shadow-md"
+          transition={{ duration: 0.25 }}
+          className="rounded-3xl p-[2px] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 shadow-2xl shadow-blue-500/15"
         >
-          <div className="rounded-[22px] bg-white border border-slate-200 overflow-hidden text-left">
+          <div className="rounded-[22px] bg-white dark:bg-slate-900 overflow-hidden text-left">
             {/* Industry photo header */}
-            <div className="h-48 sm:h-64 w-full relative overflow-hidden">
+            <div className="h-56 sm:h-72 w-full relative overflow-hidden bg-slate-900">
               <img
                 src={CASE_IMAGES[activeCase.id]}
-                alt={`${activeCase.industry} case study`}
-                className="w-full h-full object-cover"
+                alt={`${activeCase.industry} case study - Indian delivery team`}
+                className="w-full h-full object-cover object-top"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent" />
               <div className="absolute bottom-5 left-6 right-6 flex flex-wrap items-end justify-between gap-4">
                 <div>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white/95 text-blue-700 mb-2">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-blue-600 dark:text-sky-400 mb-2 shadow-md">
                     <Building2 className="w-3.5 h-3.5" />
                     {activeCase.industry}
                   </span>
-                  <h3 className="text-xl sm:text-3xl font-bold text-white font-heading max-w-2xl drop-shadow">
+                  <h3 className="text-xl sm:text-3xl font-extrabold text-white font-heading max-w-2xl drop-shadow-sm">
                     {activeCase.headline}
                   </h3>
                 </div>
-                <span className="hidden sm:inline-flex items-center gap-1.5 bg-white/95 px-3 py-1.5 rounded-lg shadow-sm shrink-0">
+                <span className="hidden sm:inline-flex items-center gap-2 bg-white/95 dark:bg-slate-900/95 px-3.5 py-1.5 rounded-full shadow-md shrink-0">
                   <MicrosoftLogo className="w-4 h-4" />
-                  <span className="text-xs font-bold text-slate-800">Delivered on Microsoft</span>
+                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200">Delivered on Microsoft Dynamics 365</span>
                 </span>
               </div>
             </div>
 
             <div className="p-6 sm:p-10 space-y-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200">
-              <div className="space-y-2">
-                <div className="text-sm text-blue-700 font-semibold">
-                  Delivery Partner: Coreenact Microsoft Dynamics 365 Practice
-                </div>
-                <div className="flex flex-wrap items-center gap-2 pt-1">
-                  {(CASE_TECH[activeCase.id] ?? []).map((tech) => (
-                    <span
-                      key={tech}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700"
-                    >
-                      <TechIcon label={tech} className="w-3.5 h-3.5" />
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Quick Consultation Shortcut */}
-              <button
-                onClick={onOpenContact}
-                className="px-5 py-3 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 font-bold text-sm flex items-center gap-2 shrink-0 transition cursor-pointer"
-              >
-                <Sparkles className="w-4 h-4" />
-                <span>Discuss Vertical with Architect</span>
-              </button>
-            </div>
-
-            {/* Challenge & Solution Breakdown */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-6 rounded-2xl bg-rose-50/60 border border-rose-200 space-y-3">
-                <div className="text-xs font-bold uppercase tracking-wider text-rose-800 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-rose-500" />
-                  The Legacy Challenge:
-                </div>
-                <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
-                  {activeCase.challenge}
-                </p>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-blue-50/60 border border-blue-200 space-y-3">
-                <div className="text-xs font-bold uppercase tracking-wider text-blue-800 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-blue-600" />
-                  Coreenact Architecture & Solution:
-                </div>
-                <p className="text-sm sm:text-base text-slate-700 leading-relaxed">
-                  {activeCase.solution}
-                </p>
-              </div>
-            </div>
-
-            {/* Outcome & Stats Strip */}
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">
                 <div className="space-y-2">
-                  <div className="text-xs font-bold uppercase tracking-wider text-emerald-800">
-                    Business Transformation Outcome:
+                  <div className="text-sm font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                    Delivery Partner: Coreenact Microsoft Dynamics 365 Practice
                   </div>
-                  <p className="text-sm sm:text-base text-slate-900 font-medium leading-relaxed">
-                    {activeCase.outcome}
-                  </p>
+                  <div className="flex flex-wrap items-center gap-2 pt-1">
+                    {(CASE_TECH[activeCase.id] ?? []).map((tech) => (
+                      <span
+                        key={tech}
+                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-800 dark:text-slate-200"
+                      >
+                        <TechIcon label={tech} className="w-3.5 h-3.5" />
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Metric counters */}
-                <div className="flex items-center gap-4 shrink-0">
-                  {activeCase.stats.map((stat, i) => (
-                    <div key={i} className="text-center px-4 py-3 rounded-xl bg-white border border-slate-200 shadow-2xs">
-                      <div className="text-2xl font-black font-mono text-blue-700">
-                        {stat.value}
-                      </div>
-                      <div className="text-xs font-medium text-slate-600 whitespace-nowrap mt-0.5">
-                        {stat.label}
-                      </div>
+                {/* Quick Consultation Shortcut */}
+                <button
+                  onClick={onOpenContact}
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shrink-0 transition shadow-md shadow-blue-500/20 cursor-pointer"
+                >
+                  <span>Discuss Vertical with Architect</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Challenge & Solution Breakdown - Nested Gradient Bordered Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Challenge card */}
+                <div className="rounded-2xl p-[1.5px] bg-gradient-to-br from-rose-500/40 via-red-500/25 to-amber-500/30">
+                  <div className="p-6 rounded-[14px] bg-gradient-to-br from-rose-50/70 via-red-50/40 to-white dark:from-slate-850 dark:to-slate-900 space-y-3 h-full">
+                    <div className="text-xs font-extrabold uppercase tracking-wider text-rose-800 dark:text-rose-300 flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+                      The Legacy Challenge
                     </div>
-                  ))}
+                    <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
+                      {activeCase.challenge}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Solution card */}
+                <div className="rounded-2xl p-[1.5px] bg-gradient-to-br from-blue-500/40 via-indigo-500/30 to-teal-500/30">
+                  <div className="p-6 rounded-[14px] bg-gradient-to-br from-blue-50/70 via-indigo-50/40 to-white dark:from-slate-850 dark:to-slate-900 space-y-3 h-full">
+                    <div className="text-xs font-extrabold uppercase tracking-wider text-blue-800 dark:text-sky-300 flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-blue-600 dark:bg-sky-400" />
+                      Coreenact Architecture & Solution
+                    </div>
+                    <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
+                      {activeCase.solution}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Bottom Call to Action */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
-              <span className="text-sm text-slate-600">
-                Want similar results for your enterprise vertical?
-              </span>
-              <button
-                onClick={onOpenContact}
-                className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm flex items-center justify-center gap-2 transition cursor-pointer shadow-xs"
-              >
-                <span>Speak with an Industry Lead</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
+              {/* Outcome & Stats Strip - Nested Gradient Bordered Card */}
+              <div className="rounded-2xl p-[1.5px] bg-gradient-to-r from-emerald-500/40 via-teal-500/30 to-cyan-500/40">
+                <div className="p-6 rounded-[14px] bg-gradient-to-br from-emerald-50/60 via-teal-50/30 to-white dark:from-slate-850 dark:to-slate-900 space-y-4">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div className="space-y-2">
+                      <div className="text-xs font-extrabold uppercase tracking-wider text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                        Business Transformation Outcome
+                      </div>
+                      <p className="text-sm sm:text-base text-slate-900 dark:text-slate-100 font-semibold leading-relaxed">
+                        {activeCase.outcome}
+                      </p>
+                    </div>
+
+                    {/* Metric counters with gradient styling */}
+                    <div className="flex items-center gap-4 shrink-0">
+                      {activeCase.stats.map((stat, i) => (
+                        <div key={i} className="rounded-xl p-[1px] bg-gradient-to-br from-blue-500/40 to-indigo-500/40">
+                          <div className="text-center px-4 py-3 rounded-[11px] bg-white dark:bg-slate-800 shadow-sm">
+                            <div className="text-2xl font-black font-mono bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                              {stat.value}
+                            </div>
+                            <div className="text-xs font-semibold text-slate-600 dark:text-slate-400 whitespace-nowrap mt-0.5">
+                              {stat.label}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Call to Action */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
+                <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                  Ready for similar transformative enterprise results with Dynamics 365?
+                </span>
+                <button
+                  onClick={onOpenContact}
+                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-sm flex items-center justify-center gap-2 transition cursor-pointer shadow-md shadow-blue-500/25"
+                >
+                  <span>Speak with an Industry Practice Lead</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           </div>
         </motion.div>

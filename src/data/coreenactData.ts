@@ -2,6 +2,10 @@ import { ServiceItem, IndustryItem } from "../types";
 
 export const COREENACT_CONTACT = {
   email: "info@coreenact.com",
+  phone: "+91 11 4100 8920",
+  phoneCanada: "+1 (437) 833-2895",
+  addressIndia: "Innov8, 3rd Floor, 211, Okhla Industrial Estate, Phase III, New Delhi – 110020, India",
+  addressCanada: "4255 Sherwoodtowne Blvd, Ste 300, Mississauga, ON L4Z 1Y5, Canada",
   consultationUrl: "https://coreenact.com",
   tagline: "Converting Enterprise Complexity into an Intelligent Core",
   offices: [

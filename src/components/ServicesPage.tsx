@@ -52,34 +52,34 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
   return (
     <div className="py-12 sm:py-20 max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 text-left">
       {/* Header Banner */}
-      <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold tracking-wider uppercase">
-          <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+      <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 text-xs font-semibold">
+          <Sparkles className="w-3.5 h-3.5 text-[#005a9e] dark:text-sky-400" />
           <span>Coreenact Services</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight font-heading">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-heading">
           Enterprise Services for the{" "}
-          <span className="bg-gradient-to-r from-blue-700 via-indigo-600 to-sky-600 bg-clip-text text-transparent">
+          <span className="text-[#005a9e] dark:text-sky-400">
             Microsoft Cloud
           </span>
         </h1>
-        <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
+        <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed">
           From turnkey Microsoft Dynamics 365 Business Central implementations and legacy NAV migrations to 24/7 SLA managed care and India statutory compliance, we provide full-lifecycle enterprise engineering.
         </p>
       </div>
 
       {/* Services Nav Pill Selector */}
-      <div className="flex items-center gap-2.5 overflow-x-auto pb-4 mb-10 no-scrollbar border-b border-slate-200">
+      <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar border-b border-slate-200 dark:border-slate-800">
         {SERVICES_CATALOG.map((svc) => {
           const isSelected = svc.id === activeServiceId;
           return (
             <button
               key={svc.id}
               onClick={() => setActiveServiceId(svc.id)}
-              className={`px-4.5 py-2.5 rounded-xl text-sm font-bold whitespace-nowrap transition flex items-center gap-2.5 shrink-0 cursor-pointer ${
+              className={`px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold whitespace-nowrap transition-colors flex items-center gap-2 shrink-0 cursor-pointer ${
                 isSelected
-                  ? "bg-blue-600 text-white shadow-sm"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200"
+                  ? "bg-[#005a9e] text-white shadow-xs"
+                  : "bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800"
               }`}
             >
               {getIcon(svc.iconName)}
@@ -92,14 +92,14 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
       {/* Detailed Service Showcase Card */}
       <motion.div
         key={activeService.id}
-        initial={{ opacity: 0, y: 15 }}
+        initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="rounded-3xl p-1 bg-gradient-to-br from-blue-100 via-indigo-100 to-slate-200 shadow-md mb-16"
+        transition={{ duration: 0.25 }}
+        className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm mb-16 overflow-hidden"
       >
-        <div className="rounded-[23px] bg-white overflow-hidden border border-slate-200">
+        <div>
           {/* Product-style Hero Image for the Active Service */}
-          <div className="relative w-full h-64 sm:h-80 md:h-96 lg:h-[420px] overflow-hidden">
+          <div className="relative w-full h-64 sm:h-80 md:h-96 lg:h-[400px] overflow-hidden bg-slate-900">
             <img
               src={activeService.image}
               alt={activeService.title}
@@ -107,22 +107,22 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
               loading="lazy"
               referrerPolicy="no-referrer"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/85 via-slate-900/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 md:p-10">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-white/95 text-blue-700 border border-blue-200 mb-2.5 shadow-xs">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded text-xs font-semibold bg-white dark:bg-slate-900 text-[#005a9e] dark:text-sky-400 mb-2.5 shadow-xs">
                 <Award className="w-3.5 h-3.5" />
                 <span>{activeService.badge}</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-white font-heading drop-shadow-md">
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-white font-heading">
                 {activeService.title}
               </h2>
             </div>
           </div>
 
           <div className="p-6 sm:p-10 space-y-8">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-slate-200">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-slate-200 dark:border-slate-800">
             <div className="space-y-2">
-              <p className="text-sm sm:text-base text-blue-700 font-semibold">
+              <p className="text-sm sm:text-base text-[#005a9e] dark:text-sky-400 font-semibold">
                 {activeService.subtitle}
               </p>
             </div>
@@ -130,36 +130,36 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
               <button
                 onClick={onOpenContact}
-                className="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-xs transition flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
+                className="px-5 py-3 rounded-lg bg-[#005a9e] hover:bg-[#004a82] text-white font-bold text-sm shadow-xs transition flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
               >
                 <Calendar className="w-4 h-4" />
                 <span>Book Scoping Session</span>
               </button>
               <button
                 onClick={onOpenContact}
-                className="px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm border border-slate-300 transition cursor-pointer w-full sm:w-auto"
+                className="px-4 py-3 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-sm border border-slate-200 dark:border-slate-700 transition cursor-pointer w-full sm:w-auto"
               >
                 Inquire About Service
               </button>
             </div>
           </div>
 
-          <p className="text-base sm:text-lg text-slate-700 leading-relaxed max-w-4xl">
+          <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed max-w-4xl">
             {activeService.description}
           </p>
 
           {/* Three Column Breakdown: Phases, Deliverables, Value Metrics */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-2">
             {/* 1. Methodological Phases */}
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
-              <h3 className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-blue-600" />
+            <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-4">
+              <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#005a9e] dark:bg-sky-400" />
                 <span>Phased Execution Lifecycle</span>
               </h3>
               <ul className="space-y-3">
                 {activeService.phases.map((phase, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
-                    <span className="font-mono font-bold text-blue-600 shrink-0 mt-0.5">
+                  <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                    <span className="font-mono font-bold text-[#005a9e] dark:text-sky-400 shrink-0 mt-0.5">
                       {idx + 1}.
                     </span>
                     <span>{phase}</span>
@@ -169,15 +169,15 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
             </div>
 
             {/* 2. Key Deliverables */}
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
-              <h3 className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-indigo-600" />
+            <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-4">
+              <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-indigo-600 dark:bg-indigo-400" />
                 <span>Verified Deliverables</span>
               </h3>
               <ul className="space-y-3">
                 {activeService.deliverables.map((deliv, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
-                    <CheckCircle2 className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+                  <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                    <CheckCircle2 className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
                     <span>{deliv}</span>
                   </li>
                 ))}
@@ -185,27 +185,27 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
             </div>
 
             {/* 3. Business Impact & Benefits */}
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
-              <h3 className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-600" />
+            <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-4">
+              <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-400" />
                 <span>Strategic Business Value</span>
               </h3>
               <ul className="space-y-3">
                 {activeService.benefits.map((benefit, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                  <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0 mt-1.5" />
                     <span>{benefit}</span>
                   </li>
                 ))}
               </ul>
 
-              <div className="pt-4 border-t border-slate-200 mt-6">
-                <div className="text-xs text-slate-500">
+              <div className="pt-4 border-t border-slate-200 dark:border-slate-700 mt-6">
+                <div className="text-xs text-slate-500 dark:text-slate-400">
                   Ready to assess your project scope?
                 </div>
                 <button
                   onClick={onOpenContact}
-                  className="mt-2 text-sm font-bold text-blue-600 hover:text-blue-700 transition flex items-center gap-1.5 cursor-pointer"
+                  className="mt-2 text-xs sm:text-sm font-semibold text-[#005a9e] dark:text-sky-400 hover:text-[#004a82] dark:hover:text-sky-300 transition flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>Request Scoping Workshop</span>
                   <ArrowRight className="w-3.5 h-3.5" />
