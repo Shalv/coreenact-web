@@ -12,13 +12,15 @@ import indianIndustryOpsImg from "../assets/images/indian_industry_ops_179005036
 import indianLeadArchitectImg from "../assets/images/indian_lead_architect_1790050330867.jpg";
 import aiAgentInErpImg from "../assets/images/ai_agent_in_erp_1790057992613.jpg";
 import aiOcrScannerImg from "../assets/images/ai_ocr_scanner_1790058020101.jpg";
+import agenticAiPillarHeroImg from "../assets/images/agentic_ai_pillar_hero_1790059709152.jpg";
+import customAgenticAiCardImg from "../assets/images/custom_agentic_ai_card_1790059730772.jpg";
 
 const PILLAR_BANNER_IMAGES: Record<string, string> = {
   "run-transform": indianIndustryOpsImg,
   "data-ai-insights": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80",
   "scale-localize": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80",
   "secure-govern": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1600&q=80",
-  "ai-productivity": "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=1600&q=80",
+  "ai-productivity": agenticAiPillarHeroImg,
   "edcore-solution": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80",
 };
 
@@ -58,7 +60,7 @@ const SOLUTION_ITEM_IMAGES: Record<string, string> = {
 
   // AI & Productivity
   "Microsoft Copilot for Business Central": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
-  "Custom Agentic AI Solutions": "https://images.unsplash.com/photo-1677442136019-21780efad99a?auto=format&fit=crop&w=800&q=80",
+  "Custom Agentic AI Solutions": customAgenticAiCardImg,
   "Digital Transformation Advisory": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
 
   // EdCore
@@ -226,22 +228,44 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
                       {pillar.description}
                     </p>
 
+                    {/* Mobile swipe hint for single-line EdCore cards */}
+                    {pillar.id === "edcore-solution" && (
+                      <div className="flex lg:hidden items-center gap-1.5 text-xs font-semibold text-rose-600 dark:text-rose-400">
+                        <span>Swipe horizontally to view all 4 institutional modules in a single line →</span>
+                      </div>
+                    )}
+
                     {/* Capability Item Cards Grid with Images */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div
+                      className={
+                        pillar.id === "edcore-solution"
+                          ? "flex lg:grid overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 gap-5 snap-x snap-mandatory lg:grid-cols-4 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-800"
+                          : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                      }
+                    >
                       {pillar.items.map((item, itemIdx) => {
                         const itemImg =
                           SOLUTION_ITEM_IMAGES[item.name] ||
                           "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80";
                         const tag = ITEM_TAGS[item.name] || pillar.badge;
+                        const isEdCore = pillar.id === "edcore-solution";
 
                         return (
                           <div
                             key={itemIdx}
-                            className="rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-lg transition-all duration-300 flex flex-col justify-between overflow-hidden group text-left"
+                            className={`rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-lg transition-all duration-300 flex flex-col justify-between overflow-hidden group text-left ${
+                              isEdCore
+                                ? "w-[82vw] sm:w-[320px] lg:w-auto shrink-0 lg:shrink snap-center"
+                                : ""
+                            }`}
                           >
                             <div>
                               {/* Card Image Thumbnail */}
-                              <div className="h-48 sm:h-52 w-full overflow-hidden relative bg-slate-900">
+                              <div
+                                className={`${
+                                  isEdCore ? "h-40 sm:h-44 xl:h-48" : "h-48 sm:h-52"
+                                } w-full overflow-hidden relative bg-slate-900`}
+                              >
                                 <img
                                   src={itemImg}
                                   alt={item.name}
@@ -256,14 +280,18 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
                                   </span>
                                 </div>
                                 <div className="absolute bottom-3 left-4 right-4">
-                                  <h4 className="text-white font-extrabold text-base sm:text-lg drop-shadow-sm leading-snug">
+                                  <h4 className="text-white font-extrabold text-sm sm:text-base xl:text-lg drop-shadow-sm leading-snug">
                                     {item.name}
                                   </h4>
                                 </div>
                               </div>
 
                               {/* Card Body */}
-                              <div className="p-5 sm:p-6 space-y-4">
+                              <div
+                                className={`${
+                                  isEdCore ? "p-4 sm:p-5" : "p-5 sm:p-6"
+                                } space-y-4`}
+                              >
                                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
                                   {item.description}
                                 </p>
@@ -272,25 +300,37 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
                                   {item.features.map((feat, fIdx) => (
                                     <div
                                       key={fIdx}
-                                      className="flex items-center gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-medium"
+                                      className={`flex items-center gap-2 ${
+                                        isEdCore
+                                          ? "text-xs"
+                                          : "text-xs sm:text-sm"
+                                      } text-slate-700 dark:text-slate-300 font-medium`}
                                     >
-                                      <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                                      <span>{feat}</span>
+                                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                                      <span className="truncate">{feat}</span>
                                     </div>
                                   ))}
                                 </div>
                               </div>
                             </div>
 
-                            <div className="p-5 sm:p-6 pt-0">
+                            <div
+                              className={`${
+                                isEdCore ? "p-4 sm:p-5" : "p-5 sm:p-6"
+                              } pt-0`}
+                            >
                               <button
                                 onClick={() =>
                                   onSelectSolution(`${pillar.title} - ${item.name}`)
                                 }
-                                className="w-full py-2.5 px-4 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-900/30 text-blue-700 dark:text-sky-300 hover:text-blue-800 text-xs sm:text-sm font-bold border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-700 transition flex items-center justify-center gap-1.5 cursor-pointer group/btn"
+                                className="w-full py-2.5 px-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-900/30 text-blue-700 dark:text-sky-300 hover:text-blue-800 text-xs sm:text-sm font-bold border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-700 transition flex items-center justify-center gap-1.5 cursor-pointer group/btn"
                               >
-                                <span>Discuss Solution Architecture</span>
-                                <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
+                                <span className="truncate">
+                                  {isEdCore
+                                    ? "Discuss EdCore"
+                                    : "Discuss Solution Architecture"}
+                                </span>
+                                <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform shrink-0" />
                               </button>
                             </div>
                           </div>
