@@ -51,6 +51,9 @@ function getPgPool(): pg.Pool | null {
     };
 
     pgPool = new pg.Pool(config);
+    pgPool.on("error", (err) => {
+      console.warn("[Postgres Pool Idle Error]:", err.message);
+    });
     return pgPool;
   } catch (err: any) {
     console.error("[Postgres Init Error]:", err.message);

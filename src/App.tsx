@@ -170,215 +170,205 @@ export default function App() {
               onOpenContact={() => setIsContactOpen(true)}
             />
 
-            {/* Quick Portal Cards mirroring Coreenact main navigation (Nested Gradient-Bordered Cards) */}
+            {/* Quick Portal Cards mirroring Coreenact main navigation */}
             <div className="py-12 max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#0b0f19]">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
-                {/* 1. Services Catalog Card - Nested Gradient */}
+                {/* 1. Services Catalog Card */}
                 <div
                   onClick={() => handleSelectPage("services")}
-                  className="rounded-3xl p-[2px] bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 cursor-pointer group text-left"
+                  className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-xl hover:border-blue-500/50 dark:hover:border-blue-500/50 transition-all duration-300 cursor-pointer group text-left overflow-hidden flex flex-col h-full"
                 >
-                  <div className="rounded-[22px] bg-white dark:bg-slate-900 overflow-hidden flex flex-col h-full">
-                    <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
-                      <img
-                        src={heroConsultantImg}
-                        alt="Coreenact Indian Microsoft Dynamics 365 Solutions Consulting"
-                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
-                      <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-blue-700 dark:text-sky-300 shadow-sm">
-                        Services Catalog
-                      </span>
-                      <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
-                        <span>D365 & NAV Migrations</span>
-                        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </div>
+                  <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
+                    <img
+                      src={heroConsultantImg}
+                      alt="Coreenact Indian Microsoft Dynamics 365 Solutions Consulting"
+                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
+                    <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-blue-700 dark:text-sky-300 shadow-sm">
+                      Services Catalog
+                    </span>
+                    <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
+                      <span>D365 & NAV Migrations</span>
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
-                    <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                      <div>
-                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center mb-3 shadow-sm">
-                          <Briefcase className="w-4 h-4" />
-                        </div>
-                        <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-sky-400 transition">
-                          Full-Lifecycle Services
-                        </h3>
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
-                          Business Central ERP Consulting, NAV cutovers, India GST localization & 24/7 SLAs.
-                        </p>
+                  </div>
+                  <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                    <div>
+                      <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center mb-3 shadow-sm">
+                        <Briefcase className="w-4 h-4" />
                       </div>
-                      <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-blue-600 dark:text-sky-400">
-                        <span>Explore 7 Service Pillars</span>
-                        <ChevronRight className="w-3.5 h-3.5 ml-1" />
-                      </div>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-sky-400 transition">
+                        Full-Lifecycle Services
+                      </h3>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+                        Business Central ERP Consulting, NAV cutovers, India GST localization & 24/7 SLAs.
+                      </p>
+                    </div>
+                    <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-blue-600 dark:text-sky-400">
+                      <span>Explore 7 Service Pillars</span>
+                      <ChevronRight className="w-3.5 h-3.5 ml-1" />
                     </div>
                   </div>
                 </div>
 
-                {/* 2. Industry Blueprints Card - Nested Gradient */}
+                {/* 2. Industry Blueprints Card */}
                 <div
                   onClick={() => handleSelectPage("industries")}
-                  className="rounded-3xl p-[2px] bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 hover:shadow-xl hover:shadow-emerald-500/20 transition-all duration-300 cursor-pointer group text-left"
+                  className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-xl hover:border-emerald-500/50 dark:hover:border-emerald-500/50 transition-all duration-300 cursor-pointer group text-left overflow-hidden flex flex-col h-full"
                 >
-                  <div className="rounded-[22px] bg-white dark:bg-slate-900 overflow-hidden flex flex-col h-full">
-                    <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
-                      <img
-                        src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
-                        alt="Manufacturing and logistics warehouse automation with Microsoft Dynamics 365"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
-                      <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-emerald-700 dark:text-emerald-300 shadow-sm">
-                        Industry Blueprints
-                      </span>
-                      <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
-                        <span>9 Domain Frameworks</span>
-                        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </div>
+                  <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
+                    <img
+                      src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
+                      alt="Manufacturing and logistics warehouse automation with Microsoft Dynamics 365"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
+                    <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-emerald-700 dark:text-emerald-300 shadow-sm">
+                      Industry Blueprints
+                    </span>
+                    <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
+                      <span>9 Domain Frameworks</span>
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
-                    <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                      <div>
-                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center mb-3 shadow-sm">
-                          <Factory className="w-4 h-4" />
-                        </div>
-                        <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">
-                          9 Industry Solutions
-                        </h3>
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
-                          Manufacturing, FMCG, Retail, EdCore education ERP, and cold-chain supply.
-                        </p>
+                  </div>
+                  <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                    <div>
+                      <div className="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center mb-3 shadow-sm">
+                        <Factory className="w-4 h-4" />
                       </div>
-                      <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-emerald-600 dark:text-emerald-400">
-                        <span>View Industry Modules</span>
-                        <ChevronRight className="w-3.5 h-3.5 ml-1" />
-                      </div>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">
+                        9 Industry Solutions
+                      </h3>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+                        Manufacturing, FMCG, Retail, EdCore education ERP, and cold-chain supply.
+                      </p>
+                    </div>
+                    <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                      <span>View Industry Modules</span>
+                      <ChevronRight className="w-3.5 h-3.5 ml-1" />
                     </div>
                   </div>
                 </div>
 
-                {/* 3. Digital Marketing Card - Nested Gradient */}
+                {/* 3. Digital Marketing Card */}
                 <div
                   onClick={() => handleSelectPage("digital-marketing")}
-                  className="rounded-3xl p-[2px] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 cursor-pointer group text-left"
+                  className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-xl hover:border-indigo-500/50 dark:hover:border-indigo-500/50 transition-all duration-300 cursor-pointer group text-left overflow-hidden flex flex-col h-full"
                 >
-                  <div className="rounded-[22px] bg-white dark:bg-slate-900 overflow-hidden flex flex-col h-full">
-                    <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
-                      <img
-                        src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
-                        alt="Coreenact Digital Marketing and Growth Acceleration"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
-                      <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-blue-700 dark:text-sky-300 shadow-sm">
-                        Growth Lab
-                      </span>
-                      <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
-                        <span>SEO & Paid ROAS</span>
-                        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </div>
+                  <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
+                    <img
+                      src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+                      alt="Coreenact Digital Marketing and Growth Acceleration"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
+                    <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-blue-700 dark:text-sky-300 shadow-sm">
+                      Growth Lab
+                    </span>
+                    <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
+                      <span>SEO & Paid ROAS</span>
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
-                    <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                      <div>
-                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center mb-3 shadow-sm">
-                          <TrendingUp className="w-4 h-4" />
-                        </div>
-                        <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-sky-400 transition">
-                          Digital Marketing
-                        </h3>
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
-                          Enterprise SEO, Generative Search (GEO), B2B ABM, and Dynamics 365 closed-loop marketing.
-                        </p>
+                  </div>
+                  <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                    <div>
+                      <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center mb-3 shadow-sm">
+                        <TrendingUp className="w-4 h-4" />
                       </div>
-                      <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-blue-600 dark:text-sky-400">
-                        <span>Explore Growth Services</span>
-                        <ChevronRight className="w-3.5 h-3.5 ml-1" />
-                      </div>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-sky-400 transition">
+                        Digital Marketing
+                      </h3>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+                        Enterprise SEO, Generative Search (GEO), B2B ABM, and Dynamics 365 closed-loop marketing.
+                      </p>
+                    </div>
+                    <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-blue-600 dark:text-sky-400">
+                      <span>Explore Growth Services</span>
+                      <ChevronRight className="w-3.5 h-3.5 ml-1" />
                     </div>
                   </div>
                 </div>
 
-                {/* 4. About Coreenact Card - Nested Gradient */}
+                {/* 4. About Coreenact Card */}
                 <div
                   onClick={() => handleSelectPage("about")}
-                  className="rounded-3xl p-[2px] bg-gradient-to-br from-purple-600 via-pink-600 to-indigo-600 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300 cursor-pointer group text-left"
+                  className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-xl hover:border-purple-500/50 dark:hover:border-purple-500/50 transition-all duration-300 cursor-pointer group text-left overflow-hidden flex flex-col h-full"
                 >
-                  <div className="rounded-[22px] bg-white dark:bg-slate-900 overflow-hidden flex flex-col h-full">
-                    <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
-                      <img
-                        src={enterpriseTeamImg}
-                        alt="Coreenact Microsoft enterprise consulting Indian team"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
-                      <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-purple-700 dark:text-purple-300 shadow-sm">
-                        Consulting Practice
-                      </span>
-                      <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
-                        <span>15+ Years NAV Mastery</span>
-                        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </div>
+                  <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
+                    <img
+                      src={enterpriseTeamImg}
+                      alt="Coreenact Microsoft enterprise consulting Indian team"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
+                    <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-purple-700 dark:text-purple-300 shadow-sm">
+                      Consulting Practice
+                    </span>
+                    <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
+                      <span>15+ Years NAV Mastery</span>
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
-                    <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                      <div>
-                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 text-white flex items-center justify-center mb-3 shadow-sm">
-                          <Info className="w-4 h-4" />
-                        </div>
-                        <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition">
-                          About Coreenact
-                        </h3>
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
-                          5-phase delivery framework, Microsoft partner competencies, and verified track record.
-                        </p>
+                  </div>
+                  <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                    <div>
+                      <div className="w-9 h-9 rounded-xl bg-purple-600 text-white flex items-center justify-center mb-3 shadow-sm">
+                        <Info className="w-4 h-4" />
                       </div>
-                      <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-purple-600 dark:text-purple-400">
-                        <span>Our Story & Methodology</span>
-                        <ChevronRight className="w-3.5 h-3.5 ml-1" />
-                      </div>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition">
+                        About Coreenact
+                      </h3>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+                        5-phase delivery framework, Microsoft partner competencies, and verified track record.
+                      </p>
+                    </div>
+                    <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-purple-600 dark:text-purple-400">
+                      <span>Our Story & Methodology</span>
+                      <ChevronRight className="w-3.5 h-3.5 ml-1" />
                     </div>
                   </div>
                 </div>
 
-                {/* 4. Contact & Hubs Card - Nested Gradient */}
+                {/* 5. Contact & Hubs Card */}
                 <div
                   onClick={() => handleSelectPage("contact")}
-                  className="rounded-3xl p-[2px] bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 hover:shadow-xl hover:shadow-amber-500/20 transition-all duration-300 cursor-pointer group text-left"
+                  className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-xl hover:border-amber-500/50 dark:hover:border-amber-500/50 transition-all duration-300 cursor-pointer group text-left overflow-hidden flex flex-col h-full"
                 >
-                  <div className="rounded-[22px] bg-white dark:bg-slate-900 overflow-hidden flex flex-col h-full">
-                    <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
-                      <img
-                        src={leadArchitectImg}
-                        alt="Coreenact Lead Microsoft Solutions Indian Architect"
-                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                        referrerPolicy="no-referrer"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
-                      <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-amber-700 dark:text-amber-300 shadow-sm">
-                        Global Advisory
-                      </span>
-                      <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
-                        <span>Delhi & Mississauga</span>
-                        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </div>
+                  <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
+                    <img
+                      src={leadArchitectImg}
+                      alt="Coreenact Lead Microsoft Solutions Indian Architect"
+                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
+                    <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-amber-700 dark:text-amber-300 shadow-sm">
+                      Global Advisory
+                    </span>
+                    <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
+                      <span>Delhi & Mississauga</span>
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
-                    <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                      <div>
-                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-white flex items-center justify-center mb-3 shadow-sm">
-                          <Mail className="w-4 h-4" />
-                        </div>
-                        <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition">
-                          Contact & Hubs
-                        </h3>
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
-                          Direct consultation with certified architects. Offices in New Delhi & Mississauga.
-                        </p>
+                  </div>
+                  <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                    <div>
+                      <div className="w-9 h-9 rounded-xl bg-amber-600 text-white flex items-center justify-center mb-3 shadow-sm">
+                        <Mail className="w-4 h-4" />
                       </div>
-                      <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-amber-600 dark:text-amber-400">
-                        <span>Reach Advisory Team</span>
-                        <ChevronRight className="w-3.5 h-3.5 ml-1" />
-                      </div>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition">
+                        Contact & Hubs
+                      </h3>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+                        Direct consultation with certified architects. Offices in New Delhi & Mississauga.
+                      </p>
+                    </div>
+                    <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-amber-600 dark:text-amber-400">
+                      <span>Reach Advisory Team</span>
+                      <ChevronRight className="w-3.5 h-3.5 ml-1" />
                     </div>
                   </div>
                 </div>

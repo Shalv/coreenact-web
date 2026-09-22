@@ -197,152 +197,144 @@ export const Hero: React.FC<HeroProps> = ({
             </div>
           </motion.div>
 
-          {/* Right Column: Architectural Delivery & Governance Console (Nested Gradient-Bordered Card) */}
+          {/* Right Column: Architectural Delivery & Governance Console */}
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15 }}
             className="lg:col-span-5"
           >
-            {/* Outer Gradient Border Wrapper */}
-            <div className="rounded-3xl p-[2px] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 shadow-2xl shadow-blue-500/20">
-              <div className="rounded-[22px] bg-white dark:bg-slate-900 overflow-hidden text-left">
-                {/* Consultant Photographic Header */}
-                <div className="relative h-64 w-full overflow-hidden bg-slate-900">
-                  <img
-                    src={heroConsultantImg}
-                    alt="Coreenact Senior Indian Microsoft Dynamics 365 Solutions Consultant & Practice Leader"
-                    className="w-full h-full object-cover object-top"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent" />
+            {/* Delivery Console Card */}
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl overflow-hidden text-left">
+              {/* Consultant Photographic Header */}
+              <div className="relative h-64 w-full overflow-hidden bg-slate-900">
+                <img
+                  src={heroConsultantImg}
+                  alt="Coreenact Senior Indian Microsoft Dynamics 365 Solutions Consultant & Practice Leader"
+                  className="w-full h-full object-cover object-top"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent" />
 
-                  {/* Badges */}
-                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-slate-100 text-xs font-bold shadow-md">
-                      <MicrosoftLogo className="w-3.5 h-3.5" />
-                      <span>Microsoft Partner Practice</span>
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-md">
-                      <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                      <span>Live Indian Deployments</span>
+                {/* Badges */}
+                <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-slate-100 text-xs font-bold shadow-md">
+                    <MicrosoftLogo className="w-3.5 h-3.5" />
+                    <span>Microsoft Partner Practice</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-600 text-white shadow-md">
+                    <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                    <span>Live Indian Deployments</span>
+                  </span>
+                </div>
+
+                {/* Bottom Photo Overlay Info */}
+                <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2">
+                  <div>
+                    <div className="text-white font-extrabold text-base sm:text-lg leading-tight drop-shadow-sm">
+                      Senior ERP Practice Leadership
+                    </div>
+                    <div className="text-sky-200 text-xs mt-0.5 font-medium flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                      <span>India GST & Global Multi-Entity NAV Architecture</span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={onOpenContact}
+                    className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition shadow-md flex items-center gap-1 shrink-0 cursor-pointer"
+                  >
+                    <span>Connect</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Delivery Console Content */}
+              <div className="p-5 sm:p-6 space-y-4">
+                {/* Header */}
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-blue-600" />
+                    <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
+                      Dynamics 365 Business Central Cloud Platform
                     </span>
                   </div>
+                  <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+                    Production Ready
+                  </span>
+                </div>
 
-                  {/* Bottom Photo Overlay Info */}
-                  <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2">
-                    <div>
-                      <div className="text-white font-extrabold text-base sm:text-lg leading-tight drop-shadow-sm">
-                        Senior ERP Practice Leadership
-                      </div>
-                      <div className="text-sky-200 text-xs mt-0.5 font-medium flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                        <span>India GST & Global Multi-Entity NAV Architecture</span>
-                      </div>
+                {/* Verified Operational Performance */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="rounded-xl border border-slate-200 dark:border-slate-800 p-3.5 bg-slate-50/70 dark:bg-slate-800/50 h-full">
+                    <div className="text-[11px] font-bold text-blue-700 dark:text-sky-300 uppercase flex items-center justify-between">
+                      <span>Order Fulfillment</span>
+                      <Workflow className="w-3.5 h-3.5 text-blue-600 dark:text-sky-400" />
                     </div>
-                    <button
-                      onClick={onOpenContact}
-                      className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold transition shadow-md flex items-center gap-1 shrink-0 cursor-pointer"
-                    >
-                      <span>Connect</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </button>
+                    <div className="text-2xl font-black text-slate-900 dark:text-slate-100 font-mono mt-1">
+                      99.98%
+                    </div>
+                    <div className="text-[11px] text-emerald-600 dark:text-emerald-400 mt-1 flex items-center gap-1 font-semibold">
+                      <CheckCircle2 className="w-3 h-3 text-emerald-500" /> Real-time ledger sync
+                    </div>
+                  </div>
+
+                  <div className="rounded-xl border border-slate-200 dark:border-slate-800 p-3.5 bg-slate-50/70 dark:bg-slate-800/50 h-full">
+                    <div className="text-[11px] font-bold text-purple-700 dark:text-purple-300 uppercase flex items-center justify-between">
+                      <span>NAV Migration Cycle</span>
+                      <BarChart3 className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+                    </div>
+                    <div className="text-2xl font-black text-slate-900 dark:text-slate-100 font-mono mt-1">
+                      60 Days
+                    </div>
+                    <div className="text-[11px] text-blue-700 dark:text-sky-400 mt-1 flex items-center gap-1 font-semibold">
+                      <CheckCircle2 className="w-3 h-3 text-blue-500" /> Zero disruption cutover
+                    </div>
                   </div>
                 </div>
 
-                {/* Delivery Console Content */}
-                <div className="p-5 sm:p-6 space-y-4">
-                  {/* Header */}
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+                {/* Copilot Workflow Status */}
+                <div className="rounded-xl border border-slate-200 dark:border-slate-800 p-4 bg-slate-50/70 dark:bg-slate-800/50 space-y-2">
+                  <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-emerald-500" />
-                      <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                        Dynamics 365 Business Central Cloud Platform
-                      </span>
+                      <TechIcon label="copilot" className="w-4 h-4 shrink-0" />
+                      <div>
+                        <div className="text-xs font-bold text-slate-900 dark:text-slate-100">
+                          Microsoft Copilot in Business Central
+                        </div>
+                        <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                          Automated Bank Reconciliation & Variance Detection
+                        </div>
+                      </div>
                     </div>
-                    <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
-                      Production Ready
+                    <span className="text-[10px] px-2 py-0.5 rounded-full font-mono font-bold bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+                      AI ACTIVE
                     </span>
                   </div>
 
-                  {/* Verified Operational Performance: Nested Gradient Cards */}
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="rounded-xl p-[1.5px] bg-gradient-to-r from-blue-500/40 via-indigo-500/30 to-cyan-500/40">
-                      <div className="rounded-[10px] p-3.5 bg-gradient-to-br from-blue-50/50 to-white dark:from-slate-850 dark:to-slate-900 h-full">
-                        <div className="text-[11px] font-bold text-blue-700 dark:text-sky-300 uppercase flex items-center justify-between">
-                          <span>Order Fulfillment</span>
-                          <Workflow className="w-3.5 h-3.5 text-blue-600 dark:text-sky-400" />
-                        </div>
-                        <div className="text-2xl font-black text-slate-900 dark:text-slate-100 font-mono mt-1">
-                          99.98%
-                        </div>
-                        <div className="text-[11px] text-emerald-600 dark:text-emerald-400 mt-1 flex items-center gap-1 font-semibold">
-                          <CheckCircle2 className="w-3 h-3 text-emerald-500" /> Real-time ledger sync
-                        </div>
-                      </div>
-                    </div>
+                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-mono">
+                    Automated reconciliation matched 142 customer payments (₹4.1 Cr / $485,200) with GL accounts with zero manual journal adjustments.
+                  </p>
+                </div>
 
-                    <div className="rounded-xl p-[1.5px] bg-gradient-to-r from-purple-500/40 via-pink-500/30 to-indigo-500/40">
-                      <div className="rounded-[10px] p-3.5 bg-gradient-to-br from-purple-50/50 to-white dark:from-slate-850 dark:to-slate-900 h-full">
-                        <div className="text-[11px] font-bold text-purple-700 dark:text-purple-300 uppercase flex items-center justify-between">
-                          <span>NAV Migration Cycle</span>
-                          <BarChart3 className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
-                        </div>
-                        <div className="text-2xl font-black text-slate-900 dark:text-slate-100 font-mono mt-1">
-                          60 Days
-                        </div>
-                        <div className="text-[11px] text-blue-700 dark:text-sky-400 mt-1 flex items-center gap-1 font-semibold">
-                          <CheckCircle2 className="w-3 h-3 text-blue-500" /> Zero disruption cutover
-                        </div>
-                      </div>
-                    </div>
+                {/* Advisory Blueprint Shortcuts */}
+                <div className="space-y-1.5 pt-1">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    Recommended Architecture Roadmaps
                   </div>
-
-                  {/* Copilot Workflow Status: Nested Gradient Card */}
-                  <div className="rounded-2xl p-[1.5px] bg-gradient-to-r from-purple-500/50 via-indigo-500/50 to-blue-500/50">
-                    <div className="rounded-[14px] p-4 bg-gradient-to-br from-purple-50/60 via-indigo-50/40 to-white dark:from-slate-850 dark:to-slate-900 space-y-2">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <TechIcon label="copilot" className="w-4 h-4 shrink-0" />
-                          <div>
-                            <div className="text-xs font-bold text-slate-900 dark:text-slate-100">
-                              Microsoft Copilot in Business Central
-                            </div>
-                            <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                              Automated Bank Reconciliation & Variance Detection
-                            </div>
-                          </div>
-                        </div>
-                        <span className="text-[10px] px-2 py-0.5 rounded-full font-mono font-bold bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-xs">
-                          AI ACTIVE
-                        </span>
-                      </div>
-
-                      <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-mono">
-                        Automated reconciliation matched 142 customer payments (₹4.1 Cr / $485,200) with GL accounts with zero manual journal adjustments.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Advisory Blueprint Shortcuts */}
-                  <div className="space-y-1.5 pt-1">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      Recommended Architecture Roadmaps
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
-                      <button
-                        onClick={onOpenContact}
-                        className="py-2.5 px-3 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-750 hover:from-blue-100 hover:to-indigo-100 text-blue-900 dark:text-sky-300 border border-blue-200 dark:border-slate-700 transition text-center truncate cursor-pointer shadow-2xs"
-                      >
-                        NAV to BC Roadmap
-                      </button>
-                      <button
-                        onClick={onOpenContact}
-                        className="py-2.5 px-3 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-50 to-orange-50 dark:from-slate-800 dark:to-slate-750 hover:from-amber-100 hover:to-orange-100 text-amber-900 dark:text-amber-300 border border-amber-200 dark:border-slate-700 transition text-center truncate cursor-pointer shadow-2xs"
-                      >
-                        India GST Blueprint
-                      </button>
-                    </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      onClick={onOpenContact}
+                      className="py-2.5 px-3 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-blue-900 dark:text-sky-300 border border-slate-200 dark:border-slate-700 transition text-center truncate cursor-pointer shadow-2xs"
+                    >
+                      NAV to BC Roadmap
+                    </button>
+                    <button
+                      onClick={onOpenContact}
+                      className="py-2.5 px-3 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-amber-900 dark:text-amber-300 border border-slate-200 dark:border-slate-700 transition text-center truncate cursor-pointer shadow-2xs"
+                    >
+                      India GST Blueprint
+                    </button>
                   </div>
                 </div>
               </div>

@@ -62,10 +62,9 @@ export const TechStackShowcase: React.FC<TechStackShowcaseProps> = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="max-w-6xl mx-auto rounded-3xl p-[2px] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 shadow-2xl shadow-blue-500/15"
+            className="max-w-6xl mx-auto rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-10 shadow-xl"
           >
-            <div className="rounded-[22px] bg-white dark:bg-slate-900 p-6 sm:p-10">
-              <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
                 {/* Left: description + capabilities */}
                 <div className="lg:col-span-3 space-y-5">
                   <div>
@@ -146,7 +145,6 @@ export const TechStackShowcase: React.FC<TechStackShowcaseProps> = ({
                   </div>
                 </div>
               </div>
-            </div>
           </motion.div>
         </AnimatePresence>
       </div>

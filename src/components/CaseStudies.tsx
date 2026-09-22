@@ -72,17 +72,16 @@ export const CaseStudies: React.FC<CaseStudiesProps> = ({
           ))}
         </div>
 
-        {/* Highlighted Case Card - Nested Gradient-Bordered Container */}
+        {/* Highlighted Case Card */}
         <motion.div
           key={activeCase.id}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.25 }}
-          className="rounded-3xl p-[2px] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 shadow-2xl shadow-blue-500/15"
+          className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl overflow-hidden text-left"
         >
-          <div className="rounded-[22px] bg-white dark:bg-slate-900 overflow-hidden text-left">
-            {/* Industry photo header */}
-            <div className="h-56 sm:h-72 w-full relative overflow-hidden bg-slate-900">
+          {/* Industry photo header */}
+          <div className="h-56 sm:h-72 w-full relative overflow-hidden bg-slate-900">
               <img
                 src={CASE_IMAGES[activeCase.id]}
                 alt={`${activeCase.industry} case study - Indian delivery team`}
@@ -135,64 +134,56 @@ export const CaseStudies: React.FC<CaseStudiesProps> = ({
                 </button>
               </div>
 
-              {/* Challenge & Solution Breakdown - Nested Gradient Bordered Cards */}
+              {/* Challenge & Solution Breakdown */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Challenge card */}
-                <div className="rounded-2xl p-[1.5px] bg-gradient-to-br from-rose-500/40 via-red-500/25 to-amber-500/30">
-                  <div className="p-6 rounded-[14px] bg-gradient-to-br from-rose-50/70 via-red-50/40 to-white dark:from-slate-850 dark:to-slate-900 space-y-3 h-full">
-                    <div className="text-xs font-extrabold uppercase tracking-wider text-rose-800 dark:text-rose-300 flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-                      The Legacy Challenge
-                    </div>
-                    <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-                      {activeCase.challenge}
-                    </p>
+                <div className="p-6 rounded-xl border border-rose-200 dark:border-rose-900/50 bg-rose-50/40 dark:bg-slate-850 space-y-3 h-full">
+                  <div className="text-xs font-extrabold uppercase tracking-wider text-rose-800 dark:text-rose-300 flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
+                    The Legacy Challenge
                   </div>
+                  <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
+                    {activeCase.challenge}
+                  </p>
                 </div>
 
                 {/* Solution card */}
-                <div className="rounded-2xl p-[1.5px] bg-gradient-to-br from-blue-500/40 via-indigo-500/30 to-teal-500/30">
-                  <div className="p-6 rounded-[14px] bg-gradient-to-br from-blue-50/70 via-indigo-50/40 to-white dark:from-slate-850 dark:to-slate-900 space-y-3 h-full">
-                    <div className="text-xs font-extrabold uppercase tracking-wider text-blue-800 dark:text-sky-300 flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-blue-600 dark:bg-sky-400" />
-                      Coreenact Architecture & Solution
-                    </div>
-                    <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-                      {activeCase.solution}
-                    </p>
+                <div className="p-6 rounded-xl border border-blue-200 dark:border-blue-900/50 bg-blue-50/40 dark:bg-slate-850 space-y-3 h-full">
+                  <div className="text-xs font-extrabold uppercase tracking-wider text-blue-800 dark:text-sky-300 flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-blue-600 dark:bg-sky-400" />
+                    Coreenact Architecture & Solution
                   </div>
+                  <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
+                    {activeCase.solution}
+                  </p>
                 </div>
               </div>
 
-              {/* Outcome & Stats Strip - Nested Gradient Bordered Card */}
-              <div className="rounded-2xl p-[1.5px] bg-gradient-to-r from-emerald-500/40 via-teal-500/30 to-cyan-500/40">
-                <div className="p-6 rounded-[14px] bg-gradient-to-br from-emerald-50/60 via-teal-50/30 to-white dark:from-slate-850 dark:to-slate-900 space-y-4">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <div className="space-y-2">
-                      <div className="text-xs font-extrabold uppercase tracking-wider text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                        Business Transformation Outcome
-                      </div>
-                      <p className="text-sm sm:text-base text-slate-900 dark:text-slate-100 font-semibold leading-relaxed">
-                        {activeCase.outcome}
-                      </p>
+              {/* Outcome & Stats Strip */}
+              <div className="p-6 rounded-xl border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50/40 dark:bg-slate-850 space-y-4">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <div className="space-y-2">
+                    <div className="text-xs font-extrabold uppercase tracking-wider text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                      Business Transformation Outcome
                     </div>
+                    <p className="text-sm sm:text-base text-slate-900 dark:text-slate-100 font-semibold leading-relaxed">
+                      {activeCase.outcome}
+                    </p>
+                  </div>
 
-                    {/* Metric counters with gradient styling */}
-                    <div className="flex items-center gap-4 shrink-0">
-                      {activeCase.stats.map((stat, i) => (
-                        <div key={i} className="rounded-xl p-[1px] bg-gradient-to-br from-blue-500/40 to-indigo-500/40">
-                          <div className="text-center px-4 py-3 rounded-[11px] bg-white dark:bg-slate-800 shadow-sm">
-                            <div className="text-2xl font-black font-mono bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                              {stat.value}
-                            </div>
-                            <div className="text-xs font-semibold text-slate-600 dark:text-slate-400 whitespace-nowrap mt-0.5">
-                              {stat.label}
-                            </div>
-                          </div>
+                  {/* Metric counters */}
+                  <div className="flex items-center gap-4 shrink-0">
+                    {activeCase.stats.map((stat, i) => (
+                      <div key={i} className="text-center px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/80 shadow-xs">
+                        <div className="text-2xl font-black font-mono text-blue-600 dark:text-sky-400">
+                          {stat.value}
                         </div>
-                      ))}
-                    </div>
+                        <div className="text-xs font-semibold text-slate-600 dark:text-slate-400 whitespace-nowrap mt-0.5">
+                          {stat.label}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -204,14 +195,13 @@ export const CaseStudies: React.FC<CaseStudiesProps> = ({
                 </span>
                 <button
                   onClick={onOpenContact}
-                  className="px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-sm flex items-center justify-center gap-2 transition cursor-pointer shadow-md shadow-blue-500/25"
+                  className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm flex items-center justify-center gap-2 transition cursor-pointer shadow-md shadow-blue-500/20"
                 >
                   <span>Speak with an Industry Practice Lead</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
-          </div>
         </motion.div>
       </div>
     </section>

@@ -155,28 +155,26 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
           ))}
         </div>
 
-        {/* Pillars Showcase with Images & Nested Gradient Borders */}
+        {/* Pillars Showcase with Images */}
         <div className="space-y-16">
           {currentPillars.map((pillar, idx) => {
-            const gradient = PILLAR_GRADIENTS[pillar.id] || "from-blue-600 via-indigo-600 to-purple-600";
             const bannerImage = PILLAR_BANNER_IMAGES[pillar.id] || indianIndustryOpsImg;
 
             return (
               <div
                 key={pillar.id}
-                className={`rounded-3xl p-[2px] bg-gradient-to-br ${gradient} shadow-xl overflow-hidden`}
+                className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl overflow-hidden"
               >
-                <div className="rounded-[22px] bg-white dark:bg-slate-900 overflow-hidden">
-                  {/* Pillar Hero Banner with Increased Height */}
-                  <div className="h-64 sm:h-80 md:h-[380px] w-full relative overflow-hidden bg-slate-900 group">
-                    <img
-                      src={bannerImage}
-                      alt={`${pillar.title} enterprise solution`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      loading="lazy"
-                      referrerPolicy="no-referrer"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent" />
+                {/* Pillar Hero Banner with Increased Height */}
+                <div className="h-64 sm:h-80 md:h-[380px] w-full relative overflow-hidden bg-slate-900 group">
+                  <img
+                    src={bannerImage}
+                    alt={`${pillar.title} enterprise solution`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent" />
 
                     {/* Top Badges */}
                     <div className="absolute top-5 left-5 sm:left-8 right-5 sm:right-8 flex items-center justify-between gap-3">
@@ -299,47 +297,44 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
                     </div>
                   </div>
                 </div>
-              </div>
             );
           })}
         </div>
 
         {/* Bottom Fast Track Banner with Authentic Indian Solution Architect */}
-        <div className="mt-16 rounded-3xl p-[2px] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 shadow-xl overflow-hidden text-left">
-          <div className="rounded-[22px] bg-[#0c192c] p-8 sm:p-10 text-white flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
-              <div className="relative shrink-0">
-                <img
-                  src={indianLeadArchitectImg}
-                  alt="Lead Microsoft Dynamics 365 Enterprise Solutions Architect"
-                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover ring-2 ring-blue-400/40 shadow-lg"
-                  referrerPolicy="no-referrer"
-                />
-                <span className="absolute -bottom-2 -right-2 px-2 py-0.5 rounded-md bg-blue-600 text-white text-[10px] font-bold shadow-sm">
-                  Certified
-                </span>
-              </div>
-              <div className="space-y-2 max-w-2xl">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                  <MicrosoftLogo className="w-3.5 h-3.5" />
-                  <span>Accredited Microsoft Solutions Partner Practice</span>
-                </div>
-                <h3 className="text-2xl sm:text-3xl font-extrabold font-heading text-white">
-                  Need a Custom Dynamics 365 Architecture Blueprint?
-                </h3>
-                <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-                  Our Microsoft Certified Solution Architects in New Delhi and Mississauga conduct technical discovery, assess legacy ERP gaps, and structure an outcome-driven milestone delivery plan.
-                </p>
-              </div>
+        <div className="mt-16 rounded-2xl border border-slate-800 bg-[#0c192c] p-8 sm:p-10 text-white shadow-xl overflow-hidden text-left flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
+            <div className="relative shrink-0">
+              <img
+                src={indianLeadArchitectImg}
+                alt="Lead Microsoft Dynamics 365 Enterprise Solutions Architect"
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover ring-2 ring-blue-400/40 shadow-lg"
+                referrerPolicy="no-referrer"
+              />
+              <span className="absolute -bottom-2 -right-2 px-2 py-0.5 rounded-md bg-blue-600 text-white text-[10px] font-bold shadow-sm">
+                Certified
+              </span>
             </div>
-            <button
-              onClick={onOpenContact}
-              className="px-6 py-3.5 rounded-xl font-bold text-sm text-slate-900 bg-white hover:bg-slate-100 shadow-lg flex items-center gap-2 shrink-0 transition cursor-pointer hover:scale-[1.02]"
-            >
-              <span>Schedule Architecture Review</span>
-              <ArrowRight className="w-4 h-4 text-blue-600" />
-            </button>
+            <div className="space-y-2 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                <MicrosoftLogo className="w-3.5 h-3.5" />
+                <span>Accredited Microsoft Solutions Partner Practice</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold font-heading text-white">
+                Need a Custom Dynamics 365 Architecture Blueprint?
+              </h3>
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+                Our Microsoft Certified Solution Architects in New Delhi and Mississauga conduct technical discovery, assess legacy ERP gaps, and structure an outcome-driven milestone delivery plan.
+              </p>
+            </div>
           </div>
+          <button
+            onClick={onOpenContact}
+            className="px-6 py-3.5 rounded-xl font-bold text-sm text-slate-900 bg-white hover:bg-slate-100 shadow-lg flex items-center gap-2 shrink-0 transition cursor-pointer hover:scale-[1.02]"
+          >
+            <span>Schedule Architecture Review</span>
+            <ArrowRight className="w-4 h-4 text-blue-600" />
+          </button>
         </div>
       </div>
     </section>
