@@ -126,7 +126,7 @@ export default function App() {
 
       {/* Page Breadcrumb / Bar for Subpages */}
       {currentPage !== "home" && (
-        <div className="pt-36 pb-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60">
+        <div className="pt-48 sm:pt-40 pb-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60">
           <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-sm">
             <div className="flex items-center gap-2.5 text-slate-500 dark:text-slate-400 min-w-0">
               <button

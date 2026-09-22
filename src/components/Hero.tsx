@@ -36,7 +36,7 @@ export const Hero: React.FC<HeroProps> = ({
   };
 
   return (
-    <section id="hero" className="relative pt-32 sm:pt-52 pb-20 bg-[#fbfcfd] dark:bg-[#0b0f19] border-b border-slate-200/80 dark:border-slate-800/80 text-left overflow-hidden">
+    <section id="hero" className="relative pt-52 sm:pt-52 lg:pt-56 pb-20 bg-[#fbfcfd] dark:bg-[#0b0f19] border-b border-slate-200/80 dark:border-slate-800/80 text-left overflow-hidden">
       {/* Crisp subtle architectural grid */}
       <div
         className="absolute inset-0 opacity-[0.025] dark:opacity-[0.04] pointer-events-none -z-10"

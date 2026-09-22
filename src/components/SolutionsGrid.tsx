@@ -10,6 +10,8 @@ import { SOLUTION_PILLARS } from "../data/coreenactData";
 import { MicrosoftLogo } from "./icons/MicrosoftIcons";
 import indianIndustryOpsImg from "../assets/images/indian_industry_ops_1790050360620.jpg";
 import indianLeadArchitectImg from "../assets/images/indian_lead_architect_1790050330867.jpg";
+import aiAgentInErpImg from "../assets/images/ai_agent_in_erp_1790057992613.jpg";
+import aiOcrScannerImg from "../assets/images/ai_ocr_scanner_1790058020101.jpg";
 
 const PILLAR_BANNER_IMAGES: Record<string, string> = {
   "run-transform": indianIndustryOpsImg,
@@ -34,8 +36,8 @@ const SOLUTION_ITEM_IMAGES: Record<string, string> = {
   "Dynamics 365 Business Central": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
   "Dynamics 365 Finance & Operations": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
   "Dynamics 365 CRM": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
-  "AI Agent in ERP": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-  "AI-OCR Document Recognition": "https://images.unsplash.com/photo-1618042164219-62c820f10723?auto=format&fit=crop&w=800&q=80",
+  "AI Agent in ERP": aiAgentInErpImg,
+  "AI-OCR Document Recognition": aiOcrScannerImg,
   "Power Apps & Power Automate": "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80",
 
   // Data, AI & Insights
