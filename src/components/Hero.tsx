@@ -15,8 +15,12 @@ import {
   CloudCog,
   RefreshCw,
   Coins,
+  Award,
+  Users,
 } from "lucide-react";
 import { MicrosoftLogo, TechIcon } from "./icons/MicrosoftIcons";
+import heroConsultantImg from "../assets/images/hero_d365_consultant_1790047784633.jpg";
+import leadArchitectImg from "../assets/images/lead_architect_portrait_1790047813689.jpg";
 
 interface HeroProps {
   onOpenCalculator?: () => void;
@@ -117,6 +121,33 @@ export const Hero: React.FC<HeroProps> = ({
               </button>
             </div>
 
+            {/* Direct Access to Certified Architects Trust Bar */}
+            <div className="flex flex-wrap items-center gap-3.5 p-3 rounded-2xl bg-white border border-slate-200/80 shadow-xs">
+              <div className="flex -space-x-2 shrink-0">
+                <img
+                  src={leadArchitectImg}
+                  alt="Lead Microsoft Dynamics 365 Enterprise Solutions Architect"
+                  className="w-10 h-10 rounded-full border-2 border-white object-cover shadow-xs"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="w-10 h-10 rounded-full border-2 border-white bg-blue-600 text-white flex items-center justify-center text-xs font-bold shadow-xs">
+                  D365
+                </div>
+                <div className="w-10 h-10 rounded-full border-2 border-white bg-indigo-600 text-white flex items-center justify-center text-xs font-bold shadow-xs">
+                  NAV
+                </div>
+              </div>
+              <div className="text-xs sm:text-sm">
+                <div className="font-bold text-slate-900 flex items-center gap-2">
+                  <span>Direct 1-on-1 Access to Senior Microsoft Architects</span>
+                  <span className="text-amber-500 font-bold tracking-tight">★★★★★</span>
+                </div>
+                <div className="text-slate-600 text-xs mt-0.5">
+                  15+ Years Avg. Experience • 100% Go-Live Track Record Across North America & India
+                </div>
+              </div>
+            </div>
+
             {/* 4 Specialized Business Central Feature Pillars */}
             <div className="pt-2">
               <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-2">
@@ -189,23 +220,67 @@ export const Hero: React.FC<HeroProps> = ({
             className="lg:col-span-5 relative"
           >
             {/* Outer elevated card */}
-            <div className="rounded-3xl p-1 bg-gradient-to-br from-blue-200 via-indigo-200 to-slate-200 shadow-xl">
-              <div className="rounded-[22px] bg-white border border-slate-200/80 p-6 overflow-hidden space-y-5 text-left">
-                {/* Header of Business Central Console */}
-                <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-                    <span className="text-xs font-mono font-bold text-slate-700 ml-1">
-                      Dynamics 365 Business Central Cloud
+            <div className="rounded-3xl p-1 bg-gradient-to-br from-blue-200 via-indigo-200 to-slate-200 shadow-xl overflow-hidden">
+              <div className="rounded-[22px] bg-white border border-slate-200/80 overflow-hidden text-left">
+                {/* Consultant Photographic Showcase */}
+                <div className="relative h-60 sm:h-64 w-full overflow-hidden bg-slate-900 group">
+                  <img
+                    src={heroConsultantImg}
+                    alt="Coreenact Senior Microsoft Dynamics 365 Solutions Consultant in modern enterprise office"
+                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
+
+                  {/* Top Floating Glass Badges */}
+                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white/95 text-blue-900 shadow-md">
+                      <MicrosoftLogo className="w-3.5 h-3.5" />
+                      <span>Certified D365 Architect</span>
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-600/95 text-white shadow-md">
+                      <span className="w-2 h-2 rounded-full bg-white animate-ping" />
+                      <span>Live Advisory</span>
                     </span>
                   </div>
-                  <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-                    Production SaaS
-                  </span>
+
+                  {/* Bottom Photo Overlay Info */}
+                  <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2">
+                    <div>
+                      <div className="text-white font-bold text-sm sm:text-base leading-tight drop-shadow">
+                        Enterprise Solutions Advisory
+                      </div>
+                      <div className="text-blue-200 text-xs mt-0.5 font-medium drop-shadow">
+                        NAV to Cloud Cutover • India GST • 24/7 Managed Care
+                      </div>
+                    </div>
+                    <button
+                      onClick={onOpenContact}
+                      className="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md transition cursor-pointer flex items-center gap-1.5 shrink-0"
+                    >
+                      <span>Connect</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
+
+                {/* Operations & Telemetry Console */}
+                <div className="p-5 sm:p-6 space-y-4">
+                  {/* Header of Business Central Console */}
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+                      <span className="text-xs font-mono font-bold text-slate-700 ml-1">
+                        Dynamics 365 Business Central Cloud
+                      </span>
+                    </div>
+                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+                      Production SaaS
+                    </span>
+                  </div>
 
                 {/* Real-time Business Central Metrics */}
                 <div className="grid grid-cols-2 gap-3">
@@ -285,8 +360,9 @@ export const Hero: React.FC<HeroProps> = ({
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Floating Decorative Badges */}
+          {/* Floating Decorative Badges */}
             <motion.div
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}

@@ -99,20 +99,21 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
       >
         <div className="rounded-[23px] bg-white overflow-hidden border border-slate-200">
           {/* Product-style Hero Image for the Active Service */}
-          <div className="relative w-full h-44 sm:h-56 md:h-64 lg:h-72 overflow-hidden">
+          <div className="relative w-full h-64 sm:h-80 md:h-96 lg:h-[420px] overflow-hidden">
             <img
               src={activeService.image}
               alt={activeService.title}
               className="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
+              referrerPolicy="no-referrer"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/10 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-white/90 text-blue-700 border border-blue-200 mb-2">
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/85 via-slate-900/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 md:p-10">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-white/95 text-blue-700 border border-blue-200 mb-2.5 shadow-xs">
                 <Award className="w-3.5 h-3.5" />
                 <span>{activeService.badge}</span>
               </div>
-              <h2 className="text-xl sm:text-3xl md:text-4xl font-extrabold text-white font-heading drop-shadow-sm">
+              <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-white font-heading drop-shadow-md">
                 {activeService.title}
               </h2>
             </div>
@@ -233,12 +234,13 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
               }`}
             >
               {/* Product-style thumbnail image */}
-              <div className="relative w-full h-40 sm:h-44 overflow-hidden shrink-0">
+              <div className="relative w-full h-56 sm:h-64 overflow-hidden shrink-0">
                 <img
                   src={svc.image}
                   alt={svc.title}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                   loading="lazy"
+                  referrerPolicy="no-referrer"
                 />
                 <div className="absolute top-3 left-3 w-10 h-10 rounded-xl bg-white/95 backdrop-blur border border-blue-200 flex items-center justify-center text-blue-600 shadow-sm">
                   {getIcon(svc.iconName)}

@@ -2,10 +2,16 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --font-sans: 'Calibri', 'Carlito', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  --font-heading: 'Calibri', 'Carlito', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+}
+
 @layer base {
   html {
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
+    font-family: 'Calibri', 'Carlito', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   }
 
   html.dark {
@@ -14,9 +20,9 @@
   }
 
   body {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Calibri', 'Carlito', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
     overflow-x: hidden;
-    font-size: 1rem;
+    font-size: 1.05rem;
     line-height: 1.625;
     color: #1e293b;
     background-color: #ffffff;
@@ -28,9 +34,13 @@
     background-color: #0b0f19;
   }
 
-  h1, h2, h3, .font-heading {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    letter-spacing: -0.02em;
+  h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: 'Calibri', 'Carlito', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    letter-spacing: -0.01em;
+  }
+
+  button, input, select, textarea {
+    font-family: 'Calibri', 'Carlito', 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
   }
 
   code, pre, .font-mono {

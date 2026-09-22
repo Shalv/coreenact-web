@@ -9,9 +9,12 @@ import {
   ShieldCheck,
   TrendingUp,
   Cpu,
+  Award,
+  Layers,
 } from "lucide-react";
 import { ABOUT_COREENACT, COREENACT_CONTACT } from "../data/coreenactData";
 import { MicrosoftLogo, TechIcon } from "./icons/MicrosoftIcons";
+import enterpriseTeamImg from "../assets/images/enterprise_consulting_team_1790047798645.jpg";
 
 interface AboutPageProps {
   onOpenContact: () => void;
@@ -42,13 +45,14 @@ export const AboutPage: React.FC<AboutPageProps> = ({
       </div>
 
       {/* Hero Image Strip */}
-      <div className="relative rounded-3xl overflow-hidden shadow-md max-w-5xl mx-auto h-56 sm:h-72">
+      <div className="relative rounded-3xl overflow-hidden shadow-md max-w-5xl mx-auto h-64 sm:h-80 group">
         <img
-          src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=80"
-          alt="Coreenact enterprise consulting team collaborating"
-          className="w-full h-full object-cover"
+          src={enterpriseTeamImg}
+          alt="Coreenact Microsoft enterprise consulting team in executive board room"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent" />
         <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
           <span className="text-white text-sm sm:text-base font-bold drop-shadow">
             Certified architects. Real Microsoft technology. Measurable outcomes.
@@ -134,6 +138,105 @@ export const AboutPage: React.FC<AboutPageProps> = ({
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Practice Leadership & Enterprise Architects */}
+      <div className="space-y-8">
+        <div className="text-center max-w-2xl mx-auto space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold tracking-wider uppercase">
+            <span>Engineering Leadership</span>
+          </div>
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight font-heading">
+            Enterprise Practice Leaders & Architects
+          </h2>
+          <p className="text-slate-600 text-sm sm:text-base">
+            Every Coreenact engagement is personally guided by certified Microsoft Solution Architects with over a decade of deep ERP engineering experience.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {/* Architect Card 1 */}
+          <div className="rounded-3xl bg-white border border-slate-200 p-7 sm:p-8 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shadow-xs">
+                  <Cpu className="w-6 h-6" />
+                </div>
+                <span className="px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200">
+                  Chief Architect
+                </span>
+              </div>
+              <div>
+                <div className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">
+                  15+ Years NAV & Business Central
+                </div>
+                <h3 className="text-xl font-bold text-slate-900">
+                  Lead Solutions Architect
+                </h3>
+                <p className="text-xs text-slate-500 mt-1 font-semibold flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Microsoft Certified: Dynamics 365 Solutions Architect Expert</span>
+                </p>
+                <p className="text-sm text-slate-600 mt-3 leading-relaxed">
+                  Specialized in large-scale legacy NAV-to-BC database refactoring, multi-entity financial structures, and India GST compliance engines.
+                </p>
+              </div>
+            </div>
+            <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span className="text-xs font-semibold text-emerald-600 flex items-center gap-1">
+                <CheckCircle2 className="w-3.5 h-3.5" /> 20+ Global Go-Lives
+              </span>
+              <button
+                onClick={onOpenContact}
+                className="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 cursor-pointer"
+              >
+                <span>Book Consultation</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
+            </div>
+          </div>
+
+          {/* Architect Card 2 */}
+          <div className="rounded-3xl bg-white border border-slate-200 p-7 sm:p-8 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 shadow-xs">
+                  <Layers className="w-6 h-6" />
+                </div>
+                <span className="px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200">
+                  Principal Advisory
+                </span>
+              </div>
+              <div>
+                <div className="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-1">
+                  Cloud ERP & AI Integration
+                </div>
+                <h3 className="text-xl font-bold text-slate-900">
+                  Principal Advisory Consultant
+                </h3>
+                <p className="text-xs text-slate-500 mt-1 font-semibold flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Microsoft Certified: Power Platform & Dynamics 365 Functional Lead</span>
+                </p>
+                <p className="text-sm text-slate-600 mt-3 leading-relaxed">
+                  Directs manufacturing shop-floor automation, automated supply chain forecasting, and Microsoft Copilot workflows in Business Central.
+                </p>
+              </div>
+            </div>
+            <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <span className="text-xs font-semibold text-emerald-600 flex items-center gap-1">
+                <CheckCircle2 className="w-3.5 h-3.5" /> 100% On-Time Delivery
+              </span>
+              <button
+                onClick={onOpenContact}
+                className="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 cursor-pointer"
+              >
+                <span>Book Consultation</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
