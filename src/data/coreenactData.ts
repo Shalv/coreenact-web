@@ -464,6 +464,37 @@ export const SERVICES_CATALOG: ServiceItem[] = [
       "Lower cost compared to hiring and retaining an in-house ERP team",
     ],
   },
+  {
+    id: "digital-marketing",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    title: "B2B Digital Marketing & Growth Acceleration",
+    subtitle: "Full-Funnel Organic SEO, High-ROAS Paid Ads & Dynamics 365 Marketing Automation",
+    badge: "Revenue Growth",
+    iconName: "TrendingUp",
+    color: "from-blue-600 to-indigo-600",
+    description:
+      "Transform your digital presence into a predictable enterprise pipeline. We deliver data-driven Search Engine Optimization (SEO & GEO), precision Google & LinkedIn ad campaigns, account-based marketing (ABM), and closed-loop Dynamics 365 Customer Insights attribution.",
+    phases: [
+      "Phase 1: 120-Point Technical SEO, Pixel & Competitor Gap Audit",
+      "Phase 2: Target ICP Architecture, High-Intent Keywords & Ad Creative Build",
+      "Phase 3: Multi-Channel Launch: Google Search, LinkedIn ABM & Core Web Vitals",
+      "Phase 4: CRM/ERP Closed-Loop Attribution & Lead-to-Opportunity Sync",
+      "Phase 5: ROAS Scaling, Conversion Rate Optimization (CRO) & Power BI Dashboards",
+    ],
+    deliverables: [
+      "Targeted Inbound B2B Lead Generation (MQL/SQL) Engine",
+      "Technical SEO & Generative Search (GEO) Optimization Blueprint",
+      "High-ROAS Google Ads, LinkedIn & Meta Ads Campaign Architecture",
+      "Microsoft Dynamics 365 Customer Insights & Marketing Journey Setup",
+      "Real-Time Executive Marketing ROI & CAC Dashboards in Power BI",
+    ],
+    benefits: [
+      "Average +310% organic search traffic growth within 12 months",
+      "Average 4.8x verified ROAS on enterprise paid campaigns",
+      "100% closed-loop attribution tracking from first click to ERP invoice",
+    ],
+  },
 ];
 
 export const INDUSTRIES_CATALOG: IndustryItem[] = [

@@ -17,13 +17,13 @@
       (function() {
         try {
           var stored = localStorage.getItem('coreenact_theme');
-          var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-          if (stored === 'dark' || (!stored && prefersDark)) {
+          if (stored === 'dark') {
             document.documentElement.classList.add('dark');
             document.documentElement.setAttribute('data-theme', 'dark');
           } else {
             document.documentElement.classList.remove('dark');
             document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('coreenact_theme', 'light');
           }
         } catch(e) {}
       })();

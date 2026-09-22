@@ -9,12 +9,15 @@ import {
   Sparkles,
   ExternalLink,
   ChevronDown,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { PageType } from "../types";
 import { COREENACT_CONTACT } from "../data/coreenactData";
 import { MicrosoftLogo } from "./icons/MicrosoftIcons";
 import { AddonsListCard } from "./AddonsListCard";
 import { AddonItem } from "../data/addonsData";
+import { useTheme } from "../context/ThemeContext";
 
 interface NavbarProps {
   activePage?: PageType;
@@ -36,6 +39,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [addonsDropdownOpen, setAddonsDropdownOpen] = useState(false);
   const [mobileAddonsOpen, setMobileAddonsOpen] = useState(false);
   const addonsRef = useRef<HTMLDivElement>(null);
+  const { theme, toggleTheme, isDark } = useTheme();
 
   const handlePageClick = (page: PageType) => {
     if (typeof onSelectPage === "function") {
@@ -69,6 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: "home", label: "Home" },
     { id: "solutions", label: "Solutions" },
     { id: "services", label: "Services" },
+    { id: "digital-marketing", label: "Digital Marketing" },
     { id: "industries", label: "Industries" },
     { id: "about", label: "About Us" },
     { id: "case-studies", label: "Case Studies" },
@@ -167,6 +172,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {[
               { id: "solutions", label: "Solutions" },
               { id: "services", label: "Services" },
+              { id: "digital-marketing", label: "Marketing" },
               { id: "industries", label: "Industries" },
               { id: "about", label: "About" },
             ].map((item) => (
@@ -184,8 +190,22 @@ export const Navbar: React.FC<NavbarProps> = ({
             ))}
           </nav>
 
-          {/* Action CTAs: Add-on (with dropdown), Book Consultation (second last), and Support Login (last) */}
+          {/* Action CTAs: Theme Toggle, Add-on, Book Consultation, Support Login */}
           <div className="hidden lg:flex items-center gap-1.5 xl:gap-2 shrink-0">
+            {/* Theme Toggle Button (Light / Dark) */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg text-slate-700 hover:text-blue-600 bg-slate-100 hover:bg-slate-200 border border-slate-200 dark:bg-slate-900 dark:text-slate-300 dark:border-slate-800 dark:hover:bg-slate-800 transition cursor-pointer shrink-0 shadow-2xs"
+              title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              aria-label="Toggle Theme Mode"
+            >
+              {isDark ? (
+                <Sun className="w-4 h-4 text-amber-500 fill-amber-500/20" />
+              ) : (
+                <Moon className="w-4 h-4 text-slate-700" />
+              )}
+            </button>
+
             {/* Add-on Dropdown Menu Button */}
             <div className="relative shrink-0" ref={addonsRef}>
               <button
@@ -248,11 +268,23 @@ export const Navbar: React.FC<NavbarProps> = ({
             </a>
           </div>
 
-          {/* Mobile/Tablet Menu Toggle Button */}
+          {/* Mobile/Tablet Menu Controls */}
           <div className="flex lg:hidden items-center gap-2 shrink-0">
             <button
+              onClick={toggleTheme}
+              className="p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 cursor-pointer"
+              title="Toggle Theme"
+              aria-label="Toggle Theme"
+            >
+              {isDark ? (
+                <Sun className="w-4 h-4 text-amber-500 fill-amber-500/20" />
+              ) : (
+                <Moon className="w-4 h-4 text-slate-700" />
+              )}
+            </button>
+            <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200"
+              className="p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 cursor-pointer"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>

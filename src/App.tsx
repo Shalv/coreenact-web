@@ -10,6 +10,7 @@ import { RoiCalculator } from "./components/RoiCalculator";
 import { CaseStudies } from "./components/CaseStudies";
 import { GlobalHubs } from "./components/GlobalHubs";
 import { TechStackShowcase } from "./components/TechStackShowcase";
+import { DigitalMarketingSection } from "./components/DigitalMarketingSection";
 import { Footer } from "./components/Footer";
 import { ContactModal } from "./components/ContactModal";
 import { AddonsListCard } from "./components/AddonsListCard";
@@ -26,6 +27,7 @@ import {
   ChevronRight,
   Sparkles,
   Layers,
+  TrendingUp,
 } from "lucide-react";
 import { COREENACT_CONTACT } from "./data/coreenactData";
 import heroConsultantImg from "./assets/images/indian_d365_consultant_1790050307568.jpg";
@@ -61,6 +63,7 @@ export default function App() {
         "home",
         "solutions",
         "services",
+        "digital-marketing",
         "industries",
         "about",
         "case-studies",
@@ -169,7 +172,7 @@ export default function App() {
 
             {/* Quick Portal Cards mirroring Coreenact main navigation (Nested Gradient-Bordered Cards) */}
             <div className="py-12 max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#0b0f19]">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
                 {/* 1. Services Catalog Card - Nested Gradient */}
                 <div
                   onClick={() => handleSelectPage("services")}
@@ -254,7 +257,49 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* 3. About Coreenact Card - Nested Gradient */}
+                {/* 3. Digital Marketing Card - Nested Gradient */}
+                <div
+                  onClick={() => handleSelectPage("digital-marketing")}
+                  className="rounded-3xl p-[2px] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 hover:shadow-xl hover:shadow-blue-500/20 transition-all duration-300 cursor-pointer group text-left"
+                >
+                  <div className="rounded-[22px] bg-white dark:bg-slate-900 overflow-hidden flex flex-col h-full">
+                    <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
+                      <img
+                        src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+                        alt="Coreenact Digital Marketing and Growth Acceleration"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
+                      <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-blue-700 dark:text-sky-300 shadow-sm">
+                        Growth Lab
+                      </span>
+                      <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
+                        <span>SEO & Paid ROAS</span>
+                        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+                    <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                      <div>
+                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center mb-3 shadow-sm">
+                          <TrendingUp className="w-4 h-4" />
+                        </div>
+                        <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-sky-400 transition">
+                          Digital Marketing
+                        </h3>
+                        <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+                          Enterprise SEO, Generative Search (GEO), B2B ABM, and Dynamics 365 closed-loop marketing.
+                        </p>
+                      </div>
+                      <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-blue-600 dark:text-sky-400">
+                        <span>Explore Growth Services</span>
+                        <ChevronRight className="w-3.5 h-3.5 ml-1" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 4. About Coreenact Card - Nested Gradient */}
                 <div
                   onClick={() => handleSelectPage("about")}
                   className="rounded-3xl p-[2px] bg-gradient-to-br from-purple-600 via-pink-600 to-indigo-600 hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300 cursor-pointer group text-left"
@@ -372,22 +417,37 @@ export default function App() {
               </div>
             </section>
 
-            {/* 4. Interactive ROI & 3-Year TCO Calculator */}
+            {/* 4. Digital Marketing & Growth Acceleration Section */}
+            <DigitalMarketingSection
+              onOpenContact={handleOpenContact}
+            />
+
+            {/* 5. Interactive ROI & 3-Year TCO Calculator */}
             <RoiCalculator
               onOpenContact={() => setIsContactOpen(true)}
             />
 
-            {/* 5. Enterprise Case Studies */}
+            {/* 6. Enterprise Case Studies */}
             <CaseStudies
               onOpenContact={() => setIsContactOpen(true)}
             />
 
-            {/* 6. Global Hubs & Delivery Centers */}
+            {/* 7. Global Hubs & Delivery Centers */}
             <GlobalHubs
               onGroundLocation={handleGroundLocation}
               onOpenContact={() => setIsContactOpen(true)}
             />
           </>
+        )}
+
+        {currentPage === "digital-marketing" && (
+          <div className="pt-8">
+            <DigitalMarketingSection
+              isStandalonePage={true}
+              onBackHome={() => handleSelectPage("home")}
+              onOpenContact={handleOpenContact}
+            />
+          </div>
         )}
 
         {currentPage === "services" && (

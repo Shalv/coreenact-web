@@ -18,16 +18,14 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     if (typeof window !== "undefined") {
       try {
         const stored = localStorage.getItem("coreenact_theme") as ThemeMode | null;
-        if (stored === "dark" || stored === "light") {
-          return stored;
-        }
-        if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        if (stored === "dark") {
           return "dark";
         }
       } catch {
         // localStorage not available
       }
     }
+    // Default to light theme
     return "light";
   });
 

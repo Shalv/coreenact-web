@@ -42,6 +42,7 @@ export type PageType =
   | 'home'
   | 'solutions'
   | 'services'
+  | 'digital-marketing'
   | 'industries'
   | 'about'
   | 'case-studies'
