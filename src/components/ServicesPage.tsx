@@ -13,6 +13,7 @@ import {
   Calendar,
   Layers,
   Award,
+  TrendingUp,
 } from "lucide-react";
 import { SERVICES_CATALOG } from "../data/coreenactData";
 
@@ -43,6 +44,8 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
         return <Lock className="w-5 h-5" />;
       case "Headphones":
         return <Headphones className="w-5 h-5" />;
+      case "TrendingUp":
+        return <TrendingUp className="w-5 h-5" />;
       default:
         return <Layers className="w-5 h-5" />;
     }

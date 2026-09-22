@@ -68,7 +68,6 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: "home", label: "Home" },
     { id: "solutions", label: "Solutions" },
     { id: "services", label: "Services" },
-    { id: "digital-marketing", label: "Digital Marketing" },
     { id: "industries", label: "Industries" },
     { id: "about", label: "About Us" },
     { id: "case-studies", label: "Case Studies" },
@@ -167,7 +166,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             {[
               { id: "solutions", label: "Solutions" },
               { id: "services", label: "Services" },
-              { id: "digital-marketing", label: "Marketing" },
               { id: "industries", label: "Industries" },
               { id: "about", label: "About" },
             ].map((item) => (
