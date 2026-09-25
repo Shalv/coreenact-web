@@ -15,10 +15,13 @@ import {
 } from "lucide-react";
 import { COREENACT_CONTACT } from "../data/coreenactData";
 import { PageType } from "../types";
-import { MicrosoftLogo } from "./icons/MicrosoftIcons";
-import indianEnterpriseTeamImg from "../assets/images/indian_enterprise_team_1790050320734.jpg";
-import indianLeadArchitectImg from "../assets/images/indian_lead_architect_1790050330867.jpg";
-import indianConsultantImg from "../assets/images/indian_d365_consultant_1790050307568.jpg";
+import { MicrosoftLogo, MicrosoftAppBadge } from "./icons/MicrosoftIcons";
+
+const ADVISOR_AVATARS = [
+  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
+  "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=200&q=80",
+];
 
 interface FooterProps {
   onNavigate?: (page: PageType) => void;
@@ -116,24 +119,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 {/* Team Avatars Credibility Strip */}
                 <div className="flex flex-wrap items-center gap-4 pt-1">
                   <div className="flex -space-x-3 items-center">
-                    <img
-                      src={indianEnterpriseTeamImg}
-                      alt="Coreenact Enterprise Solution Team"
-                      className="w-10 h-10 rounded-full object-cover ring-2 ring-blue-500 shadow-md"
-                      referrerPolicy="no-referrer"
-                    />
-                    <img
-                      src={indianLeadArchitectImg}
-                      alt="Lead Solutions Architect"
-                      className="w-10 h-10 rounded-full object-cover ring-2 ring-indigo-500 shadow-md"
-                      referrerPolicy="no-referrer"
-                    />
-                    <img
-                      src={indianConsultantImg}
-                      alt="Dynamics 365 Senior Consultant"
-                      className="w-10 h-10 rounded-full object-cover ring-2 ring-purple-500 shadow-md"
-                      referrerPolicy="no-referrer"
-                    />
+                    {ADVISOR_AVATARS.map((avatar, idx) => (
+                      <img
+                        key={idx}
+                        src={avatar}
+                        alt="Coreenact Microsoft Solution Advisor"
+                        className="w-10 h-10 rounded-full object-cover ring-2 ring-blue-500 shadow-md"
+                        referrerPolicy="no-referrer"
+                      />
+                    ))}
                   </div>
                   <div className="text-xs text-slate-600 dark:text-slate-300">
                     <span className="font-bold text-slate-900 dark:text-white">20+ Enterprise Rollouts</span>

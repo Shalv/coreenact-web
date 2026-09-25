@@ -351,11 +351,12 @@ Industry Vertical Blueprints:
 8. Chemical & Process Manufacturing: Recipe management, dynamic potency adjustments, hazardous material regulatory compliance.
 9. Professional Services: Project accounting, resource utilization, milestone billing, timesheet tracking.
 
-Licensing & TCO Information:
-- Business Central Cloud Essential: ~$70 per user/month (Full finance, sales, purchasing, inventory, CRM, project management).
-- Business Central Cloud Premium: ~$100 per user/month (Includes all Essential features plus Manufacturing & Service Order Management).
-- Team Member License: ~$8 per user/month (Read access plus lightweight approval, time recording, and quote generation).
-- Implementation Pricing: Scaled according to user count, custom integrations, and data migration scope with transparent fixed-fee or time-and-materials milestones.
+Licensing & TCO Information (Exclusively for Microsoft Dynamics 365 Business Central, Not F&O):
+- Business Central Cloud Essential: ₹6,655 per user/month (~$79 USD) (Full finance, sales, purchasing, inventory, multi-currency, CRM, project management).
+- Business Central Cloud Premium: ₹9,155 per user/month (~$109 USD) (Includes all Essential features plus Manufacturing & Service Order Management).
+- Business Central Device License: ₹3,780 per device/month (~$45 USD) (Shared shop-floor, warehouse scanner, POS terminal).
+- Team Member License: ₹665 per user/month (~$8 USD) (Read access plus lightweight approval, time recording, and quote generation).
+- Implementation Pricing: Fresh Implementation (90-day Turnkey or 45-day Express) & Migration from Dynamics NAV / legacy ERPs scaled by user count and scope. Note: Calibrated specifically for Business Central, not Finance & Operations (F&O).
 `;
 
 /**
@@ -439,18 +440,21 @@ Coreenact specializes in risk-free migrations from legacy on-premise systems (Dy
   }
 
   if (q.includes("price") || q.includes("pricing") || q.includes("cost") || q.includes("license") || q.includes("licensing") || q.includes("tco") || q.includes("essential") || q.includes("premium")) {
-    return `### Microsoft Dynamics 365 Business Central Licensing & Pricing Guide
+    return `### Microsoft Dynamics 365 Business Central Licensing & Pricing Guide (Not F&O)
 
-Coreenact assists organizations with optimal license structuring:
+Coreenact provides transparent pricing and license optimization specifically for Microsoft Dynamics 365 Business Central (not F&O):
 
-- **Business Central Cloud Essential (~$70 per user/month)**:
-  Includes Financial Management (GL, AP, AR, Fixed Assets), Sales & Order Processing, Purchasing & Payables, Inventory Management & Costing, Basic CRM, and Project/Job Accounting.
-- **Business Central Cloud Premium (~$100 per user/month)**:
+- **Business Central Cloud Essential (₹6,655 per user/month | ~$79 USD)**:
+  Includes Financial Management (GL, AP, AR, Fixed Assets), Sales & Order Processing, Purchasing & Payables, Inventory Management & Costing, Multi-currency, Basic CRM, and Project/Job Accounting.
+- **Business Central Cloud Premium (₹9,155 per user/month | ~$109 USD)**:
   Includes everything in Essential plus **Manufacturing** (Production Orders, Bill of Materials, Capacity Planning, Routing) and **Service Order Management** (Service contracts, dispatching, warranty tracking).
-- **Team Member License (~$8 per user/month)**:
+- **Device License (₹3,780 per device/month | ~$45 USD)**:
+  Designed for shared shop-floor terminals, warehouse barcode scanners, and point-of-sale stations.
+- **Team Member License (₹665 per user/month | ~$8 USD)**:
   Designed for lightweight users who need read access across the system, timesheet entry, expense reporting, and purchase quote approval.
-- **Implementation & Services**:
-  Transparent, milestone-based pricing with fixed-price deliverables or time-and-materials arrangements depending on customization complexity.`;
+- **Fresh Implementation & Migration Services**:
+  - Fresh Implementation: Milestone-based 5-Phase framework (90-day Turnkey or 45-day Express).
+  - Migration from Dynamics NAV / legacy systems: FastTrack 60-day cutover with automated C/AL to AL conversion.`;
   }
 
   if (q.includes("office") || q.includes("address") || q.includes("contact") || q.includes("location") || q.includes("phone") || q.includes("email") || q.includes("delhi") || q.includes("canada") || q.includes("where")) {

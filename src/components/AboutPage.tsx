@@ -12,10 +12,10 @@ import {
   Layers,
 } from "lucide-react";
 import { ABOUT_COREENACT, COREENACT_CONTACT } from "../data/coreenactData";
-import { MicrosoftLogo, TechIcon } from "./icons/MicrosoftIcons";
+import { MicrosoftLogo, TechIcon, MicrosoftAppBadge } from "./icons/MicrosoftIcons";
 import enterpriseTeamImg from "../assets/images/indian_enterprise_team_1790050320734.jpg";
-import leadArchitectImg from "../assets/images/indian_lead_architect_1790050330867.jpg";
-import principalConsultantImg from "../assets/images/indian_d365_consultant_1790050307568.jpg";
+import chiefArchitectImg from "../assets/images/lead_architect_portrait_1790047813689.jpg";
+import advisoryLeadImg from "../assets/images/indian_advisory_lead_1790050344886.jpg";
 
 interface AboutPageProps {
   onOpenContact: () => void;
@@ -163,11 +163,15 @@ export const AboutPage: React.FC<AboutPageProps> = ({
               {/* Photo & Header */}
               <div className="relative h-56 w-full overflow-hidden bg-slate-900">
                 <img
-                  src={leadArchitectImg}
+                  src={chiefArchitectImg}
                   alt="Lead Solutions Architect - Coreenact Indian Dynamics 365 Practice"
                   className="w-full h-full object-cover object-top"
+                  referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
+                <div className="absolute top-3 left-3">
+                  <MicrosoftAppBadge app="business-central" />
+                </div>
                 <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between">
                   <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/95 text-blue-900 shadow-md">
                     Chief Architect
@@ -214,11 +218,15 @@ export const AboutPage: React.FC<AboutPageProps> = ({
               {/* Photo & Header */}
               <div className="relative h-56 w-full overflow-hidden bg-slate-900">
                 <img
-                  src={principalConsultantImg}
+                  src={advisoryLeadImg}
                   alt="Principal Advisory Consultant - Coreenact Indian ERP Practice"
                   className="w-full h-full object-cover object-top"
+                  referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
+                <div className="absolute top-3 left-3">
+                  <MicrosoftAppBadge app="copilot" />
+                </div>
                 <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between">
                   <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/95 text-purple-900 shadow-md">
                     Principal Advisory
@@ -355,10 +363,10 @@ export const AboutPage: React.FC<AboutPageProps> = ({
                   <img
                     src={
                       office.city.toLowerCase().includes("delhi")
-                        ? "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=900&q=70"
-                        : "https://images.unsplash.com/photo-1517090504586-fde19ea6066f?auto=format&fit=crop&w=900&q=70"
+                        ? "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=900&q=70"
+                        : "https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?auto=format&fit=crop&w=900&q=70"
                     }
-                    alt={`${office.city} skyline`}
+                    alt={`${office.city} enterprise office`}
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 to-transparent" />

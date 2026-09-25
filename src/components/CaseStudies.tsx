@@ -6,21 +6,21 @@ import {
   Building2,
 } from "lucide-react";
 import { CASE_STUDIES } from "../data/solutionsData";
-import { MicrosoftLogo, TechIcon } from "./icons/MicrosoftIcons";
-import indianEnterpriseTeamImg from "../assets/images/indian_enterprise_team_1790050320734.jpg";
-import indianConsultantImg from "../assets/images/indian_d365_consultant_1790050307568.jpg";
-import indianLeadArchitectImg from "../assets/images/indian_lead_architect_1790050330867.jpg";
+import { MicrosoftLogo, TechIcon, MicrosoftAppBadge } from "./icons/MicrosoftIcons";
 
 const CASE_IMAGES: Record<string, string> = {
-  "logistics-global": indianEnterpriseTeamImg,
-  "medtech-retail": indianConsultantImg,
-  "fintech-enterprise": indianLeadArchitectImg,
+  "logistics-global":
+    "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=80",
+  "medtech-retail":
+    "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1400&q=80",
+  "fintech-enterprise":
+    "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1400&q=80",
 };
 
-const CASE_TECH: Record<string, string[]> = {
-  "logistics-global": ["Dynamics 365", "Copilot", "Power BI"],
-  "medtech-retail": ["Dynamics 365", "Azure", "Power Automate"],
-  "fintech-enterprise": ["Copilot", "Azure", "Dataverse"],
+const CASE_TECH_BADGES: Record<string, Array<"business-central" | "copilot" | "power-bi" | "azure" | "power-automate" | "dataverse">> = {
+  "logistics-global": ["business-central", "copilot", "power-bi"],
+  "medtech-retail": ["business-central", "azure", "power-automate"],
+  "fintech-enterprise": ["business-central", "copilot", "dataverse"],
 };
 
 interface CaseStudiesProps {
@@ -111,14 +111,8 @@ export const CaseStudies: React.FC<CaseStudiesProps> = ({
                     Delivery Partner: Coreenact Microsoft Dynamics 365 Practice
                   </div>
                   <div className="flex flex-wrap items-center gap-2 pt-1">
-                    {(CASE_TECH[activeCase.id] ?? []).map((tech) => (
-                      <span
-                        key={tech}
-                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold text-slate-800 dark:text-slate-200"
-                      >
-                        <TechIcon label={tech} className="w-3.5 h-3.5" />
-                        {tech}
-                      </span>
+                    {(CASE_TECH_BADGES[activeCase.id] ?? ["business-central"]).map((app) => (
+                      <MicrosoftAppBadge key={app} app={app} size="sm" />
                     ))}
                   </div>
                 </div>

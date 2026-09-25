@@ -9,6 +9,7 @@ import {
   Cpu,
   CheckCircle2,
   ArrowRight,
+  ArrowLeft,
   BarChart3,
   Zap,
   Globe2,
@@ -29,17 +30,20 @@ import {
   MARKETING_SPRINT_STEPS,
   MarketingService,
 } from "../data/digitalMarketingData";
+import { MicrosoftAppBadge, MicrosoftLogo } from "./icons/MicrosoftIcons";
 
 interface DigitalMarketingSectionProps {
   onOpenContact: (interest?: string) => void;
   isStandalonePage?: boolean;
   onBackHome?: () => void;
+  onBack?: () => void;
 }
 
 export const DigitalMarketingSection: React.FC<DigitalMarketingSectionProps> = ({
   onOpenContact,
   isStandalonePage = false,
   onBackHome,
+  onBack,
 }) => {
   const [selectedServiceId, setSelectedServiceId] = useState<string>("seo-geo");
   const [currency, setCurrency] = useState<"INR" | "USD">("INR");
@@ -185,12 +189,14 @@ export const DigitalMarketingSection: React.FC<DigitalMarketingSectionProps> = (
         {/* Breadcrumb / Back Link if Standalone Page */}
         {isStandalonePage && (
           <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-            {onBackHome && (
+            {(onBack || onBackHome) && (
               <button
-                onClick={onBackHome}
-                className="hover:text-blue-600 dark:hover:text-sky-400 font-medium cursor-pointer transition"
+                onClick={onBack || onBackHome}
+                className="hover:text-blue-600 dark:hover:text-sky-400 font-medium cursor-pointer transition flex items-center gap-1.5"
+                title="Go back to previous page"
               >
-                Home
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Back</span>
               </button>
             )}
             <ChevronRight className="w-3.5 h-3.5" />
@@ -282,10 +288,8 @@ export const DigitalMarketingSection: React.FC<DigitalMarketingSectionProps> = (
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
                     
                     {/* Floating KPI Badge */}
-                    <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
-                      <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-white/95 dark:bg-slate-900/95 text-blue-700 dark:text-sky-300 shadow-sm border border-slate-200/50">
-                        {selectedService.badge}
-                      </span>
+                    <div className="absolute top-4 left-4 right-4 flex items-center justify-between gap-2">
+                      <MicrosoftAppBadge app="customer-insights" size="sm" />
                       <span className="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-500 text-white shadow-xs">
                         Verified Impact
                       </span>

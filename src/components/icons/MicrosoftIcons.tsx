@@ -197,23 +197,184 @@ export const EntraIcon: React.FC<{ className?: string }> = ({ className = "w-5 h
   </svg>
 );
 
+export const BusinessCentralIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
+  <svg viewBox="0 0 32 32" className={className} aria-label="Microsoft Dynamics 365 Business Central" role="img">
+    <defs>
+      <linearGradient id="bcGrad1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="#00A4EF" />
+        <stop offset="100%" stopColor="#0078D4" />
+      </linearGradient>
+      <linearGradient id="bcGrad2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#0078D4" />
+        <stop offset="100%" stopColor="#004E8C" />
+      </linearGradient>
+      <linearGradient id="bcTeal" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="#00B7C3" />
+        <stop offset="100%" stopColor="#0078D4" />
+      </linearGradient>
+    </defs>
+    <path d="M4 8l12-5 12 5-12 5z" fill="url(#bcTeal)" />
+    <path d="M4 8v16l12 5V13z" fill="url(#bcGrad1)" />
+    <path d="M28 8v16l-12 5V13z" fill="url(#bcGrad2)" opacity="0.9" />
+    <circle cx="16" cy="13" r="2.5" fill="#fff" opacity="0.9" />
+  </svg>
+);
+
+export const DataverseIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
+  <svg viewBox="0 0 32 32" className={className} aria-label="Microsoft Dataverse" role="img">
+    <circle cx="16" cy="16" r="13" fill="#0078D4" opacity="0.15" />
+    <circle cx="16" cy="8" r="4" fill="#0078D4" />
+    <circle cx="9" cy="21" r="4" fill="#107C41" />
+    <circle cx="23" cy="21" r="4" fill="#742774" />
+    <line x1="16" y1="8" x2="9" y2="21" stroke="#0078D4" strokeWidth="2" />
+    <line x1="16" y1="8" x2="23" y2="21" stroke="#0078D4" strokeWidth="2" />
+    <line x1="9" y1="21" x2="23" y2="21" stroke="#0078D4" strokeWidth="2" />
+  </svg>
+);
+
+export const CopilotStudioIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
+  <svg viewBox="0 0 32 32" className={className} aria-label="Microsoft Copilot Studio" role="img">
+    <defs>
+      <linearGradient id="csGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stopColor="#00A4EF" />
+        <stop offset="50%" stopColor="#7B83EB" />
+        <stop offset="100%" stopColor="#B4009E" />
+      </linearGradient>
+    </defs>
+    <rect x="4" y="4" width="24" height="24" rx="6" fill="url(#csGrad)" />
+    <circle cx="12" cy="13" r="2.5" fill="#fff" />
+    <circle cx="20" cy="13" r="2.5" fill="#fff" />
+    <path d="M11 20c1.5 2 3.5 2.5 5 2.5s3.5-.5 5-2.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" fill="none" />
+  </svg>
+);
+
+/**
+ * Reusable official Microsoft Application Badge for cards
+ */
+export const MicrosoftAppBadge: React.FC<{
+  app:
+    | "business-central"
+    | "copilot"
+    | "power-bi"
+    | "power-automate"
+    | "power-apps"
+    | "azure"
+    | "fabric"
+    | "teams"
+    | "dataverse"
+    | "partner"
+    | "d365-crm"
+    | "customer-insights"
+    | "excel"
+    | "entra";
+  className?: string;
+  size?: "sm" | "md";
+}> = ({ app, className = "", size = "sm" }) => {
+  const badgeMap = {
+    "business-central": {
+      name: "Dynamics 365 Business Central",
+      icon: <BusinessCentralIcon className={size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4"} />,
+      bg: "bg-blue-50/95 dark:bg-slate-900/95 text-blue-700 dark:text-sky-300 border-blue-200 dark:border-blue-800",
+    },
+    copilot: {
+      name: "Microsoft Copilot in BC",
+      icon: <CopilotIcon className={size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4"} />,
+      bg: "bg-purple-50/95 dark:bg-slate-900/95 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-800",
+    },
+    "power-bi": {
+      name: "Microsoft Power BI",
+      icon: <PowerBIIcon className={size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4"} />,
+      bg: "bg-amber-50/95 dark:bg-slate-900/95 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800",
+    },
+    "power-automate": {
+      name: "Microsoft Power Automate",
+      icon: <PowerAutomateIcon className={size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4"} />,
+      bg: "bg-sky-50/95 dark:bg-slate-900/95 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800",
+    },
+    "power-apps": {
+      name: "Microsoft Power Apps",
+      icon: <PowerAppsIcon className={size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4"} />,
+      bg: "bg-fuchsia-50/95 dark:bg-slate-900/95 text-fuchsia-700 dark:text-fuchsia-300 border-fuchsia-200 dark:border-fuchsia-800",
+    },
+    azure: {
+      name: "Microsoft Azure Cloud",
+      icon: <AzureIcon className={size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4"} />,
+      bg: "bg-blue-50/95 dark:bg-slate-900/95 text-blue-700 dark:text-sky-300 border-blue-200 dark:border-blue-800",
+    },
+    fabric: {
+      name: "Microsoft Fabric",
+      icon: <FabricIcon className={size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4"} />,
+      bg: "bg-cyan-50/95 dark:bg-slate-900/95 text-cyan-700 dark:text-cyan-300 border-cyan-200 dark:border-cyan-800",
+    },
+    teams: {
+      name: "Microsoft Teams",
+      icon: <TeamsIcon className={size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4"} />,
+      bg: "bg-indigo-50/95 dark:bg-slate-900/95 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800",
+    },
+    dataverse: {
+      name: "Microsoft Dataverse",
+      icon: <DataverseIcon className={size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4"} />,
+      bg: "bg-teal-50/95 dark:bg-slate-900/95 text-teal-700 dark:text-teal-300 border-teal-200 dark:border-teal-800",
+    },
+    partner: {
+      name: "Microsoft Solutions Partner",
+      icon: <MicrosoftLogo className={size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4"} />,
+      bg: "bg-white/95 dark:bg-slate-900/95 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700",
+    },
+    "d365-crm": {
+      name: "Dynamics 365 CRM",
+      icon: <DynamicsIcon className={size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4"} />,
+      bg: "bg-rose-50/95 dark:bg-slate-900/95 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800",
+    },
+    "customer-insights": {
+      name: "Dynamics 365 Customer Insights",
+      icon: <DynamicsIcon className={size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4"} />,
+      bg: "bg-emerald-50/95 dark:bg-slate-900/95 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800",
+    },
+    excel: {
+      name: "Microsoft Excel for BC",
+      icon: <ExcelIcon className={size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4"} />,
+      bg: "bg-emerald-50/95 dark:bg-slate-900/95 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800",
+    },
+    entra: {
+      name: "Microsoft Entra ID",
+      icon: <EntraIcon className={size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4"} />,
+      bg: "bg-sky-50/95 dark:bg-slate-900/95 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800",
+    },
+  };
+
+  const item = badgeMap[app] || badgeMap["business-central"];
+
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border shadow-xs backdrop-blur-sm ${item.bg} ${className}`}
+    >
+      {item.icon}
+      <span>{item.name}</span>
+    </span>
+  );
+};
+
 /** Generic fallback chip for any other Microsoft-ecosystem term. */
 export const MicrosoftGenericIcon: React.FC<{ className?: string }> = ({ className = "w-5 h-5" }) => (
   <MicrosoftLogo className={className} />
 );
 
 const ICON_MAP: Array<{ match: RegExp; Icon: React.FC<{ className?: string }> }> = [
-  { match: /azure|synapse|onelake|entra|purview|defender/i, Icon: AzureIcon },
+  { match: /business central/i, Icon: BusinessCentralIcon },
+  { match: /azure|synapse|onelake|purview|defender/i, Icon: AzureIcon },
   { match: /entra/i, Icon: EntraIcon },
   { match: /power\s*bi/i, Icon: PowerBIIcon },
   { match: /fabric/i, Icon: FabricIcon },
   { match: /power\s*automate/i, Icon: PowerAutomateIcon },
-  { match: /power\s*apps|power\s*pages|dataverse/i, Icon: PowerAppsIcon },
+  { match: /power\s*apps|power\s*pages/i, Icon: PowerAppsIcon },
+  { match: /dataverse/i, Icon: DataverseIcon },
+  { match: /copilot\s*studio/i, Icon: CopilotStudioIcon },
   { match: /copilot|semantic kernel|openai/i, Icon: CopilotIcon },
   { match: /teams/i, Icon: TeamsIcon },
   { match: /excel/i, Icon: ExcelIcon },
   { match: /outlook/i, Icon: OutlookIcon },
-  { match: /dynamics|business central|d365|erp|f&o|finance|supply chain|sales|customer insights/i, Icon: DynamicsIcon },
+  { match: /dynamics|d365|erp|f&o|finance|supply chain|sales|customer insights/i, Icon: DynamicsIcon },
 ];
 
 /**

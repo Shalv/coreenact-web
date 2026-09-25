@@ -19,22 +19,27 @@ import { SOLUTION_PILLARS } from "../data/coreenactData";
 import {
   MicrosoftLogo,
   DynamicsIcon,
+  BusinessCentralIcon,
   CopilotIcon,
   PowerAppsIcon,
   PowerBIIcon,
+  PowerAutomateIcon,
   FabricIcon,
   AzureIcon,
+  TeamsIcon,
+  ExcelIcon,
+  EntraIcon,
+  TechIcon,
+  MicrosoftAppBadge,
 } from "./icons/MicrosoftIcons";
-import indianIndustryOpsImg from "../assets/images/indian_industry_ops_1790050360620.jpg";
-import indianLeadArchitectImg from "../assets/images/indian_lead_architect_1790050330867.jpg";
 
 const PILLAR_BANNER_IMAGES: Record<string, string> = {
-  "run-transform": indianIndustryOpsImg,
-  "data-ai-insights": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80",
-  "scale-localize": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80",
+  "run-transform": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80",
+  "data-ai-insights": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=1600&q=80",
+  "scale-localize": "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1600&q=80",
   "secure-govern": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1600&q=80",
-  "ai-productivity": "https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?auto=format&fit=crop&w=1600&q=80",
-  "edcore-solution": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80",
+  "ai-productivity": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1600&q=80",
+  "edcore-solution": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1600&q=80",
 };
 
 const PILLAR_GRADIENTS: Record<string, string> = {
@@ -48,89 +53,77 @@ const PILLAR_GRADIENTS: Record<string, string> = {
 
 const SOLUTION_ITEM_IMAGES: Record<string, string> = {
   // Run & Transform
-  "Dynamics 365 Business Central": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-  "Dynamics 365 Finance & Operations": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80",
-  "Dynamics 365 CRM": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
-  "AI Agent in ERP": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+  "Dynamics 365 Business Central": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+  "Dynamics 365 Finance & Operations": "https://images.unsplash.com/photo-1580983218765-f663bec07b37?auto=format&fit=crop&w=800&q=80",
+  "Dynamics 365 CRM": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80",
+  "AI Agent in ERP": "https://images.unsplash.com/photo-1535378917042-10a22c95931a?auto=format&fit=crop&w=800&q=80",
   "AI-OCR Document Recognition": "https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=800&q=80",
   "Power Apps & Power Automate": "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80",
 
   // Data, AI & Insights
-  "Power BI Executive Dashboards": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
-  "Jet Reports for Business Central": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+  "Power BI Executive Dashboards": "https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=800&q=80",
+  "Jet Reports for Business Central": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
   "Microsoft Fabric & OneLake": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80",
   "Data & AI Advisory": "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
 
   // Scale & Localize
-  "Global ERP Rollouts": "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80",
-  "India Localization & Statutory Compliance": "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=800&q=80",
+  "Global ERP Rollouts": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80",
+  "India Localization & Statutory Compliance": "https://images.unsplash.com/photo-1532375810709-75b1da00537c?auto=format&fit=crop&w=800&q=80",
   "NAV to Cloud Migration": "https://images.unsplash.com/photo-1619410283995-43d9134e7656?auto=format&fit=crop&w=800&q=80",
 
   // Secure & Govern
-  "Security & Role Governance (RBAC)": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
+  "Security & Role Governance (RBAC)": "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80",
   "ERP Audit & Health Check": "https://images.unsplash.com/photo-1573166364366-3f4f8b1857ea?auto=format&fit=crop&w=800&q=80",
   "24/7 Managed Services & Support": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
 
   // AI & Productivity
   "Microsoft Copilot for Business Central": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
   "Custom Agentic AI Solutions": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-  "Digital Transformation Advisory": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
+  "Digital Transformation Advisory": "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=800&q=80",
 
   // EdCore
-  "Student Lifecycle & Admissions": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80",
+  "Student Lifecycle & Admissions": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80",
   "Automated Fee & Financial Accounting": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80",
   "Academic Planning & Timetable Engine": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
   "Integrated LMS & Student Portal": "https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&w=800&q=80",
 };
 
-/** Helper to render authentic, best-in-class icons for each solution item */
+/** Helper to render authentic, best-in-class Microsoft product icons for each solution item */
 const getSolutionItemIcon = (name: string) => {
-  if (name.includes("Dynamics") || name.includes("Business Central")) {
-    return <DynamicsIcon className="w-3.5 h-3.5 shrink-0" />;
+  if (name.includes("Business Central") || name.includes("NAV")) {
+    return <BusinessCentralIcon className="w-4 h-4 shrink-0" />;
   }
-  if (name.includes("Copilot")) {
-    return <CopilotIcon className="w-3.5 h-3.5 shrink-0" />;
+  if (name.includes("Dynamics") || name.includes("CRM") || name.includes("ERP")) {
+    return <DynamicsIcon className="w-4 h-4 shrink-0" />;
   }
-  if (name.includes("Agent")) {
-    return <Bot className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
+  if (name.includes("Copilot") || name.includes("AI Agent") || name.includes("Agentic")) {
+    return <CopilotIcon className="w-4 h-4 shrink-0" />;
   }
-  if (name.includes("OCR")) {
-    return <ScanText className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
+  if (name.includes("Power Apps")) {
+    return <PowerAppsIcon className="w-4 h-4 shrink-0" />;
   }
-  if (name.includes("Power Apps") || name.includes("Power Automate")) {
-    return <PowerAppsIcon className="w-3.5 h-3.5 shrink-0" />;
+  if (name.includes("Power Automate")) {
+    return <PowerAutomateIcon className="w-4 h-4 shrink-0" />;
   }
   if (name.includes("Power BI")) {
-    return <PowerBIIcon className="w-3.5 h-3.5 shrink-0" />;
+    return <PowerBIIcon className="w-4 h-4 shrink-0" />;
   }
   if (name.includes("Fabric") || name.includes("OneLake")) {
-    return <FabricIcon className="w-3.5 h-3.5 shrink-0" />;
+    return <FabricIcon className="w-4 h-4 shrink-0" />;
   }
-  if (name.includes("Azure") || name.includes("Synapse")) {
-    return <AzureIcon className="w-3.5 h-3.5 shrink-0" />;
+  if (name.includes("Azure") || name.includes("Synapse") || name.includes("Cloud")) {
+    return <AzureIcon className="w-4 h-4 shrink-0" />;
   }
-  if (name.includes("Security") || name.includes("Governance")) {
-    return <ShieldCheck className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
+  if (name.includes("Security") || name.includes("Governance") || name.includes("RBAC")) {
+    return <EntraIcon className="w-4 h-4 shrink-0" />;
   }
-  if (name.includes("Managed") || name.includes("Support") || name.includes("Audit")) {
-    return <Headphones className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
+  if (name.includes("Jet Reports") || name.includes("Accounting") || name.includes("Financial")) {
+    return <ExcelIcon className="w-4 h-4 shrink-0" />;
   }
-  if (name.includes("Global")) {
-    return <Globe2 className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
+  if (name.includes("LMS") || name.includes("Student") || name.includes("Academic")) {
+    return <TeamsIcon className="w-4 h-4 shrink-0" />;
   }
-  if (name.includes("India") || name.includes("Localization") || name.includes("Statutory")) {
-    return <Building2 className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
-  }
-  if (name.includes("Student") || name.includes("Admissions") || name.includes("Academic")) {
-    return <GraduationCap className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
-  }
-  if (name.includes("Fee") || name.includes("Accounting")) {
-    return <FileCheck className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
-  }
-  if (name.includes("LMS") || name.includes("Portal")) {
-    return <Laptop className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
-  }
-  return <Cpu className="w-3.5 h-3.5 shrink-0 text-blue-600 dark:text-sky-400" />;
+  return <MicrosoftLogo className="w-4 h-4 shrink-0" />;
 };
 
 const ITEM_TAGS: Record<string, string> = {
@@ -225,7 +218,7 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
         {/* Pillars Showcase with Images */}
         <div className="space-y-16">
           {currentPillars.map((pillar) => {
-            const bannerImage = PILLAR_BANNER_IMAGES[pillar.id] || indianIndustryOpsImg;
+            const bannerImage = PILLAR_BANNER_IMAGES[pillar.id] || PILLAR_BANNER_IMAGES["run-transform"];
 
             return (
               <div
@@ -308,7 +301,7 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
                       {pillar.items.map((item, itemIdx) => {
                         const itemImg =
                           SOLUTION_ITEM_IMAGES[item.name] ||
-                          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80";
+                          "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80";
                         const tag = ITEM_TAGS[item.name] || pillar.badge;
                         const isEdCore = pillar.id === "edcore-solution";
 
@@ -336,6 +329,12 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
                                   referrerPolicy="no-referrer"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent" />
+                                <div className="absolute top-3 left-3">
+                                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-950/80 text-white backdrop-blur-md border border-white/20 shadow-xs">
+                                    <MicrosoftLogo className="w-3 h-3" />
+                                    <span>Microsoft Cloud</span>
+                                  </span>
+                                </div>
                                 <div className="absolute top-3 right-3">
                                   <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-white/95 dark:bg-slate-900/95 text-blue-700 dark:text-sky-300 shadow-xs backdrop-blur-xs flex items-center gap-1.5">
                                     {getSolutionItemIcon(item.name)}
@@ -410,14 +409,11 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
         <div className="mt-16 rounded-2xl border border-slate-800 bg-[#0c192c] p-8 sm:p-10 text-white shadow-xl overflow-hidden text-left flex flex-col lg:flex-row items-center justify-between gap-8">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
             <div className="relative shrink-0">
-              <img
-                src={indianLeadArchitectImg}
-                alt="Lead Microsoft Dynamics 365 Enterprise Solutions Architect"
-                className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover ring-2 ring-blue-400/40 shadow-lg"
-                referrerPolicy="no-referrer"
-              />
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-white text-slate-900 border-2 border-blue-400/40 flex items-center justify-center p-3 shadow-lg">
+                <MicrosoftLogo className="w-12 h-12" />
+              </div>
               <span className="absolute -bottom-2 -right-2 px-2 py-0.5 rounded-md bg-blue-600 text-white text-[10px] font-bold shadow-sm">
-                Certified
+                Solutions Partner
               </span>
             </div>
             <div className="space-y-2 max-w-2xl">

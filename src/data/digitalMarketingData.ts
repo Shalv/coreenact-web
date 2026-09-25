@@ -31,7 +31,7 @@ export const DIGITAL_MARKETING_SERVICES: MarketingService[] = [
     badge: "Organic Growth",
     icon: "Search",
     accentColor: "from-blue-600 to-cyan-600",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1571721795195-a2ca2d3370a9?auto=format&fit=crop&w=1200&q=80",
     description:
       "Dominate search results across Google, Bing, and new AI-powered search engines (Perplexity, ChatGPT Search, Google Gemini). We build high-converting organic engines powered by deep technical health, high-intent keyword clustering, and authoritative digital PR.",
     keyFeatures: [
@@ -59,7 +59,7 @@ export const DIGITAL_MARKETING_SERVICES: MarketingService[] = [
     badge: "Paid Acquisition",
     icon: "TrendingUp",
     accentColor: "from-emerald-600 to-teal-600",
-    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1533750516457-a7f992034fec?auto=format&fit=crop&w=1200&q=80",
     description:
       "Maximize return on ad spend (ROAS) through tightly targeted paid campaigns. From Google Search capturing bottom-of-funnel buyers to LinkedIn Ads targeting verified C-level executives in India, North America, and the Middle East.",
     keyFeatures: [
@@ -87,7 +87,7 @@ export const DIGITAL_MARKETING_SERVICES: MarketingService[] = [
     badge: "Enterprise Pipeline",
     icon: "Target",
     accentColor: "from-purple-600 to-indigo-600",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80",
     description:
       "Win high-value enterprise accounts with tailored 1:1 and 1:few ABM programs. We identify your Ideal Customer Profile (ICP), map out key buying committees, and coordinate hyper-personalized outreach across digital touchpoints.",
     keyFeatures: [
@@ -171,7 +171,7 @@ export const DIGITAL_MARKETING_SERVICES: MarketingService[] = [
     badge: "MarTech & Data",
     icon: "Cpu",
     accentColor: "from-cyan-600 to-blue-700",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=1200&q=80",
     description:
       "Eliminate lead leakage by bridging your marketing engine with your ERP/CRM core. We design automated lead nurture flows in Microsoft Dynamics 365 Customer Insights or HubSpot, track closed-loop revenue, and deliver Power BI dashboards.",
     keyFeatures: [

@@ -17,19 +17,30 @@ import {
   Layers,
 } from "lucide-react";
 import { INDUSTRIES_CATALOG } from "../data/coreenactData";
-import { DynamicsIcon, MicrosoftLogo } from "./icons/MicrosoftIcons";
-import indianIndustryOpsImg from "../assets/images/indian_industry_ops_1790050360620.jpg";
+import { DynamicsIcon, MicrosoftLogo, MicrosoftAppBadge } from "./icons/MicrosoftIcons";
 
 const INDUSTRY_IMAGES: Record<string, string> = {
-  manufacturing: indianIndustryOpsImg,
+  manufacturing: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1400&q=75",
   fmcg: "https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1400&q=75",
   retail: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1400&q=75",
   education: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1400&q=75",
-  "professional-services": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=75",
+  "professional-services": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1400&q=75",
   construction: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1400&q=75",
   "maritime-logistics": "https://images.unsplash.com/photo-1494412651409-8963ce7935a7?auto=format&fit=crop&w=1400&q=75",
   healthcare: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1400&q=75",
   distribution: "https://images.unsplash.com/photo-1601599963565-b7f49b9c68ba?auto=format&fit=crop&w=1400&q=75",
+};
+
+const INDUSTRY_MS_APP: Record<string, "business-central" | "power-bi" | "copilot" | "teams" | "power-apps" | "azure" | "dataverse" | "power-automate"> = {
+  manufacturing: "business-central",
+  fmcg: "power-bi",
+  retail: "business-central",
+  education: "business-central",
+  "professional-services": "teams",
+  construction: "power-apps",
+  "maritime-logistics": "azure",
+  healthcare: "dataverse",
+  distribution: "power-automate",
 };
 
 interface IndustriesPageProps {
@@ -129,6 +140,9 @@ export const IndustriesPage: React.FC<IndustriesPageProps> = ({
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/30 to-transparent" />
+            <div className="absolute top-5 left-5 z-10">
+              <MicrosoftAppBadge app={INDUSTRY_MS_APP[activeIndustry.id] || "business-central"} size="md" />
+            </div>
             <span className="absolute top-5 right-5 inline-flex items-center gap-2 bg-white/95 dark:bg-slate-900/95 px-3.5 py-1.5 rounded-full shadow-md backdrop-blur-xs">
               <MicrosoftLogo className="w-4 h-4" />
               <span className="text-xs font-bold text-slate-800 dark:text-slate-200">Built on Dynamics 365</span>
@@ -270,6 +284,9 @@ export const IndustriesPage: React.FC<IndustriesPageProps> = ({
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+                <div className="absolute top-3 left-3 z-10">
+                  <MicrosoftAppBadge app={INDUSTRY_MS_APP[ind.id] || "business-central"} size="sm" />
+                </div>
                 <div className="absolute top-3 right-3">
                   <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-white/90 dark:bg-slate-900/90 text-blue-700 dark:text-sky-300 shadow-xs backdrop-blur-xs">
                     {ind.resultMetric.value}

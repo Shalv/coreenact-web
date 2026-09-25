@@ -14,7 +14,7 @@ import {
   Layers,
 } from "lucide-react";
 import { MicrosoftLogo, TechIcon, CopilotIcon } from "./icons/MicrosoftIcons";
-import heroConsultantImg from "../assets/images/indian_d365_consultant_1790050307568.jpg";
+import heroConsultantImg from "../assets/images/hero_d365_consultant_1790047784633.jpg";
 import leadArchitectImg from "../assets/images/indian_lead_architect_1790050330867.jpg";
 
 interface HeroProps {
@@ -58,7 +58,7 @@ export const Hero: React.FC<HeroProps> = ({
             <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs">
               <MicrosoftLogo className="w-4 h-4 shrink-0" />
               <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 tracking-normal">
-                Designated Microsoft Solutions Partner
+                Microsoft Solutions Partner
               </span>
               <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">|</span>
               <span className="text-xs text-[#005a9e] dark:text-sky-400 font-semibold hidden sm:inline">

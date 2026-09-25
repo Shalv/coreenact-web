@@ -14,6 +14,7 @@ import {
   ChevronRight,
   Layers,
 } from "lucide-react";
+import { BusinessCentralIcon, MicrosoftLogo } from "./icons/MicrosoftIcons";
 
 interface AddonsListCardProps {
   onSelectAddon?: (addon: AddonItem) => void;
@@ -84,18 +85,19 @@ export const AddonsListCard: React.FC<AddonsListCardProps> = ({
       {/* Header Bar */}
       <div className="px-5 py-3.5 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
-          <span className="w-2.5 h-2.5 bg-[#005a9e] dark:bg-sky-400 inline-block rounded-xs" />
+          <BusinessCentralIcon className="w-5 h-5 shrink-0" />
           <div>
             <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight flex items-center gap-2">
-              <span>Business Central Add-ons</span>
+              <span>Dynamics 365 Business Central Add-ons</span>
             </h3>
             <p className="text-[11px] text-slate-500 dark:text-slate-400">
-              Plug & play enterprise extensions for Dynamics 365 BC
+              Plug & play enterprise AL extensions for Microsoft D365 BC
             </p>
           </div>
         </div>
-        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
-          9 Modules
+        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-sky-300 border border-blue-200 dark:border-blue-800 flex items-center gap-1">
+          <MicrosoftLogo className="w-3 h-3" />
+          <span>9 Modules</span>
         </span>
       </div>
 
@@ -127,9 +129,12 @@ export const AddonsListCard: React.FC<AddonsListCardProps> = ({
                 </span>
                 <ChevronRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#005a9e] dark:group-hover:text-sky-400 group-hover:translate-x-0.5 transition-all shrink-0" />
               </div>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
-                {getAddonBadge(addon.id)}
-              </p>
+              <div className="flex items-center gap-1 mt-0.5">
+                <BusinessCentralIcon className="w-2.5 h-2.5 shrink-0" />
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                  {getAddonBadge(addon.id)} • BC Extension
+                </p>
+              </div>
             </div>
           </button>
         ))}

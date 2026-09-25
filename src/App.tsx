@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
 import { SolutionsGrid } from "./components/SolutionsGrid";
@@ -29,13 +29,57 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { COREENACT_CONTACT } from "./data/coreenactData";
-import heroConsultantImg from "./assets/images/indian_d365_consultant_1790050307568.jpg";
-import enterpriseTeamImg from "./assets/images/indian_enterprise_team_1790050320734.jpg";
-import leadArchitectImg from "./assets/images/indian_lead_architect_1790050330867.jpg";
+import { MicrosoftAppBadge } from "./components/icons/MicrosoftIcons";
+import consultantConsultingImg from "./assets/images/indian_d365_consultant_1790050307568.jpg";
+import industryOpsCardImg from "./assets/images/indian_industry_ops_1790050360620.jpg";
+import globalConsultingTeamImg from "./assets/images/enterprise_consulting_team_1790047798645.jpg";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageType>("home");
+  const [historyStack, setHistoryStack] = useState<PageType[]>(["home"]);
   const [isContactOpen, setIsContactOpen] = useState(false);
+
+  // Sync with browser popstate event while keeping URL address clean
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      const targetPage: PageType = event.state?.page || "home";
+      setCurrentPage(targetPage);
+      setHistoryStack((prev) => {
+        const idx = prev.lastIndexOf(targetPage);
+        if (idx !== -1) {
+          return prev.slice(0, idx + 1);
+        }
+        return [...prev, targetPage];
+      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  const formatPageTitle = (page: PageType): string => {
+    switch (page) {
+      case "home":
+        return "Home";
+      case "solutions":
+        return "Solutions";
+      case "services":
+        return "Services";
+      case "digital-marketing":
+        return "Digital Marketing";
+      case "industries":
+        return "Industries";
+      case "about":
+        return "About Us";
+      case "case-studies":
+        return "Case Studies";
+      case "contact":
+        return "Contact Us";
+      default:
+        return (page as string).replace("-", " ");
+    }
+  };
 
   // Add-on states
   const [selectedAddon, setSelectedAddon] = useState<AddonItem | null>(null);
@@ -55,6 +99,43 @@ export default function App() {
     setIsAddonDetailOpen(true);
   };
 
+  const handleSelectPage = (page: PageType) => {
+    if (page === currentPage) return;
+    setHistoryStack((prev) => {
+      if (prev[prev.length - 1] === page) return prev;
+      return [...prev, page];
+    });
+    setCurrentPage(page);
+    try {
+      window.history.pushState({ page }, "", window.location.href);
+    } catch {}
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleGoBack = () => {
+    if (historyStack.length > 1) {
+      const newStack = [...historyStack];
+      newStack.pop(); // Remove current page
+      const prevPage = newStack[newStack.length - 1] || "home";
+      setHistoryStack(newStack);
+      setCurrentPage(prevPage);
+      try {
+        window.history.replaceState({ page: prevPage }, "", window.location.href);
+      } catch {}
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      setHistoryStack(["home"]);
+      setCurrentPage("home");
+      try {
+        window.history.replaceState({ page: "home" }, "", window.location.href);
+      } catch {}
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const previousPage: PageType =
+    historyStack.length > 1 ? historyStack[historyStack.length - 2] : "home";
+
   const handleNavigate = (target: string) => {
     // If target matches a page type, switch page
     if (
@@ -69,14 +150,13 @@ export default function App() {
         "contact",
       ].includes(target)
     ) {
-      setCurrentPage(target as PageType);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      handleSelectPage(target as PageType);
       return;
     }
 
     // Otherwise scroll to section on current page
     if (currentPage !== "home") {
-      setCurrentPage("home");
+      handleSelectPage("home");
       setTimeout(() => {
         const el = document.getElementById(target);
         if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -85,11 +165,6 @@ export default function App() {
       const el = document.getElementById(target);
       if (el) el.scrollIntoView({ behavior: "smooth" });
     }
-  };
-
-  const handleSelectPage = (page: PageType) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleGroundLocation = (cityName: string) => {
@@ -127,17 +202,50 @@ export default function App() {
       {currentPage !== "home" && (
         <div className="pt-48 sm:pt-40 pb-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60">
           <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-sm">
-            <div className="flex items-center gap-2.5 text-slate-500 dark:text-slate-400 min-w-0">
+            <div className="flex items-center gap-2.5 sm:gap-3 text-slate-500 dark:text-slate-400 min-w-0">
               <button
-                onClick={() => handleSelectPage("home")}
-                className="hover:text-blue-600 dark:hover:text-sky-400 transition flex items-center gap-1.5 font-semibold cursor-pointer shrink-0"
+                onClick={handleGoBack}
+                className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-sky-400 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-sky-400 font-semibold transition-all shadow-2xs cursor-pointer shrink-0"
+                title={previousPage ? `Back to ${formatPageTitle(previousPage)}` : "Go back"}
+                aria-label={previousPage ? `Back to ${formatPageTitle(previousPage)}` : "Go back"}
               >
-                <ArrowLeft className="w-4 h-4" />
-                <span>Home</span>
+                <ArrowLeft className="w-4 h-4 text-blue-600 dark:text-sky-400 group-hover:-translate-x-0.5 transition-transform shrink-0" />
+                <span>Back</span>
+                {previousPage && previousPage !== "home" && (
+                  <span className="hidden sm:inline text-xs font-normal text-slate-400 dark:text-slate-500">
+                    to {formatPageTitle(previousPage)}
+                  </span>
+                )}
               </button>
-              <ChevronRight className="w-4 h-4 text-slate-400 dark:text-slate-600 shrink-0" />
-              <span className="text-blue-700 dark:text-sky-400 font-bold capitalize font-mono text-sm truncate">
-                {currentPage.replace("-", " ")}
+
+              <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
+
+              <div className="hidden sm:flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+                <button
+                  onClick={() => handleSelectPage("home")}
+                  className="hover:text-blue-600 dark:hover:text-sky-400 font-medium cursor-pointer transition"
+                >
+                  Home
+                </button>
+                {previousPage && previousPage !== "home" && (
+                  <>
+                    <ChevronRight className="w-3.5 h-3.5 text-slate-400 dark:text-slate-600 shrink-0" />
+                    <button
+                      onClick={() => handleSelectPage(previousPage)}
+                      className="hover:text-blue-600 dark:hover:text-sky-400 font-medium cursor-pointer transition"
+                    >
+                      {formatPageTitle(previousPage)}
+                    </button>
+                  </>
+                )}
+                <ChevronRight className="w-3.5 h-3.5 text-slate-400 dark:text-slate-600 shrink-0" />
+                <span className="text-blue-700 dark:text-sky-400 font-bold capitalize font-mono text-sm truncate">
+                  {formatPageTitle(currentPage)}
+                </span>
+              </div>
+
+              <span className="sm:hidden text-blue-700 dark:text-sky-400 font-bold capitalize font-mono text-xs truncate">
+                {formatPageTitle(currentPage)}
               </span>
             </div>
 
@@ -179,15 +287,15 @@ export default function App() {
                 >
                   <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
                     <img
-                      src={heroConsultantImg}
-                      alt="Coreenact Indian Microsoft Dynamics 365 Solutions Consulting"
+                      src={consultantConsultingImg}
+                      alt="Coreenact Microsoft Dynamics 365 Business Central Practice Consultant"
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                       referrerPolicy="no-referrer"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
-                    <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-blue-700 dark:text-sky-300 shadow-sm">
-                      Services Catalog
-                    </span>
+                    <div className="absolute top-3 left-3">
+                      <MicrosoftAppBadge app="business-central" />
+                    </div>
                     <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
                       <span>D365 & NAV Migrations</span>
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -219,15 +327,15 @@ export default function App() {
                 >
                   <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
                     <img
-                      src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80"
-                      alt="Manufacturing and logistics warehouse automation with Microsoft Dynamics 365"
+                      src={industryOpsCardImg}
+                      alt="Manufacturing and discrete engineering operations with Business Central"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       referrerPolicy="no-referrer"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
-                    <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-emerald-700 dark:text-emerald-300 shadow-sm">
-                      Industry Blueprints
-                    </span>
+                    <div className="absolute top-3 left-3">
+                      <MicrosoftAppBadge app="power-bi" />
+                    </div>
                     <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
                       <span>9 Domain Frameworks</span>
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -259,15 +367,15 @@ export default function App() {
                 >
                   <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
                     <img
-                      src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+                      src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80"
                       alt="Coreenact Digital Marketing and Growth Acceleration"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       referrerPolicy="no-referrer"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
-                    <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-blue-700 dark:text-sky-300 shadow-sm">
-                      Growth Lab
-                    </span>
+                    <div className="absolute top-3 left-3">
+                      <MicrosoftAppBadge app="customer-insights" />
+                    </div>
                     <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
                       <span>SEO & Paid ROAS</span>
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -299,15 +407,15 @@ export default function App() {
                 >
                   <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
                     <img
-                      src={enterpriseTeamImg}
-                      alt="Coreenact Microsoft enterprise consulting Indian team"
+                      src={globalConsultingTeamImg}
+                      alt="Coreenact Microsoft enterprise consulting team in executive session"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       referrerPolicy="no-referrer"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
-                    <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-purple-700 dark:text-purple-300 shadow-sm">
-                      Consulting Practice
-                    </span>
+                    <div className="absolute top-3 left-3">
+                      <MicrosoftAppBadge app="partner" />
+                    </div>
                     <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
                       <span>15+ Years NAV Mastery</span>
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -339,15 +447,15 @@ export default function App() {
                 >
                   <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
                     <img
-                      src={leadArchitectImg}
-                      alt="Coreenact Lead Microsoft Solutions Indian Architect"
+                      src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80"
+                      alt="Coreenact Lead Microsoft Solutions Architect & Global Delivery Hub"
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                       referrerPolicy="no-referrer"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
-                    <span className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-bold bg-white/95 dark:bg-slate-900/95 text-amber-700 dark:text-amber-300 shadow-sm">
-                      Global Advisory
-                    </span>
+                    <div className="absolute top-3 left-3">
+                      <MicrosoftAppBadge app="azure" />
+                    </div>
                     <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
                       <span>Delhi & Mississauga</span>
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -413,7 +521,9 @@ export default function App() {
 
             {/* 5. Interactive ROI & 3-Year TCO Calculator */}
             <RoiCalculator
-              onOpenContact={() => setIsContactOpen(true)}
+              onOpenContact={(interest) =>
+                handleOpenContact(interest || "Dynamics 365 Business Central Licensing & ROI")
+              }
             />
 
             {/* 6. Enterprise Case Studies */}
@@ -433,7 +543,8 @@ export default function App() {
           <div className="pt-8">
             <DigitalMarketingSection
               isStandalonePage={true}
-              onBackHome={() => handleSelectPage("home")}
+              onBack={handleGoBack}
+              onBackHome={handleGoBack}
               onOpenContact={handleOpenContact}
             />
           </div>

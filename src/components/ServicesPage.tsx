@@ -16,6 +16,18 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { SERVICES_CATALOG } from "../data/coreenactData";
+import { MicrosoftAppBadge, MicrosoftLogo } from "./icons/MicrosoftIcons";
+
+const SERVICE_MS_APP: Record<string, "business-central" | "azure" | "partner" | "teams" | "power-bi"> = {
+  "erp-consulting": "business-central",
+  "nav-migration": "azure",
+  "erp-audit": "partner",
+  "global-rollouts": "teams",
+  "india-localization": "business-central",
+  "security-governance": "azure",
+  "managed-services": "partner",
+  "digital-marketing": "power-bi",
+};
 
 interface ServicesPageProps {
   onOpenContact: () => void;
@@ -110,6 +122,9 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
               referrerPolicy="no-referrer"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-transparent" />
+            <div className="absolute top-4 right-4 z-10">
+              <MicrosoftAppBadge app={SERVICE_MS_APP[activeService.id] || "business-central"} size="md" />
+            </div>
             <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 md:p-10">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded text-xs font-semibold bg-white dark:bg-slate-900 text-[#005a9e] dark:text-sky-400 mb-2.5 shadow-xs">
                 <Award className="w-3.5 h-3.5" />
@@ -246,6 +261,9 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                 />
                 <div className="absolute top-3 left-3 w-10 h-10 rounded-xl bg-white/95 backdrop-blur border border-blue-200 flex items-center justify-center text-blue-600 shadow-sm">
                   {getIcon(svc.iconName)}
+                </div>
+                <div className="absolute top-3 right-3">
+                  <MicrosoftAppBadge app={SERVICE_MS_APP[svc.id] || "business-central"} size="sm" />
                 </div>
               </div>
 
