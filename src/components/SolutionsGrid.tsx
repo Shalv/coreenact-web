@@ -219,6 +219,7 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
         <div className="space-y-16">
           {currentPillars.map((pillar) => {
             const bannerImage = PILLAR_BANNER_IMAGES[pillar.id] || PILLAR_BANNER_IMAGES["run-transform"];
+            const isFourCards = pillar.items.length === 4;
 
             return (
               <div
@@ -283,18 +284,22 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
                       {pillar.description}
                     </p>
 
-                    {/* Mobile swipe hint for single-line EdCore cards */}
-                    {pillar.id === "edcore-solution" && (
-                      <div className="flex lg:hidden items-center gap-1.5 text-xs font-semibold text-rose-600 dark:text-rose-400">
-                        <span>Swipe horizontally to view all 4 institutional modules in a single line →</span>
+                    {/* Mobile swipe hint for single-line 4-card pillars */}
+                    {isFourCards && (
+                      <div className="flex lg:hidden items-center gap-1.5 text-xs font-semibold text-blue-600 dark:text-sky-400">
+                        <span>
+                          {pillar.id === "edcore-solution"
+                            ? "Swipe horizontally to view all 4 institutional modules in a single line →"
+                            : "Swipe horizontally to view all 4 capability modules in a single line →"}
+                        </span>
                       </div>
                     )}
 
                     {/* Capability Item Cards Grid with Images */}
                     <div
                       className={
-                        pillar.id === "edcore-solution"
-                          ? "flex lg:grid overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 gap-5 snap-x snap-mandatory lg:grid-cols-4 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-800"
+                        isFourCards
+                          ? "flex lg:grid overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 gap-4 xl:gap-5 snap-x snap-mandatory lg:grid-cols-4 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-800"
                           : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
                       }
                     >
@@ -309,8 +314,8 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
                           <div
                             key={itemIdx}
                             className={`rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-lg transition-all duration-300 flex flex-col justify-between overflow-hidden group text-left ${
-                              isEdCore
-                                ? "w-[82vw] sm:w-[320px] lg:w-auto shrink-0 lg:shrink snap-center"
+                              isFourCards
+                                ? "w-[80vw] sm:w-[290px] lg:w-auto shrink-0 lg:shrink snap-center"
                                 : ""
                             }`}
                           >
@@ -318,7 +323,7 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
                               {/* Card Image Thumbnail */}
                               <div
                                 className={`${
-                                  isEdCore ? "h-40 sm:h-44 xl:h-48" : "h-48 sm:h-52"
+                                  isFourCards ? "h-36 sm:h-40 xl:h-44" : "h-48 sm:h-52"
                                 } w-full overflow-hidden relative bg-slate-900`}
                               >
                                 <img
@@ -342,7 +347,11 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
                                   </span>
                                 </div>
                                 <div className="absolute bottom-3 left-4 right-4">
-                                  <h4 className="text-white font-extrabold text-sm sm:text-base xl:text-lg drop-shadow-sm leading-snug">
+                                  <h4
+                                    className={`text-white font-extrabold ${
+                                      isFourCards ? "text-sm sm:text-base" : "text-sm sm:text-base xl:text-lg"
+                                    } drop-shadow-sm leading-snug`}
+                                  >
                                     {item.name}
                                   </h4>
                                 </div>
@@ -351,10 +360,14 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
                               {/* Card Body */}
                               <div
                                 className={`${
-                                  isEdCore ? "p-4 sm:p-5" : "p-5 sm:p-6"
-                                } space-y-4`}
+                                  isFourCards ? "p-4 sm:p-4.5 xl:p-5" : "p-5 sm:p-6"
+                                } space-y-3.5 sm:space-y-4`}
                               >
-                                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
+                                <p
+                                  className={`text-xs ${
+                                    isFourCards ? "sm:text-xs xl:text-sm" : "sm:text-sm"
+                                  } text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3`}
+                                >
                                   {item.description}
                                 </p>
 
@@ -363,9 +376,7 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
                                     <div
                                       key={fIdx}
                                       className={`flex items-center gap-2 ${
-                                        isEdCore
-                                          ? "text-xs"
-                                          : "text-xs sm:text-sm"
+                                        isFourCards ? "text-xs" : "text-xs sm:text-sm"
                                       } text-slate-700 dark:text-slate-300 font-medium`}
                                     >
                                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
@@ -378,19 +389,19 @@ export const SolutionsGrid: React.FC<SolutionsGridProps> = ({
 
                             <div
                               className={`${
-                                isEdCore ? "p-4 sm:p-5" : "p-5 sm:p-6"
+                                isFourCards ? "p-4 sm:p-4.5 xl:p-5" : "p-5 sm:p-6"
                               } pt-0`}
                             >
                               <button
                                 onClick={() =>
                                   onSelectSolution(`${pillar.title} - ${item.name}`)
                                 }
-                                className="w-full py-2.5 px-3.5 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-900/30 text-blue-700 dark:text-sky-300 hover:text-blue-800 text-xs sm:text-sm font-bold border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-700 transition flex items-center justify-center gap-1.5 cursor-pointer group/btn"
+                                className="w-full py-2.5 px-3 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-900/30 text-blue-700 dark:text-sky-300 hover:text-blue-800 text-xs font-bold border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-700 transition flex items-center justify-center gap-1.5 cursor-pointer group/btn"
                               >
                                 <span className="truncate">
                                   {isEdCore
                                     ? "Discuss EdCore"
-                                    : "Discuss Solution Architecture"}
+                                    : "Discuss Architecture"}
                                 </span>
                                 <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform shrink-0" />
                               </button>
