@@ -20,6 +20,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
     message: string;
     mailtoUrl?: string;
     enquiryId?: string;
+    database?: { saved: boolean; storage: string; recordId: string };
     targetEmail?: string;
     emailDispatched?: boolean;
     provider?: string;

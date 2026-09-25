@@ -17,7 +17,7 @@ import { AddonItem } from "../data/addonsData";
 
 interface NavbarProps {
   activePage?: PageType;
-  onSelectPage?: (page: PageType) => void;
+  onSelectPage?: (page: PageType, sectionId?: string) => void;
   onOpenContact: (initialInterest?: string) => void;
   onNavigate?: (sectionId: string) => void;
   onSelectAddon?: (addon: AddonItem) => void;
@@ -34,15 +34,17 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [addonsDropdownOpen, setAddonsDropdownOpen] = useState(false);
   const [mobileAddonsOpen, setMobileAddonsOpen] = useState(false);
+
   const addonsRef = useRef<HTMLDivElement>(null);
 
-  const handlePageClick = (page: PageType) => {
+  const handlePageClick = (page: PageType, sectionId?: string) => {
     if (typeof onSelectPage === "function") {
-      onSelectPage(page);
+      onSelectPage(page, sectionId);
     } else if (typeof onNavigate === "function") {
       onNavigate(page);
     }
     setMobileMenuOpen(false);
+    setAddonsDropdownOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -68,6 +70,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: "home", label: "Home" },
     { id: "solutions", label: "Solutions" },
     { id: "services", label: "Services" },
+    { id: "ai-agents", label: "AI & Agents" },
     { id: "industries", label: "Industries" },
     { id: "about", label: "About Us" },
     { id: "case-studies", label: "Case Studies" },
@@ -166,6 +169,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {[
               { id: "solutions", label: "Solutions" },
               { id: "services", label: "Services" },
+              { id: "ai-agents", label: "AI & Agents" },
               { id: "industries", label: "Industries" },
               { id: "about", label: "About" },
             ].map((item) => (
@@ -225,7 +229,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </AnimatePresence>
             </div>
 
-            {/* Book Consultation Button (Shifted Right to Second Last Position) */}
+            {/* Book Consultation Button */}
             <button
               onClick={() => onOpenContact()}
               className="px-2.5 xl:px-3.5 py-2 rounded-lg font-bold text-xs cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center gap-1.5 whitespace-nowrap shrink-0"
@@ -234,7 +238,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <ArrowRight className="w-3.5 h-3.5 shrink-0" />
             </button>
 
-            {/* Support Login External Portal Link (Last Position) */}
+            {/* Support Login External Portal Link */}
             <a
               href="https://support.coreenact.com/"
               target="_blank"
@@ -286,7 +290,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-2">
-              {/* Mobile Add-on Expandable Menu (First position in actions) */}
+              {/* Mobile Add-on Expandable Menu */}
               <div className="space-y-2">
                 <button
                   onClick={() => setMobileAddonsOpen(!mobileAddonsOpen)}
@@ -326,7 +330,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </AnimatePresence>
               </div>
 
-              {/* Book Consultation (Shifted right to Second Last) */}
+              {/* Book Consultation */}
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
@@ -338,7 +342,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
 
-              {/* Support Login (Last Position) */}
+              {/* Support Login */}
               <a
                 href="https://support.coreenact.com/"
                 target="_blank"

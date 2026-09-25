@@ -176,9 +176,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
               <ul className="space-y-3">
                 {activeService.phases.map((phase, idx) => (
                   <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                    <span className="font-mono font-bold text-[#005a9e] dark:text-sky-400 shrink-0 mt-0.5">
-                      {idx + 1}.
-                    </span>
+                    <CheckCircle2 className="w-4 h-4 text-[#005a9e] dark:text-sky-400 shrink-0 mt-0.5" />
                     <span>{phase}</span>
                   </li>
                 ))}

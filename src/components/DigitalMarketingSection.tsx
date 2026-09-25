@@ -708,15 +708,15 @@ export const DigitalMarketingSection: React.FC<DigitalMarketingSectionProps> = (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {MARKETING_SPRINT_STEPS.map((s) => (
               <div
-                key={s.step}
+                key={s.id}
                 className="rounded-2xl p-[1.5px] bg-gradient-to-b from-blue-500/30 to-slate-200 dark:to-slate-800 text-left h-full"
               >
                 <div className="rounded-[14px] bg-white dark:bg-slate-900 p-6 flex flex-col justify-between h-full space-y-4">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-2xl font-black font-mono text-blue-600 dark:text-sky-400">
-                        {s.step}
-                      </span>
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-blue-600 dark:text-sky-400">
+                        <TrendingUp className="w-4 h-4" />
+                      </div>
                       <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-sky-300 border border-blue-200 dark:border-blue-800">
                         {s.duration}
                       </span>

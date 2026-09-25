@@ -762,31 +762,31 @@ export const ABOUT_COREENACT = {
   ],
   methodology: [
     {
-      step: "01",
+      id: "discovery-blueprint",
       phase: "Discovery & Operational Blueprint",
       description:
         "We conduct deep-dive workshops with process owners to map current pain points, identify regulatory requirements, and create the Target Operating Model (TOM).",
     },
     {
-      step: "02",
+      id: "architecture-design",
       phase: "Architecture & Solution Design",
       description:
         "Our Microsoft Certified Solution Architects design the end-to-end data schemas, integration contracts, security permissions, and custom extension specs.",
     },
     {
-      step: "03",
+      id: "agile-configuration",
       phase: "Agile Configuration & Sprint Builds",
       description:
         "Working in 2-week agile sprints, we configure Dynamics 365, develop modern AL extensions, build Power Automate flows, and connect peripheral systems.",
     },
     {
-      step: "04",
+      id: "data-migration",
       phase: "Data Migration & Validation Testing",
       description:
         "We execute multi-stage mock data cutovers, test automated scripts, conduct rigorous User Acceptance Testing (UAT), and run end-user training bootcamps.",
     },
     {
-      step: "05",
+      id: "cutover-evolution",
       phase: "Cutover, Go-Live & Continuous Evolution",
       description:
         "We manage the weekend cutover with zero workday disruption, provide 30-day on-site and remote hypercare, and transition into continuous SLA-backed managed support.",

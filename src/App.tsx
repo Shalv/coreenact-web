@@ -11,6 +11,7 @@ import { CaseStudies } from "./components/CaseStudies";
 import { GlobalHubs } from "./components/GlobalHubs";
 import { TechStackShowcase } from "./components/TechStackShowcase";
 import { DigitalMarketingSection } from "./components/DigitalMarketingSection";
+import { AiAgentsPage } from "./components/AiAgentsPage";
 import { Footer } from "./components/Footer";
 import { ContactModal } from "./components/ContactModal";
 import { AddonsListCard } from "./components/AddonsListCard";
@@ -27,6 +28,7 @@ import {
   ChevronRight,
   Layers,
   TrendingUp,
+  Sparkles,
 } from "lucide-react";
 import { COREENACT_CONTACT } from "./data/coreenactData";
 import { MicrosoftAppBadge } from "./components/icons/MicrosoftIcons";
@@ -66,6 +68,8 @@ export default function App() {
         return "Solutions";
       case "services":
         return "Services";
+      case "ai-agents":
+        return "AI & Agents";
       case "digital-marketing":
         return "Digital Marketing";
       case "industries":
@@ -99,8 +103,20 @@ export default function App() {
     setIsAddonDetailOpen(true);
   };
 
-  const handleSelectPage = (page: PageType) => {
-    if (page === currentPage) return;
+  const handleSelectPage = (page: PageType, sectionId?: string) => {
+    if (page === currentPage) {
+      if (sectionId) {
+        setTimeout(() => {
+          const el = document.getElementById(sectionId);
+          if (el) {
+            const yOffset = -100;
+            const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: "smooth" });
+          }
+        }, 50);
+      }
+      return;
+    }
     setHistoryStack((prev) => {
       if (prev[prev.length - 1] === page) return prev;
       return [...prev, page];
@@ -109,7 +125,20 @@ export default function App() {
     try {
       window.history.pushState({ page }, "", window.location.href);
     } catch {}
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (sectionId) {
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const yOffset = -100;
+          const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }, 150);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   const handleGoBack = () => {
@@ -143,6 +172,7 @@ export default function App() {
         "home",
         "solutions",
         "services",
+        "ai-agents",
         "digital-marketing",
         "industries",
         "about",
@@ -279,7 +309,7 @@ export default function App() {
 
             {/* Quick Portal Cards mirroring Coreenact main navigation */}
             <div className="py-12 max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#0b0f19]">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-5">
                 {/* 1. Services Catalog Card */}
                 <div
                   onClick={() => handleSelectPage("services")}
@@ -320,7 +350,47 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* 2. Industry Blueprints Card */}
+                {/* AI & Autonomous Agents Card */}
+                <div
+                  onClick={() => handleSelectPage("ai-agents")}
+                  className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-xl hover:border-sky-500/50 dark:hover:border-sky-500/50 transition-all duration-300 cursor-pointer group text-left overflow-hidden flex flex-col h-full"
+                >
+                  <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
+                    <img
+                      src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/374085-hero-Insert-752x580?resMode=sharp2&op_usm=1.5,0.65,15,0&wid=1000&hei=734&qlt=100&fmt=png-alpha&fit=constrain"
+                      alt="Microsoft Copilot and Autonomous AI Agents"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
+                    <div className="absolute top-3 left-3">
+                      <MicrosoftAppBadge app="copilot" />
+                    </div>
+                    <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
+                      <span>Copilot 101 & Studio</span>
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                  <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                    <div>
+                      <div className="w-9 h-9 rounded-xl bg-sky-600 text-white flex items-center justify-center mb-3 shadow-sm">
+                        <Sparkles className="w-4 h-4" />
+                      </div>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition">
+                        AI & Agents
+                      </h3>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+                        Microsoft Copilot 101 guide, Copilot Studio, autonomous ERP agents & Graph grounding.
+                      </p>
+                    </div>
+                    <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-sky-600 dark:text-sky-400">
+                      <span>Explore AI & Agents</span>
+                      <ChevronRight className="w-3.5 h-3.5 ml-1" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Industry Blueprints Card */}
                 <div
                   onClick={() => handleSelectPage("industries")}
                   className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-xl hover:border-emerald-500/50 dark:hover:border-emerald-500/50 transition-all duration-300 cursor-pointer group text-left overflow-hidden flex flex-col h-full"
@@ -337,7 +407,7 @@ export default function App() {
                       <MicrosoftAppBadge app="power-bi" />
                     </div>
                     <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
-                      <span>9 Domain Frameworks</span>
+                      <span>Industry Frameworks</span>
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
@@ -347,7 +417,7 @@ export default function App() {
                         <Factory className="w-4 h-4" />
                       </div>
                       <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition">
-                        9 Industry Solutions
+                        Industry Solutions
                       </h3>
                       <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
                         Manufacturing, FMCG, Retail, EdCore education ERP, and cold-chain supply.
@@ -360,7 +430,7 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* 3. Digital Marketing Card */}
+                {/* Digital Marketing Card */}
                 <div
                   onClick={() => handleSelectPage("digital-marketing")}
                   className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-xl hover:border-indigo-500/50 dark:hover:border-indigo-500/50 transition-all duration-300 cursor-pointer group text-left overflow-hidden flex flex-col h-full"
@@ -400,7 +470,7 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* 4. About Coreenact Card */}
+                {/* About Coreenact Card */}
                 <div
                   onClick={() => handleSelectPage("about")}
                   className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-xl hover:border-purple-500/50 dark:hover:border-purple-500/50 transition-all duration-300 cursor-pointer group text-left overflow-hidden flex flex-col h-full"
@@ -440,7 +510,7 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* 5. Contact & Hubs Card */}
+                {/* Contact & Hubs Card */}
                 <div
                   onClick={() => handleSelectPage("contact")}
                   className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-xl hover:border-amber-500/50 dark:hover:border-amber-500/50 transition-all duration-300 cursor-pointer group text-left overflow-hidden flex flex-col h-full"
@@ -545,6 +615,14 @@ export default function App() {
               isStandalonePage={true}
               onBack={handleGoBack}
               onBackHome={handleGoBack}
+              onOpenContact={handleOpenContact}
+            />
+          </div>
+        )}
+
+        {currentPage === "ai-agents" && (
+          <div className="pt-4">
+            <AiAgentsPage
               onOpenContact={handleOpenContact}
             />
           </div>

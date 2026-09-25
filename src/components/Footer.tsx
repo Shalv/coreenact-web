@@ -425,11 +425,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </li>
               <li>
                 <button
-                  onClick={() => handleLink("solutions")}
+                  onClick={() => handleLink("ai-agents")}
                   className="hover:text-indigo-600 dark:hover:text-cyan-300 transition text-left cursor-pointer flex items-center gap-2 group"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600 group-hover:bg-indigo-600 dark:group-hover:bg-indigo-400 transition" />
-                  <span>Microsoft Copilot & Agentic AI</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600 group-hover:bg-indigo-600 dark:group-hover:bg-cyan-400 transition" />
+                  <span>Microsoft Copilot & Autonomous Agents</span>
                 </button>
               </li>
               <li>

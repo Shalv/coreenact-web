@@ -255,7 +255,7 @@ export const MARKETING_TECH_STACK = [
 
 export const MARKETING_SPRINT_STEPS = [
   {
-    step: "01",
+    id: "audit-blueprint",
     phase: "Audit & ICP Blueprint",
     duration: "Days 1 – 15",
     focus: "Discovery, Competitor Intel & Technical Health",
@@ -267,7 +267,7 @@ export const MARKETING_SPRINT_STEPS = [
     ],
   },
   {
-    step: "02",
+    id: "infrastructure-foundation",
     phase: "Infrastructure & Tracking Foundation",
     duration: "Days 16 – 30",
     focus: "Conversion Tracking & High-Converting Assets",
@@ -279,7 +279,7 @@ export const MARKETING_SPRINT_STEPS = [
     ],
   },
   {
-    step: "03",
+    id: "campaign-launch",
     phase: "Campaign Launch & Multi-Channel Testing",
     duration: "Days 31 – 60",
     focus: "High-Intent Acquisition & Continuous A/B Splits",
@@ -291,7 +291,7 @@ export const MARKETING_SPRINT_STEPS = [
     ],
   },
   {
-    step: "04",
+    id: "scale-optimization",
     phase: "Scale, Optimization & Pipeline Attribution",
     duration: "Days 61 – 90+",
     focus: "ROAS Maximization & Closed-Loop Growth",

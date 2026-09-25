@@ -42,6 +42,7 @@ export type PageType =
   | 'home'
   | 'solutions'
   | 'services'
+  | 'ai-agents'
   | 'digital-marketing'
   | 'industries'
   | 'about'

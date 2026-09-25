@@ -120,14 +120,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {ABOUT_COREENACT.methodology.map((m) => (
             <div
-              key={m.step}
+              key={m.phase}
               className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition flex flex-col justify-between space-y-4 shadow-xs group"
             >
               <div>
-                <span className="text-3xl font-extrabold text-slate-300 dark:text-slate-700 group-hover:text-[#005a9e] dark:group-hover:text-sky-400 font-mono transition-colors">
-                  {m.step}
-                </span>
-                <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mt-2 mb-2">
+                <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-[#005a9e] dark:group-hover:text-sky-400 transition-colors mb-2">
                   {m.phase}
                 </h3>
                 <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
