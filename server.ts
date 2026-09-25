@@ -5,12 +5,6 @@ import { fileURLToPath } from "url";
 import { GoogleGenAI, ThinkingLevel, GenerateVideosOperation } from "@google/genai";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
-import {
-  saveEnquiryToDb,
-  getEnquiriesFromDb,
-  getDbStatus,
-  type EnquiryRecord,
-} from "./server/db";
 
 dotenv.config();
 
@@ -29,7 +23,7 @@ function getGenAI(): GoogleGenAI {
   if (!genAIClient) {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      throw new Error("GEMINI_API_KEY environment variable is missing. Please configure it in AI Studio Settings > Secrets.");
+      throw new Error("GEMINI_API_KEY environment variable is missing. Please configure it in AI Studio Secrets.");
     }
     genAIClient = new GoogleGenAI({
       apiKey,
@@ -47,13 +41,16 @@ function getGenAI(): GoogleGenAI {
 app.get("/api/health", (_req, res) => {
   res.json({
     status: "ok",
-    service: "Coreenact Enterprise AI Platform",
+    service: "Coreenact Enterprise Platform",
     hasApiKey: Boolean(process.env.GEMINI_API_KEY),
+    emailIntegration: "Microsoft 365 (Info@coreenact.com)",
     timestamp: new Date().toISOString(),
   });
 });
 
-// 2. Customer Enquiry and Consultation Booking Mailer (/api/enquiry) with Database Persistence
+// 2. Microsoft 365 Form Mailer Integration (/api/enquiry)
+// All inquiries and consultation requests are directed to Info@coreenact.com
+const TARGET_NOTIFICATION_EMAIL = process.env.NOTIFICATION_EMAIL || "Info@coreenact.com";
 
 app.post("/api/enquiry", async (req, res) => {
   try {
@@ -77,49 +74,35 @@ app.post("/api/enquiry", async (req, res) => {
       });
     }
 
-    const recipient = process.env.NOTIFICATION_EMAIL || "info@coreenact.com";
+    const recipient = TARGET_NOTIFICATION_EMAIL;
     const selectedService = service || interest || "Dynamics 365 Business Central Consultation";
     const selectedOfficeOrTime = office || timeframe || "Immediate Review";
-    const sourceTitle = source === "contact_page" ? "Contact Page Inquiry" : "Book Consultation Request";
-    const sourceTag = source === "contact_page" ? "Contact Lead" : "Consultation Booking";
-    const timestamp = new Date().toISOString();
+    const sourceTitle = source === "contact_page" ? "Website Contact Form" : "Consultation Booking Modal";
+    const sourceTag = source === "contact_page" ? "Contact Inquiry" : "Consultation Request";
     const formattedDate = new Date().toLocaleString("en-US", { timeZoneName: "short" });
-
-    const enquiryRecord: EnquiryRecord = {
-      id: `ENQ-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-      source,
-      name,
-      email,
-      company,
-      phone,
-      service: selectedService,
-      interest: selectedService,
-      office: selectedOfficeOrTime,
-      timeframe: selectedOfficeOrTime,
-      notes,
-      receivedAt: timestamp,
-      emailDispatched: false,
-    };
+    const enquiryId = `COR-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random() * 1000)}`;
 
     const emailSubject = `[Coreenact ${sourceTag}] ${name} (${company || "Individual"}) - ${selectedService}`;
 
     const emailText = `
 NEW INQUIRY RECEIVED FOR COREENACT TECHNOLOGIES
---------------------------------------------------
-Recipient: ${recipient}
+==================================================
+Destination: ${recipient} (Microsoft 365)
 Source: ${sourceTitle}
 Date: ${formattedDate}
+Reference ID: ${enquiryId}
 
-PROSPECT DETAILS:
+PROSPECT INFORMATION:
 • Full Name: ${name}
 • Work Email: ${email}
+• Phone: ${phone || "Not provided"}
 • Company / Organization: ${company || "Not provided"}
-• Service / Practice Interest: ${selectedService}
-• Office / Timeframe: ${selectedOfficeOrTime}
-• Legacy Footprint & Requirements / Notes:
+• Practice / Solution Area: ${selectedService}
+• Office Hub / Timeframe: ${selectedOfficeOrTime}
+• Legacy Environment & Requirements:
 ${notes || "None provided"}
 
---------------------------------------------------
+==================================================
 This inquiry was submitted on the Coreenact web portal.
 Reply directly to this email to follow up with ${name} (${email}).
 `;
@@ -132,54 +115,58 @@ Reply directly to this email to follow up with ${name} (${email}).
   <title>${emailSubject}</title>
 </head>
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 24px; color: #1e293b;">
-  <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
-    <div style="background: linear-gradient(135deg, #0078D4 0%, #1e40af 100%); padding: 24px 32px; color: #ffffff;">
-      <h1 style="margin: 0 0 6px 0; font-size: 20px; font-weight: 700;">Coreenact Technologies</h1>
-      <p style="margin: 0; font-size: 13px; opacity: 0.9;">New Customer Lead • ${sourceTitle}</p>
+  <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+    <div style="background: linear-gradient(135deg, #005a9e 0%, #0078D4 100%); padding: 24px 32px; color: #ffffff;">
+      <h1 style="margin: 0 0 6px 0; font-size: 20px; font-weight: 700; letter-spacing: -0.02em;">Coreenact Technologies</h1>
+      <p style="margin: 0; font-size: 13px; opacity: 0.9;">New Customer Lead • ${sourceTitle} • Ref: ${enquiryId}</p>
     </div>
     
     <div style="padding: 28px 32px;">
       <p style="font-size: 14px; line-height: 1.5; margin: 0 0 20px 0; color: #475569;">
-        A new prospect inquiry has been submitted via the Coreenact web portal destined for <strong>${recipient}</strong>.
+        A new prospect has submitted an inquiry intended for <strong style="color: #005a9e;">${recipient}</strong>:
       </p>
       
       <table style="width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 24px;">
         <tr style="border-bottom: 1px solid #f1f5f9;">
-          <td style="padding: 10px 0; font-weight: 600; color: #64748b; width: 38%;">Full Name:</td>
+          <td style="padding: 10px 0; font-weight: 600; color: #64748b; width: 36%;">Full Name:</td>
           <td style="padding: 10px 0; font-weight: 700; color: #0f172a;">${name}</td>
         </tr>
         <tr style="border-bottom: 1px solid #f1f5f9;">
           <td style="padding: 10px 0; font-weight: 600; color: #64748b;">Work Email:</td>
-          <td style="padding: 10px 0; color: #0078D4; font-weight: 600;"><a href="mailto:${email}" style="color: #0078D4; text-decoration: none;">${email}</a></td>
+          <td style="padding: 10px 0; color: #005a9e; font-weight: 600;"><a href="mailto:${email}" style="color: #005a9e; text-decoration: none;">${email}</a></td>
         </tr>
         <tr style="border-bottom: 1px solid #f1f5f9;">
-          <td style="padding: 10px 0; font-weight: 600; color: #64748b;">Company Name:</td>
+          <td style="padding: 10px 0; font-weight: 600; color: #64748b;">Phone:</td>
+          <td style="padding: 10px 0; color: #0f172a;">${phone || "Not provided"}</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 10px 0; font-weight: 600; color: #64748b;">Company:</td>
           <td style="padding: 10px 0; color: #0f172a; font-weight: 600;">${company || "Not provided"}</td>
         </tr>
         <tr style="border-bottom: 1px solid #f1f5f9;">
-          <td style="padding: 10px 0; font-weight: 600; color: #64748b;">Service / Area:</td>
-          <td style="padding: 10px 0; color: #0f172a; font-weight: 600;">${selectedService}</td>
+          <td style="padding: 10px 0; font-weight: 600; color: #64748b;">Service / Interest:</td>
+          <td style="padding: 10px 0; color: #005a9e; font-weight: 600;">${selectedService}</td>
         </tr>
         <tr style="border-bottom: 1px solid #f1f5f9;">
-          <td style="padding: 10px 0; font-weight: 600; color: #64748b;">Office / Timeframe:</td>
+          <td style="padding: 10px 0; font-weight: 600; color: #64748b;">Timeframe / Hub:</td>
           <td style="padding: 10px 0; color: #0f172a;">${selectedOfficeOrTime}</td>
         </tr>
         <tr>
-          <td style="padding: 12px 0 0 0; font-weight: 600; color: #64748b; vertical-align: top;">Requirements / Notes:</td>
-          <td style="padding: 12px 0 0 0; color: #334155; line-height: 1.6; white-space: pre-wrap;">${notes || "No additional requirements specified."}</td>
+          <td style="padding: 12px 0 0 0; font-weight: 600; color: #64748b; vertical-align: top;">Notes & Footprint:</td>
+          <td style="padding: 12px 0 0 0; color: #334155; line-height: 1.6; white-space: pre-wrap;">${notes || "No additional notes provided."}</td>
         </tr>
       </table>
 
       <div style="text-align: center; margin-top: 24px;">
         <a href="mailto:${email}?subject=Re:%20Coreenact%20Dynamics%20365%20Consultation&body=Hi%20${encodeURIComponent(name)},%0A%0AThank%20you%20for%20reaching%20out%20to%20Coreenact%20regarding%20${encodeURIComponent(selectedService)}." 
-           style="display: inline-block; background-color: #0078D4; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 13px; padding: 10px 20px; border-radius: 8px;">
+           style="display: inline-block; background-color: #005a9e; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 13px; padding: 12px 24px; border-radius: 6px;">
           Reply Directly to ${name} (${email})
         </a>
       </div>
     </div>
     
-    <div style="background-color: #f1f5f9; padding: 14px 32px; font-size: 11px; color: #64748b; border-top: 1px solid #e2e8f0; text-align: center;">
-      Coreenact Technologies • Global Delivery HQ: New Delhi, India • North America Hub: Mississauga, Canada • info@coreenact.com
+    <div style="background-color: #f8fafc; padding: 14px 32px; font-size: 11px; color: #64748b; border-top: 1px solid #e2e8f0; text-align: center;">
+      Coreenact Technologies • Microsoft Solutions Partner • Global Delivery: New Delhi, India • North America: Mississauga, Canada • ${recipient}
     </div>
   </div>
 </body>
@@ -189,82 +176,84 @@ Reply directly to this email to follow up with ${name} (${email}).
     let emailDispatched = false;
     let smtpNote = "";
 
-    if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+    // Microsoft 365 (Office 365) SMTP configuration
+    // Default SMTP host is smtp.office365.com, port 587 with STARTTLS
+    const smtpHost = process.env.SMTP_HOST || "smtp.office365.com";
+    const smtpPort = Number(process.env.SMTP_PORT) || 587;
+    const smtpUser = process.env.SMTP_USER || "Info@coreenact.com";
+    const smtpPass = process.env.SMTP_PASS;
+
+    if (smtpPass) {
       try {
         const transporter = nodemailer.createTransport({
-          host: process.env.SMTP_HOST,
-          port: Number(process.env.SMTP_PORT) || 587,
-          secure: process.env.SMTP_SECURE === "true",
+          host: smtpHost,
+          port: smtpPort,
+          secure: smtpPort === 465,
+          requireTLS: true,
           auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASS,
+            user: smtpUser,
+            pass: smtpPass,
           },
           tls: {
+            ciphers: "SSLv3",
             rejectUnauthorized: false,
           },
         });
 
         await transporter.sendMail({
-          from: `"Coreenact Web Portal" <${process.env.SMTP_USER}>`,
+          from: `"Coreenact Form Inquiries" <${smtpUser}>`,
           to: recipient,
-          replyTo: email,
+          replyTo: `${name} <${email}>`,
           subject: emailSubject,
           text: emailText,
           html: emailHtml,
         });
 
         emailDispatched = true;
-        smtpNote = `Direct email dispatched to ${recipient} via SMTP server.`;
-        console.log(`[SMTP SUCCESS] Enquiry sent to ${recipient} from ${email}`);
+        smtpNote = `Direct email successfully dispatched to ${recipient} via Microsoft 365 plan.`;
+        console.log(`[MICROSOFT 365 SMTP SUCCESS] Form submission dispatched to ${recipient} from ${email}`);
       } catch (smtpErr: any) {
-        console.error("[SMTP ERROR] Failed to send via SMTP:", smtpErr.message);
-        smtpNote = `SMTP failed (${smtpErr.message}). Inquiry safely logged in server.`;
+        console.error("[MICROSOFT 365 SMTP ERROR]:", smtpErr.message);
+        smtpNote = `Microsoft 365 SMTP delivery attempt returned: ${smtpErr.message}.`;
       }
     } else {
-      console.log(`[ENQUIRY RECEIVED FOR ${recipient}]`, {
+      console.log(`[FORM SUBMISSION FOR ${recipient}]`, {
+        ref: enquiryId,
         source: sourceTitle,
         name,
         email,
-        company,
         phone,
+        company,
         service: selectedService,
         office: selectedOfficeOrTime,
         notes,
       });
-      smtpNote = `Enquiry recorded and routed to ${recipient}. Configure SMTP credentials in environment for live SMTP relay.`;
+      smtpNote = `Inquiry processed for ${recipient}. To enable automated background SMTP dispatch, specify SMTP_PASS in environment variables.`;
     }
 
-    enquiryRecord.emailDispatched = emailDispatched;
-
-    // Save to Database (Postgres or in-memory fallback)
-    const dbResult = await saveEnquiryToDb(enquiryRecord);
-
+    // Generate pre-filled mailto URL for immediate 1-click fallback in Outlook or any email client
     const mailtoSubject = encodeURIComponent(`[Coreenact ${sourceTag}] ${name} - ${selectedService}`);
     const mailtoBody = encodeURIComponent(
-      `Hi Coreenact Team,\n\nI have submitted an inquiry with the following details:\n\n` +
-      `Full Name: ${name}\n` +
-      `Work Email: ${email}\n` +
-      `Company: ${company}\n` +
-      `Phone: ${phone}\n` +
-      `Service: ${selectedService}\n` +
-      `Timeframe / Office: ${selectedOfficeOrTime}\n` +
-      `Requirements / Notes:\n${notes}\n\n` +
-      `Best regards,\n${name}`
+      `Hello Coreenact Team (Info@coreenact.com),\n\n` +
+      `Here is a new consultation inquiry from the Coreenact web portal:\n\n` +
+      `• Name: ${name}\n` +
+      `• Work Email: ${email}\n` +
+      `• Phone: ${phone || "N/A"}\n` +
+      `• Company: ${company || "N/A"}\n` +
+      `• Area of Interest: ${selectedService}\n` +
+      `• Timeframe / Office: ${selectedOfficeOrTime}\n` +
+      `• Requirements / Notes:\n${notes || "N/A"}\n\n` +
+      `Reference ID: ${enquiryId}`
     );
     const mailtoUrl = `mailto:${recipient}?subject=${mailtoSubject}&body=${mailtoBody}`;
 
     return res.json({
       success: true,
-      message: `Inquiry successfully recorded and routed to ${recipient}`,
+      message: `Inquiry successfully routed to ${recipient}`,
       targetEmail: recipient,
-      enquiryId: enquiryRecord.id,
+      enquiryId,
       emailDispatched,
-      database: {
-        saved: dbResult.success,
-        storage: dbResult.storage,
-        recordId: dbResult.recordId,
-        error: dbResult.error,
-      },
+      provider: "Microsoft 365",
       smtpNote,
       mailtoUrl,
     });
@@ -272,34 +261,22 @@ Reply directly to this email to follow up with ${name} (${email}).
     console.error("Enquiry endpoint error:", err);
     return res.status(500).json({
       success: false,
-      error: err.message || "Failed to process enquiry.",
+      error: err.message || "Failed to process form submission.",
     });
   }
 });
 
-app.get("/api/enquiries", async (req, res) => {
-  try {
-    const limit = Math.min(Number(req.query.limit) || 50, 100);
-    const dbData = await getEnquiriesFromDb(limit);
-    res.json({
-      count: dbData.count,
-      storageSource: dbData.source,
-      targetEmail: process.env.NOTIFICATION_EMAIL || "info@coreenact.com",
-      enquiries: dbData.enquiries,
-    });
-  } catch (err: any) {
-    res.status(500).json({ error: "Failed to fetch enquiries", details: err.message });
-  }
-});
-
-// Database connectivity status & diagnostic endpoint
-app.get("/api/db-status", async (_req, res) => {
-  try {
-    const status = await getDbStatus();
-    res.json(status);
-  } catch (err: any) {
-    res.status(500).json({ error: "Failed to retrieve database status", details: err.message });
-  }
+// Diagnostic endpoint to check Microsoft 365 email configuration
+app.get("/api/email-status", (_req, res) => {
+  res.json({
+    targetEmail: TARGET_NOTIFICATION_EMAIL,
+    provider: "Microsoft 365 Email Plan",
+    smtpHost: process.env.SMTP_HOST || "smtp.office365.com",
+    smtpPort: Number(process.env.SMTP_PORT) || 587,
+    smtpUser: process.env.SMTP_USER || "Info@coreenact.com",
+    smtpConfigured: Boolean(process.env.SMTP_PASS),
+    status: "active",
+  });
 });
 
 // Official Coreenact Website Knowledge Base for RAG and accurate answers
