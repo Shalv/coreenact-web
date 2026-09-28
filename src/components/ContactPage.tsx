@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Mail,
   Phone,
@@ -10,9 +10,190 @@ import {
   CheckCircle2,
   ShieldCheck,
   Send,
+  Navigation,
+  Route as RouteIcon,
+  ExternalLink,
+  LocateFixed,
+  RotateCcw,
 } from "lucide-react";
 import confetti from "canvas-confetti";
+import {
+  APIProvider,
+  Map,
+  AdvancedMarker,
+  Pin,
+  InfoWindow,
+  useMap,
+  useMapsLibrary,
+} from "@vis.gl/react-google-maps";
 import { COREENACT_CONTACT } from "../data/coreenactData";
+
+const GOOGLE_MAPS_API_KEY =
+  (import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string) || "";
+
+interface RouteDirectionsControllerProps {
+  originQuery: string;
+  destinationCoords: { lat: number; lng: number };
+  travelMode: "DRIVING" | "TRANSIT" | "WALKING";
+  triggerKey: number;
+  onRouteComputed: (info: {
+    distanceText: string;
+    durationText: string;
+  } | null) => void;
+  onRouteError: (msg: string | null) => void;
+}
+
+const RouteDirectionsController: React.FC<RouteDirectionsControllerProps> = ({
+  originQuery,
+  destinationCoords,
+  travelMode,
+  triggerKey,
+  onRouteComputed,
+  onRouteError,
+}) => {
+  const map = useMap();
+  const routesLib = useMapsLibrary("routes");
+  const polylinesRef = useRef<google.maps.Polyline[]>([]);
+  const markersRef = useRef<google.maps.marker.AdvancedMarkerElement[]>([]);
+
+  // Clear existing route overlays helper
+  const clearOverlays = () => {
+    polylinesRef.current.forEach((p) => p.setMap(null));
+    polylinesRef.current = [];
+    markersRef.current.forEach((m) => {
+      m.map = null;
+    });
+    markersRef.current = [];
+  };
+
+  useEffect(() => {
+    if (!map) return;
+    if (!originQuery.trim() || triggerKey === 0) {
+      clearOverlays();
+      map.panTo(destinationCoords);
+      map.setZoom(15);
+      return;
+    }
+
+    if (!routesLib) return;
+
+    let cancelled = false;
+
+    const calculateRoute = async () => {
+      clearOverlays();
+      onRouteError(null);
+
+      try {
+        // Recommended replacement for legacy DirectionsService: Route.computeRoutes()
+        // Docs: https://developers.google.com/maps/documentation/javascript/routes?utm_campaign=gmp_mcp_codeassist_v1_aistudio
+        const RouteClass = (routesLib as any).Route;
+        if (!RouteClass || typeof RouteClass.computeRoutes !== "function") {
+          onRouteError(
+            "Live route preview unavailable. Click 'Open in Google Maps' for turn-by-turn directions."
+          );
+          return;
+        }
+
+        let parsedOrigin: string | { lat: number; lng: number } =
+          originQuery.trim();
+        const coordMatch = parsedOrigin.match(
+          /^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)$/
+        );
+        if (coordMatch) {
+          parsedOrigin = {
+            lat: parseFloat(coordMatch[1]),
+            lng: parseFloat(coordMatch[2]),
+          };
+        }
+
+        const { routes } = await RouteClass.computeRoutes({
+          origin: parsedOrigin,
+          destination: destinationCoords,
+          travelMode,
+          fields: [
+            "path",
+            "legs",
+            "durationMillis",
+            "distanceMeters",
+            "localizedValues",
+            "viewport",
+          ],
+        });
+
+        if (cancelled) return;
+
+        const primaryRoute = routes?.[0];
+        if (!primaryRoute) {
+          onRouteComputed(null);
+          onRouteError(
+            "No route found for this starting point. Try specifying a nearby city or landmark."
+          );
+          return;
+        }
+
+        const polylines: google.maps.Polyline[] =
+          primaryRoute.createPolylines();
+        polylines.forEach((polyline) => polyline.setMap(map));
+        polylinesRef.current = polylines;
+
+        if (typeof primaryRoute.createWaypointAdvancedMarkers === "function") {
+          const waypointMarkers: google.maps.marker.AdvancedMarkerElement[] =
+            await primaryRoute.createWaypointAdvancedMarkers();
+          if (!cancelled) {
+            waypointMarkers.forEach((m) => {
+              m.map = map;
+            });
+            markersRef.current = waypointMarkers;
+          }
+        }
+
+        if (primaryRoute.viewport) {
+          map.fitBounds(primaryRoute.viewport);
+        }
+
+        const distanceText =
+          primaryRoute.localizedValues?.distance?.text ||
+          (primaryRoute.distanceMeters
+            ? `${(primaryRoute.distanceMeters / 1000).toFixed(1)} km`
+            : "");
+        const durationText =
+          primaryRoute.localizedValues?.duration?.text ||
+          (primaryRoute.durationMillis
+            ? `${Math.round(primaryRoute.durationMillis / 60000)} mins`
+            : "");
+
+        onRouteComputed({ distanceText, durationText });
+      } catch (err: any) {
+        if (cancelled) return;
+        const msg = String(err?.message || err || "");
+        if (
+          msg.includes("OVER_QUERY_LIMIT") ||
+          msg.includes("RESOURCE_EXHAUSTED") ||
+          msg.includes("QuotaExceededError") ||
+          msg.includes("429")
+        ) {
+          window.dispatchEvent(new CustomEvent("gmp-quota-exceeded"));
+        }
+        onRouteComputed(null);
+        onRouteError(
+          "Could not compute in-map route from that location. Use 'Get Turn-by-Turn Directions' to open directly in Google Maps."
+        );
+      }
+    };
+
+    void calculateRoute();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [map, routesLib, originQuery, destinationCoords, travelMode, triggerKey]);
+
+  useEffect(() => {
+    return () => clearOverlays();
+  }, []);
+
+  return null;
+};
 
 interface ContactPageProps {
   onGroundLocation: (cityName: string) => void;
@@ -23,6 +204,87 @@ export const ContactPage: React.FC<ContactPageProps> = ({
 }) => {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedOfficeId, setSelectedOfficeId] = useState<string>("india");
+  const [infoWindowOpen, setInfoWindowOpen] = useState<boolean>(true);
+  const [originInput, setOriginInput] = useState<string>("");
+  const [activeOriginQuery, setActiveOriginQuery] = useState<string>("");
+  const [travelMode, setTravelMode] = useState<
+    "DRIVING" | "TRANSIT" | "WALKING"
+  >("DRIVING");
+  const [routeTriggerKey, setRouteTriggerKey] = useState<number>(0);
+  const [routeSummary, setRouteSummary] = useState<{
+    distanceText: string;
+    durationText: string;
+  } | null>(null);
+  const [routeError, setRouteError] = useState<string | null>(null);
+  const [isLocatingUser, setIsLocatingUser] = useState<boolean>(false);
+
+  const selectedOffice =
+    COREENACT_CONTACT.offices.find((o) => o.id === selectedOfficeId) ||
+    COREENACT_CONTACT.offices[0];
+
+  const handleSelectOfficeOnMap = (officeId: string, cityName: string) => {
+    setSelectedOfficeId(officeId);
+    setInfoWindowOpen(true);
+    setRouteTriggerKey(0);
+    setRouteSummary(null);
+    setRouteError(null);
+    const el = document.getElementById("office-directions-map");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    } else {
+      onGroundLocation(cityName);
+    }
+  };
+
+  const handleComputeDirections = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!originInput.trim()) return;
+    setActiveOriginQuery(originInput.trim());
+    setRouteTriggerKey((prev) => prev + 1);
+  };
+
+  const handleUseCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      setRouteError("Geolocation is not supported by your browser.");
+      return;
+    }
+    setIsLocatingUser(true);
+    setRouteError(null);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setIsLocatingUser(false);
+        const coordsStr = `${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)}`;
+        setOriginInput(coordsStr);
+        setActiveOriginQuery(coordsStr);
+        setRouteTriggerKey((prev) => prev + 1);
+      },
+      () => {
+        setIsLocatingUser(false);
+        setRouteError(
+          "Unable to retrieve your current location. Please type your starting city or landmark."
+        );
+      },
+      { enableHighAccuracy: true, timeout: 8000 }
+    );
+  };
+
+  const handleResetMap = () => {
+    setOriginInput("");
+    setActiveOriginQuery("");
+    setRouteTriggerKey(0);
+    setRouteSummary(null);
+    setRouteError(null);
+    setInfoWindowOpen(true);
+  };
+
+  const googleMapsDirectionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+    selectedOffice.address
+  )}${
+    originInput.trim()
+      ? `&origin=${encodeURIComponent(originInput.trim())}`
+      : ""
+  }&travelmode=${travelMode.toLowerCase()}`;
   const [statusInfo, setStatusInfo] = useState<{
     message: string;
     mailtoUrl?: string;
@@ -232,11 +494,11 @@ export const ContactPage: React.FC<ContactPageProps> = ({
 
               <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                 <button
-                  onClick={() => onGroundLocation(office.city)}
+                  onClick={() => handleSelectOfficeOnMap(office.id, office.city)}
                   className="text-xs sm:text-sm font-semibold text-[#005a9e] dark:text-sky-400 hover:text-[#004a82] dark:hover:text-sky-300 flex items-center gap-1.5 transition cursor-pointer"
                 >
                   <Compass className="w-4 h-4" />
-                  <span>View Location</span>
+                  <span>View Location & Directions</span>
                 </button>
                 <span className="text-xs font-mono text-slate-400">
                   {office.coords.lat.toFixed(2)}°, {office.coords.lng.toFixed(2)}°
@@ -267,9 +529,9 @@ export const ContactPage: React.FC<ContactPageProps> = ({
           </div>
         </div>
 
-        {/* Right Column: Interactive Consultation & Discovery Form (7 Cols) */}
-        <div className="lg:col-span-7">
-          <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs h-full p-6 sm:p-10 flex flex-col justify-between space-y-6">
+        {/* Right Column: Interactive Consultation Form + Google Map & Directions (7 Cols) */}
+        <div className="lg:col-span-7 space-y-8">
+          <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs p-6 sm:p-10 flex flex-col justify-between space-y-6">
             <div className="space-y-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                 <ShieldCheck className="w-3.5 h-3.5 text-[#005a9e] dark:text-sky-400" />
@@ -496,7 +758,214 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                   </div>
                 </form>
               )}
+          </div>
+
+          {/* Interactive Google Map & Route Directions after Request a Dedicated Consultation */}
+          <div
+            id="office-directions-map"
+            className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs p-6 sm:p-8 space-y-5"
+          >
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div className="space-y-1.5">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded text-xs font-semibold bg-blue-50 dark:bg-slate-800 text-[#005a9e] dark:text-sky-400 border border-blue-200/80 dark:border-slate-700">
+                  <Navigation className="w-3.5 h-3.5" />
+                  <span>Interactive Location & Route Directions</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 font-heading">
+                  Get Directions to Our {selectedOffice.city} Office
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 flex items-start gap-1.5">
+                  <MapPin className="w-4 h-4 text-[#005a9e] dark:text-sky-400 shrink-0 mt-0.5" />
+                  <span>{selectedOffice.address}</span>
+                </p>
+              </div>
+
+              {/* Hub Selector Tabs */}
+              <div className="inline-flex items-center p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                {COREENACT_CONTACT.offices.map((office) => (
+                  <button
+                    key={office.id}
+                    type="button"
+                    onClick={() =>
+                      handleSelectOfficeOnMap(office.id, office.city)
+                    }
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+                      selectedOffice.id === office.id
+                        ? "bg-[#005a9e] text-white shadow-2xs"
+                        : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+                    }`}
+                  >
+                    {office.city} ({office.country})
+                  </button>
+                ))}
+              </div>
             </div>
+
+            {/* Route Planner Bar */}
+            <form
+              onSubmit={handleComputeDirections}
+              className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700/80 space-y-3"
+            >
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+                <div className="relative flex-1">
+                  <input
+                    type="text"
+                    value={originInput}
+                    onChange={(e) => setOriginInput(e.target.value)}
+                    placeholder={
+                      selectedOffice.id === "india"
+                        ? "Enter starting point (e.g., Nehru Place, New Delhi or IGI Airport)..."
+                        : "Enter starting point (e.g., Pearson Airport or Downtown Toronto)..."
+                    }
+                    className="w-full pl-3.5 pr-9 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 text-xs sm:text-sm placeholder-slate-400 focus:outline-hidden focus:border-blue-600"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleUseCurrentLocation}
+                    disabled={isLocatingUser}
+                    title="Use my current location"
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#005a9e] dark:hover:text-sky-400 transition cursor-pointer"
+                  >
+                    <LocateFixed
+                      className={`w-4 h-4 ${isLocatingUser ? "animate-spin text-blue-600" : ""}`}
+                    />
+                  </button>
+                </div>
+
+                <select
+                  value={travelMode}
+                  onChange={(e) =>
+                    setTravelMode(
+                      e.target.value as "DRIVING" | "TRANSIT" | "WALKING"
+                    )
+                  }
+                  aria-label="Travel mode"
+                  className="px-3 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold focus:outline-hidden focus:border-blue-600"
+                >
+                  <option value="DRIVING">Driving</option>
+                  <option value="TRANSIT">Transit</option>
+                  <option value="WALKING">Walking</option>
+                </select>
+
+                <button
+                  type="submit"
+                  className="px-4 py-2 rounded-lg bg-[#005a9e] hover:bg-[#004a82] text-white font-bold text-xs inline-flex items-center justify-center gap-1.5 shadow-2xs transition cursor-pointer shrink-0"
+                >
+                  <RouteIcon className="w-3.5 h-3.5" />
+                  <span>Preview Route</span>
+                </button>
+
+                {routeTriggerKey > 0 && (
+                  <button
+                    type="button"
+                    onClick={handleResetMap}
+                    title="Reset Map"
+                    className="px-2.5 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 text-xs font-semibold inline-flex items-center justify-center gap-1 transition cursor-pointer shrink-0"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    <span className="sm:hidden">Reset</span>
+                  </button>
+                )}
+              </div>
+
+              <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-xs">
+                <div className="flex flex-wrap items-center gap-2">
+                  {routeSummary ? (
+                    <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 font-semibold">
+                      <span>Distance: {routeSummary.distanceText}</span>
+                      <span>•</span>
+                      <span>Est. Travel Time: {routeSummary.durationText}</span>
+                    </span>
+                  ) : routeError ? (
+                    <span className="text-amber-700 dark:text-amber-400 font-medium">
+                      {routeError}
+                    </span>
+                  ) : (
+                    <span className="text-slate-500 dark:text-slate-400">
+                      Landmark: <strong className="text-slate-700 dark:text-slate-200">{selectedOffice.landmark}</strong>
+                    </span>
+                  )}
+                </div>
+
+                <a
+                  href={googleMapsDirectionsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 font-bold text-[#005a9e] dark:text-sky-400 hover:underline"
+                >
+                  <Navigation className="w-3.5 h-3.5" />
+                  <span>Get Turn-by-Turn Directions in Google Maps</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+            </form>
+
+            {/* Google Map Canvas */}
+            <div className="w-full h-[380px] sm:h-[420px] rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 relative bg-slate-100 dark:bg-slate-800">
+              <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
+                <Map
+                  key={selectedOffice.id}
+                  mapId="DEMO_MAP_ID"
+                  defaultCenter={selectedOffice.coords}
+                  defaultZoom={15}
+                  gestureHandling="cooperative"
+                  internalUsageAttributionIds={[
+                    "gmp_mcp_codeassist_v1_aistudio",
+                  ]}
+                  className="w-full h-full"
+                >
+                  {routeTriggerKey === 0 && (
+                    <AdvancedMarker
+                      position={selectedOffice.coords}
+                      title={`Coreenact - ${selectedOffice.city} Office`}
+                      onClick={() => setInfoWindowOpen(true)}
+                    >
+                      <Pin
+                        background="#005a9e"
+                        borderColor="#003b66"
+                        glyphColor="#ffffff"
+                      />
+                    </AdvancedMarker>
+                  )}
+
+                  {infoWindowOpen && routeTriggerKey === 0 && (
+                    <InfoWindow
+                      position={selectedOffice.coords}
+                      onCloseClick={() => setInfoWindowOpen(false)}
+                      pixelOffset={[0, -36]}
+                    >
+                      <div className="p-1 max-w-[240px] text-slate-900 space-y-1.5">
+                        <div className="font-bold text-xs text-[#005a9e]">
+                          Coreenact {selectedOffice.city} ({selectedOffice.region})
+                        </div>
+                        <div className="text-[11px] text-slate-700 leading-snug">
+                          {selectedOffice.address}
+                        </div>
+                        <a
+                          href={googleMapsDirectionsUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:underline pt-0.5"
+                        >
+                          <span>Get Directions</span>
+                          <ExternalLink className="w-2.5 h-2.5" />
+                        </a>
+                      </div>
+                    </InfoWindow>
+                  )}
+
+                  <RouteDirectionsController
+                    originQuery={activeOriginQuery}
+                    destinationCoords={selectedOffice.coords}
+                    travelMode={travelMode}
+                    triggerKey={routeTriggerKey}
+                    onRouteComputed={setRouteSummary}
+                    onRouteError={setRouteError}
+                  />
+                </Map>
+              </APIProvider>
+            </div>
+          </div>
         </div>
       </div>
     </div>

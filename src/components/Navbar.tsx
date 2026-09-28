@@ -7,7 +7,6 @@ import {
   Menu,
   X,
   MapPin,
-  ExternalLink,
   ChevronDown,
 } from "lucide-react";
 import { PageType } from "../types";
@@ -75,6 +74,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: "industries", label: "Industries" },
     { id: "about", label: "About Us" },
     { id: "case-studies", label: "Case Studies" },
+    { id: "contact", label: "Contact" },
   ];
 
   return (
@@ -184,6 +184,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               { id: "ai-agents", label: "AI & Agents" },
               { id: "industries", label: "Industries" },
               { id: "about", label: "About" },
+              { id: "contact", label: "Contact" },
             ].map((item) => (
               <button
                 key={item.id}
@@ -250,17 +251,19 @@ export const Navbar: React.FC<NavbarProps> = ({
               <ArrowRight className="w-3.5 h-3.5 shrink-0" />
             </button>
 
-            {/* Support Login External Portal Link */}
-            <a
-              href="https://support.coreenact.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-2.5 xl:px-3 py-2 rounded-lg text-xs font-semibold text-slate-700 hover:text-blue-700 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 dark:bg-slate-900 dark:text-slate-200 dark:border-slate-800 transition flex items-center gap-1.5 shadow-2xs whitespace-nowrap shrink-0"
-              title="Access Coreenact Enterprise Support Portal (https://support.coreenact.com/)"
+            {/* Contact Page Button */}
+            <button
+              onClick={() => handlePageClick("contact")}
+              className={`px-2.5 xl:px-3 py-2 rounded-lg text-xs font-semibold border transition flex items-center gap-1.5 shadow-2xs whitespace-nowrap shrink-0 cursor-pointer ${
+                activePage === "contact"
+                  ? "bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-sky-400 border-blue-200 dark:border-blue-800"
+                  : "text-slate-700 hover:text-blue-700 bg-slate-100 hover:bg-slate-200/80 border-slate-200 dark:bg-slate-900 dark:text-slate-200 dark:border-slate-800"
+              }`}
+              title="Go to Contact Page"
             >
-              <span className="whitespace-nowrap">Support login</span>
-              <ExternalLink className="w-3 h-3 text-slate-500 dark:text-slate-400 shrink-0" />
-            </a>
+              <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-sky-400 shrink-0" />
+              <span className="whitespace-nowrap">Contact Us</span>
+            </button>
           </div>
 
           {/* Mobile/Tablet Menu Controls */}
@@ -354,16 +357,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
 
-              {/* Support Login */}
-              <a
-                href="https://support.coreenact.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 shadow-2xs"
+              {/* Contact Us Page */}
+              <button
+                onClick={() => handlePageClick("contact")}
+                className="w-full py-2.5 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 font-semibold text-xs flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer"
               >
-                <span>Support login</span>
-                <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
-              </a>
+                <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-sky-400" />
+                <span>Contact Us</span>
+              </button>
 
               <div className="pt-1">
                 <a
