@@ -5,6 +5,8 @@ import { GLOBAL_OFFICES } from "../data/solutionsData";
 import { MicrosoftLogo } from "./icons/MicrosoftIcons";
 
 const OFFICE_IMAGES: Record<string, string> = {
+  Haryana:
+    "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1200&q=75",
   "New Delhi":
     "https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&w=1200&q=75",
   "Mississauga / Toronto":
@@ -35,7 +37,7 @@ export const GlobalHubs: React.FC<GlobalHubsProps> = ({
             </span>
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg">
-            Dedicated enterprise delivery centers in New Delhi, India and Mississauga, Canada providing 24/7 Microsoft Dynamics 365 Business Central engineering and consulting.
+            Dedicated enterprise delivery centers in Haryana, India and Mississauga, Canada providing 24/7 Microsoft Dynamics 365 Business Central engineering and consulting.
           </p>
         </div>
 

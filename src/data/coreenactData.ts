@@ -2,9 +2,11 @@ import { ServiceItem, IndustryItem } from "../types";
 
 export const COREENACT_CONTACT = {
   email: "info@coreenact.com",
-  phone: "",
+  phone: "+91 84487 96169",
+  phoneRaw: "8448796169",
+  whatsappUrl: "https://wa.me/918448796169",
   phoneCanada: "",
-  addressIndia: "Innov8, 3rd Floor, 211, Okhla Industrial Estate, Phase III, New Delhi – 110020, India",
+  addressIndia: "123-1st Floor, SRS CORPORATE TOWER, NH-19, Sector 31, Faridabad, Haryana 121003",
   addressCanada: "4255 Sherwoodtowne Blvd, Ste 300, Mississauga, ON L4Z 1Y5, Canada",
   consultationUrl: "https://coreenact.com",
   tagline: "Converting Enterprise Complexity into an Intelligent Core",
@@ -12,12 +14,14 @@ export const COREENACT_CONTACT = {
     {
       id: "india",
       region: "India Headquarters",
-      city: "New Delhi",
+      city: "Haryana",
       country: "India",
-      address: "Innov8, 3rd Floor, 211, Okhla Industrial Estate, Phase III, New Delhi – 110020, India",
-      landmark: "Okhla Phase III / Govindpuri Metro Corridor",
+      address: "123-1st Floor, SRS CORPORATE TOWER, NH-19, Sector 31, Faridabad, Haryana 121003",
+      landmark: "SRS Corporate Tower, NH-19, Sector 31, Faridabad",
       email: "info@coreenact.com",
-      coords: { lat: 28.5393, lng: 77.2678 },
+      phone: "+91 84487 96169",
+      whatsappUrl: "https://wa.me/918448796169",
+      coords: { lat: 28.4447, lng: 77.3119 },
       badge: "Delivery & Engineering CoE",
       timing: "Mon - Sat: 9:00 AM - 7:00 PM IST",
     },
@@ -29,6 +33,8 @@ export const COREENACT_CONTACT = {
       address: "4255 Sherwoodtowne Blvd, Ste 300, Mississauga, ON L4Z 1Y5, Canada",
       landmark: "Sherwoodtowne Business Corridor, Greater Toronto Area",
       email: "info@coreenact.com",
+      phone: "",
+      whatsappUrl: "",
       coords: { lat: 43.5988, lng: -79.6441 },
       badge: "Americas Consulting Hub",
       timing: "Mon - Fri: 9:00 AM - 6:00 PM EST",
@@ -37,7 +43,7 @@ export const COREENACT_CONTACT = {
   deliveryHighlights: [
     {
       title: "Global ERP Engineering CoE",
-      location: "New Delhi, India",
+      location: "Haryana, India",
       focus: "End-to-End AL Extension Engineering, India GST Localization & 24/7 Managed Services",
     },
     {

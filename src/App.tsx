@@ -527,7 +527,7 @@ export default function App() {
                       <MicrosoftAppBadge app="azure" />
                     </div>
                     <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
-                      <span>Delhi & Mississauga</span>
+                      <span>Haryana & Mississauga</span>
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
@@ -540,7 +540,7 @@ export default function App() {
                         Contact & Hubs
                       </h3>
                       <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
-                        Direct consultation with certified architects. Offices in New Delhi & Mississauga.
+                        Direct consultation with certified architects. Offices in Haryana & Mississauga.
                       </p>
                     </div>
                     <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-amber-600 dark:text-amber-400">

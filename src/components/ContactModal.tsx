@@ -122,7 +122,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({
                     Schedule Business Central Review
                   </h3>
                   <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                    Direct consultation with Coreenact (info@coreenact.com) • New Delhi & Mississauga
+                    Direct consultation with Coreenact (info@coreenact.com) • Haryana & Mississauga
                   </p>
                 </div>
               </div>

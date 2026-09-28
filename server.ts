@@ -1,15 +1,11 @@
 import express from "express";
 import path from "path";
 import fs from "fs";
-import { fileURLToPath } from "url";
 import { GoogleGenAI, ThinkingLevel, GenerateVideosOperation } from "@google/genai";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 
 dotenv.config();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 3000;
@@ -287,9 +283,9 @@ Tagline: Microsoft Dynamics 365 Business Central Specialists & Digital Transform
 Credentials: Microsoft Solutions Partner for Business Applications (ERP & Power Platform)
 
 Offices & Global Delivery Centers:
-- Global Delivery HQ (India): Plot 24, Okhla Phase III, New Delhi 110020, India. Email: info@coreenact.com
+- Global Delivery HQ (India): 123-1st Floor, SRS CORPORATE TOWER, NH-19, Sector 31, Faridabad, Haryana 121003. Email: info@coreenact.com | Phone & WhatsApp: +91 84487 96169 (https://wa.me/918448796169)
 - North America Delivery Hub (Canada): 201 City Centre Drive, Suite 700, Mississauga, ON L5B 2T4, Canada.
-- Inquiries: info@coreenact.com | support@coreenact.com | sales@coreenact.com
+- Inquiries: info@coreenact.com | support@coreenact.com | sales@coreenact.com | Phone/WhatsApp: 8448796169
 - Website: https://coreenact.com
 
 Core Services Offered:
@@ -440,7 +436,7 @@ Coreenact provides transparent pricing and license optimization specifically for
 Connect with our global enterprise advisory teams:
 
 - **Global Delivery Headquarters (India)**:
-  - Address: Plot 24, Okhla Phase III, New Delhi 110020, India
+  - Address: 123-1st Floor, SRS CORPORATE TOWER, NH-19, Sector 31, Faridabad, Haryana 121003
   - Email: **info@coreenact.com**
   - Working Hours: Mon–Fri, 9:00 AM – 6:30 PM IST (24/7 Managed Support available)
 

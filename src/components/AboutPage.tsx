@@ -345,7 +345,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
                 Global Delivery Footprint
               </h3>
               <p className="text-sm text-slate-500 dark:text-slate-400">
-                Offices in New Delhi, India and Mississauga, Canada
+                Offices in Haryana, India and Mississauga, Canada
               </p>
             </div>
           </div>
@@ -359,7 +359,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({
                 <div className="h-24 w-full overflow-hidden relative">
                   <img
                     src={
-                      office.city.toLowerCase().includes("delhi")
+                      office.id === "india" || office.city.toLowerCase().includes("haryana")
                         ? "https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=900&q=70"
                         : "https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?auto=format&fit=crop&w=900&q=70"
                     }
@@ -398,13 +398,32 @@ export const AboutPage: React.FC<AboutPageProps> = ({
             ))}
           </div>
 
-          <div className="text-sm text-slate-600 dark:text-slate-400 pt-2 flex items-center gap-2">
-            <span>Primary Contact:</span>
+          <div className="text-sm text-slate-600 dark:text-slate-400 pt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
+            <div className="flex items-center gap-2">
+              <span>Primary Contact:</span>
+              <a
+                href={`mailto:${COREENACT_CONTACT.email}`}
+                className="text-[#005a9e] dark:text-sky-400 hover:underline font-mono font-bold"
+              >
+                {COREENACT_CONTACT.email}
+              </a>
+            </div>
+            <div className="flex items-center gap-2">
+              <span>Phone:</span>
+              <a
+                href={`tel:+91${COREENACT_CONTACT.phoneRaw}`}
+                className="text-[#005a9e] dark:text-sky-400 hover:underline font-mono font-bold"
+              >
+                {COREENACT_CONTACT.phone}
+              </a>
+            </div>
             <a
-              href={`mailto:${COREENACT_CONTACT.email}`}
-              className="text-[#005a9e] dark:text-sky-400 hover:underline font-mono font-bold"
+              href={COREENACT_CONTACT.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/70 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 font-semibold text-xs hover:bg-emerald-100 transition"
             >
-              {COREENACT_CONTACT.email}
+              <span>WhatsApp ({COREENACT_CONTACT.phoneRaw})</span>
             </a>
           </div>
         </div>

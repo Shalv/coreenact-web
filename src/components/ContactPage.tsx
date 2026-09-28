@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import {
   Mail,
+  Phone,
+  MessageCircle,
   MapPin,
   Building,
   Clock,
@@ -36,7 +38,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
     company: "",
     phone: "",
     service: "Microsoft Dynamics 365 Business Central",
-    office: "India (New Delhi)",
+    office: "India (Haryana)",
     notes: "",
   });
 
@@ -102,7 +104,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
           </span>
         </h1>
         <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed">
-          Connect directly with Coreenact’s Microsoft certified solution architects in New Delhi or Mississauga to scope your Dynamics 365 Business Central project, schedule a diagnostic audit, or request a custom proposal.
+          Connect directly with Coreenact’s Microsoft certified solution architects in Haryana or Mississauga to scope your Dynamics 365 Business Central project, schedule a diagnostic audit, or request a custom proposal.
         </p>
       </div>
 
@@ -110,10 +112,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column: Official Contact & Offices (5 Cols) */}
         <div className="lg:col-span-5 space-y-6">
-          {/* Direct Email Card */}
-          <div className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+          {/* Direct Email & Phone/WhatsApp Card */}
+          <div className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
             <div className="flex items-center gap-3.5">
-              <div className="w-10 h-10 rounded-lg bg-[#005a9e] flex items-center justify-center text-white">
+              <div className="w-10 h-10 rounded-lg bg-[#005a9e] flex items-center justify-center text-white shrink-0">
                 <Mail className="w-5 h-5" />
               </div>
               <div>
@@ -128,6 +130,36 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                 </a>
               </div>
             </div>
+
+            <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-blue-50 dark:bg-slate-800 border border-blue-200 dark:border-slate-700 flex items-center justify-center text-[#005a9e] dark:text-sky-400 shrink-0">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    Direct Phone & WhatsApp
+                  </div>
+                  <a
+                    href={`tel:+91${COREENACT_CONTACT.phoneRaw}`}
+                    className="text-base font-bold text-slate-900 dark:text-slate-100 hover:text-[#005a9e] dark:hover:text-sky-400 font-mono transition"
+                  >
+                    {COREENACT_CONTACT.phone}
+                  </a>
+                </div>
+              </div>
+
+              <a
+                href={COREENACT_CONTACT.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold inline-flex items-center gap-1.5 shadow-2xs transition"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>Chat on WhatsApp</span>
+              </a>
+            </div>
+
             <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
               Inquiries regarding Microsoft Dynamics 365 Business Central, NAV migrations, global rollouts, and custom AI agents are reviewed and answered within 4 business hours.
             </p>
@@ -173,6 +205,29 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                   <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                   <span>{office.timing}</span>
                 </div>
+
+                {office.phone && (
+                  <div className="flex flex-wrap items-center gap-3 text-xs pl-6 pt-1">
+                    <a
+                      href={`tel:+91${COREENACT_CONTACT.phoneRaw}`}
+                      className="inline-flex items-center gap-1.5 font-mono font-bold text-[#005a9e] dark:text-sky-400 hover:underline"
+                    >
+                      <Phone className="w-3.5 h-3.5 shrink-0" />
+                      <span>{office.phone}</span>
+                    </a>
+                    {office.whatsappUrl && (
+                      <a
+                        href={office.whatsappUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/70 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 font-semibold hover:bg-emerald-100 transition"
+                      >
+                        <MessageCircle className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                        <span>WhatsApp</span>
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
 
               <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
@@ -384,8 +439,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                         }
                         className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-hidden focus:border-blue-600 focus:bg-white"
                       >
-                        <option value="India (New Delhi)">
-                          New Delhi, India (Innov8 Okhla Phase III)
+                        <option value="India (Haryana)">
+                          Haryana, India (123-1st Floor, SRS Corporate Tower, Faridabad)
                         </option>
                         <option value="Canada (Mississauga)">
                           Mississauga, Canada (4255 Sherwoodtowne)

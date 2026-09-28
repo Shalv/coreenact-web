@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Mail,
+  Phone,
   ArrowRight,
   Menu,
   X,
@@ -101,9 +102,20 @@ export const Navbar: React.FC<NavbarProps> = ({
           </a>
         </span>
         <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
+        <span className="flex items-center gap-2.5 whitespace-nowrap shrink-0">
+          <a
+            href={`tel:+91${COREENACT_CONTACT.phoneRaw}`}
+            className="inline-flex items-center gap-1 text-slate-900 dark:text-slate-100 hover:text-blue-700 dark:hover:text-sky-400 font-mono font-bold transition"
+            title="Call Coreenact"
+          >
+            <Phone className="w-3.5 h-3.5 text-blue-600 dark:text-sky-400 shrink-0" />
+            <span>{COREENACT_CONTACT.phone}</span>
+          </a>
+        </span>
+        <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
         <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 font-medium whitespace-nowrap shrink-0">
           <MapPin className="w-4 h-4 text-blue-600 dark:text-sky-400 shrink-0" />
-          <span>Offices in New Delhi (India) & Mississauga (Canada)</span>
+          <span>Offices in Haryana (India) & Mississauga (Canada)</span>
         </span>
       </div>
 
@@ -353,8 +365,18 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
               </a>
 
+              <div className="pt-1">
+                <a
+                  href={`tel:+91${COREENACT_CONTACT.phoneRaw}`}
+                  className="w-full py-2 px-3 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 font-mono font-bold text-xs flex items-center justify-center gap-1.5"
+                >
+                  <Phone className="w-3.5 h-3.5 text-blue-600 dark:text-sky-400 shrink-0" />
+                  <span>{COREENACT_CONTACT.phone}</span>
+                </a>
+              </div>
+
               <div className="text-[11px] text-slate-500 text-center pt-1.5">
-                Offices: New Delhi, India • Mississauga, Canada
+                Offices: Haryana, India • Mississauga, Canada
               </div>
             </div>
           </motion.div>

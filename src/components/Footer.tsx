@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import {
   MapPin,
   Mail,
+  Phone,
+  MessageCircle,
   ArrowRight,
   ArrowUp,
   Clock,
@@ -113,7 +115,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 </h3>
 
                 <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
-                  Connect with our certified solution architects in New Delhi and Mississauga for structured discovery, legacy NAV migration audits, and INR / USD TCO financial modeling.
+                  Connect with our certified solution architects in Haryana and Mississauga for structured discovery, legacy NAV migration audits, and INR / USD TCO financial modeling.
                 </p>
 
                 {/* Team Avatars Credibility Strip */}
@@ -146,6 +148,27 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   <span>Schedule Architecture Discovery</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <a
+                    href={`tel:+91${COREENACT_CONTACT.phoneRaw}`}
+                    className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-900/90 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/80 text-slate-700 dark:text-slate-200 text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition text-center shadow-2xs"
+                    title="Call Coreenact"
+                  >
+                    <Phone className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400 shrink-0" />
+                    <span>{COREENACT_CONTACT.phoneRaw}</span>
+                  </a>
+                  <a
+                    href={COREENACT_CONTACT.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/70 dark:hover:bg-emerald-900/70 border border-emerald-200 dark:border-emerald-800/80 text-emerald-700 dark:text-emerald-300 text-xs font-bold flex items-center justify-center gap-1.5 transition text-center shadow-2xs"
+                    title="Chat on WhatsApp"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
 
                 <a
                   href={`mailto:${COREENACT_CONTACT.email}`}
@@ -184,7 +207,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                         India Engineering CoE
                       </h4>
                       <span className="text-[11px] px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-cyan-300 font-mono font-bold border border-blue-200 dark:border-blue-800/60">
-                        New Delhi
+                        Haryana
                       </span>
                     </div>
                     <div className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5 mt-0.5">
@@ -203,13 +226,31 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </div>
 
               <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
-                <a
-                  href={`mailto:${COREENACT_CONTACT.email}`}
-                  className="font-mono font-bold text-blue-600 hover:text-blue-700 dark:text-cyan-300 dark:hover:text-cyan-200 transition flex items-center gap-1.5"
-                >
-                  <Mail className="w-3.5 h-3.5" />
-                  <span>{COREENACT_CONTACT.email}</span>
-                </a>
+                <div className="flex flex-wrap items-center gap-3">
+                  <a
+                    href={`mailto:${COREENACT_CONTACT.email}`}
+                    className="font-mono font-bold text-blue-600 hover:text-blue-700 dark:text-cyan-300 dark:hover:text-cyan-200 transition flex items-center gap-1.5"
+                  >
+                    <Mail className="w-3.5 h-3.5" />
+                    <span>{COREENACT_CONTACT.email}</span>
+                  </a>
+                  <a
+                    href={`tel:+91${COREENACT_CONTACT.phoneRaw}`}
+                    className="font-mono font-bold text-slate-700 hover:text-blue-600 dark:text-slate-200 dark:hover:text-cyan-300 transition flex items-center gap-1"
+                  >
+                    <Phone className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
+                    <span>{COREENACT_CONTACT.phone}</span>
+                  </a>
+                  <a
+                    href={COREENACT_CONTACT.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 font-semibold text-[11px] hover:bg-emerald-100 transition"
+                  >
+                    <MessageCircle className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
                 <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
                   AL / C-AL Engineering Center
                 </span>
@@ -623,7 +664,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div className="flex flex-wrap items-center gap-2 text-center sm:text-left">
             <span>© {new Date().getFullYear()} Coreenact Solutions Pvt. Ltd. All rights reserved.</span>
             <span className="hidden sm:inline text-slate-300 dark:text-slate-600">•</span>
-            <span>New Delhi & Mississauga</span>
+            <span>Haryana & Mississauga</span>
           </div>
 
           <div className="flex items-center gap-4">

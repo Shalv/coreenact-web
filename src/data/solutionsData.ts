@@ -176,10 +176,10 @@ export const CASE_STUDIES: CaseStudy[] = [
 
 export const GLOBAL_OFFICES = [
   {
-    city: "New Delhi",
+    city: "Haryana",
     country: "India (Engineering & CoE)",
-    address: "Innov8, 3rd Floor, 211, Okhla Industrial Estate, Phase III, New Delhi – 110020, India",
-    coords: { lat: 28.5393, lng: 77.2678 },
+    address: "123-1st Floor, SRS CORPORATE TOWER, NH-19, Sector 31, Faridabad, Haryana 121003",
+    coords: { lat: 28.4447, lng: 77.3119 },
     specialty: "Global ERP Engineering, India GST Localization & Continuous Managed Services",
   },
   {
