@@ -501,26 +501,36 @@ async function executeResilientGeneration({
 
   // Step 1: Attempt with Google Search tool if requested
   if (enableSearch) {
-    try {
-      usedTools = true;
-      const config: any = {
-        systemInstruction,
-        tools: [{ googleSearch: {} }],
-      };
-      if (enableThinking && preferredModel === "gemini-3.1-pro-preview") {
-        config.thinkingConfig = { thinkingLevel: ThinkingLevel.HIGH };
+    const searchModels = [
+      preferredModel,
+      "gemini-3.5-flash",
+      "gemini-3.8-flash",
+    ].filter((m, idx, arr) => Boolean(m) && arr.indexOf(m) === idx);
+
+    for (const searchModel of searchModels) {
+      try {
+        usedTools = true;
+        const config: any = {
+          systemInstruction,
+          tools: [{ googleSearch: {} }],
+        };
+        if (enableThinking && searchModel === "gemini-3.1-pro-preview") {
+          config.thinkingConfig = { thinkingLevel: ThinkingLevel.HIGH };
+        }
+        response = await ai.models.generateContent({
+          model: searchModel,
+          contents,
+          config,
+        });
+        modelUsed = searchModel;
+        break;
+      } catch (searchError: any) {
+        console.warn(
+          `[Search Grounding Quota/Error with ${searchModel}]: ${searchError?.message}. Trying next search model...`
+        );
+        response = null;
+        usedTools = false;
       }
-      response = await ai.models.generateContent({
-        model: preferredModel,
-        contents,
-        config,
-      });
-    } catch (searchError: any) {
-      console.warn(
-        `[Search Grounding Quota/Error with ${preferredModel}]: ${searchError?.message}. Falling back to direct models without tools...`
-      );
-      response = null;
-      usedTools = false;
     }
   }
 
@@ -765,7 +775,7 @@ app.post("/api/customer-query", async (req, res) => {
       contents: query,
       systemInstruction,
       enableSearch,
-      preferredModel: "gemini-3.8-flash",
+      preferredModel: "gemini-3.5-flash",
       queryTextForFallback: query,
       roleTitle: "Customer Support Advisor",
     });
@@ -795,6 +805,56 @@ app.post("/api/customer-query", async (req, res) => {
       isFreeTier: true,
       isLocalFallback: true,
       freeMessage: "100% Free - Coreenact Verified Knowledge Base",
+    });
+  }
+});
+
+// 3b. Dedicated Live Google Search Grounding Endpoint (/api/search-grounding)
+app.post("/api/search-grounding", async (req, res) => {
+  try {
+    const { query, context = "erp" } = req.body;
+    if (!query || typeof query !== "string") {
+      return res.status(400).json({ error: "Search query string is required." });
+    }
+
+    const ai = getGenAI();
+    const systemInstruction =
+      context === "marketing"
+        ? `You are Coreenact's B2B Digital Marketing & Search Intelligence Strategist. Use live Google Search data to provide up-to-date, accurate B2B SEO, Generative Engine Optimization (GEO), paid acquisition benchmarks, and Microsoft Dynamics 365 Customer Insights recommendations.\n\n${COREENACT_WEBSITE_KNOWLEDGE}`
+        : `You are Coreenact's Principal Microsoft Dynamics 365 Business Central & AI Research Advisor. Use live Google Search data to provide up-to-date, accurate information on Microsoft Dynamics 365 Business Central release waves, Microsoft Copilot capabilities, India GST/e-Invoicing statutory updates, and enterprise cloud ERP benchmarks.\n\n${COREENACT_WEBSITE_KNOWLEDGE}`;
+
+    const result = await executeResilientGeneration({
+      ai,
+      contents: query,
+      systemInstruction,
+      enableSearch: true,
+      preferredModel: "gemini-3.5-flash",
+      queryTextForFallback: query,
+      roleTitle: context === "marketing" ? "Digital Growth Strategist" : "D365 Research Advisor",
+    });
+
+    res.json({
+      query,
+      reply: result.reply,
+      modelUsed: result.modelUsed,
+      groundingSources: result.groundingSources,
+      searchQueries: result.searchQueries,
+      isLocalFallback: result.isLocalFallback || false,
+    });
+  } catch (error: any) {
+    console.error("Search grounding endpoint error:", error);
+    const query = req.body?.query || "";
+    const fallbackAnswer = generateLocalKnowledgeResponse(query, "D365 Research Advisor");
+    res.json({
+      query,
+      reply: fallbackAnswer,
+      modelUsed: "coreenact-enterprise-kb",
+      groundingSources: [
+        { title: "Coreenact Official Website", url: "https://coreenact.com" },
+        { title: "Microsoft Dynamics 365 Documentation", url: "https://learn.microsoft.com/en-us/dynamics365/business-central/" },
+      ],
+      searchQueries: [],
+      isLocalFallback: true,
     });
   }
 });

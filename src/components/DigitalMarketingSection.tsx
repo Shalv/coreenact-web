@@ -31,6 +31,7 @@ import {
   MarketingService,
 } from "../data/digitalMarketingData";
 import { MicrosoftAppBadge, MicrosoftLogo } from "./icons/MicrosoftIcons";
+import { SearchGroundedAdvisor } from "./SearchGroundedAdvisor";
 
 interface DigitalMarketingSectionProps {
   onOpenContact: (interest?: string) => void;
@@ -552,6 +553,12 @@ export const DigitalMarketingSection: React.FC<DigitalMarketingSectionProps> = (
             ))}
           </div>
         </div>
+
+        {/* Live Google Search Grounded B2B SEO & Market Intelligence */}
+        <SearchGroundedAdvisor
+          context="marketing"
+          onOpenContact={onOpenContact}
+        />
 
         {/* MarTech Partners Badge Grid */}
         <div className="p-6 sm:p-8 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-center space-y-4">

@@ -31,6 +31,7 @@ import {
   Code2,
 } from "lucide-react";
 import { MicrosoftLogo } from "./icons/MicrosoftIcons";
+import { SearchGroundedAdvisor } from "./SearchGroundedAdvisor";
 
 // Official Microsoft Copilot 101 CDN Image Assets
 export const COPILOT_101_IMAGES = {
@@ -1987,6 +1988,16 @@ export const AiAgentsPage: React.FC<AiAgentsPageProps> = ({
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* 9b. LIVE GOOGLE SEARCH GROUNDED RESEARCH HUB */}
+      <section className="py-14 sm:py-20 bg-slate-50/70 dark:bg-slate-900/30 border-b border-slate-200/80 dark:border-slate-800">
+        <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8">
+          <SearchGroundedAdvisor
+            context="erp"
+            onOpenContact={onOpenContact}
+          />
         </div>
       </section>
 
