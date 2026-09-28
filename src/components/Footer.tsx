@@ -541,7 +541,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </li>
               <li>
                 <button
-                  onClick={() => handleLink("services")}
+                  onClick={() => handleLink("digital-marketing")}
                   className="hover:text-blue-600 dark:hover:text-cyan-300 transition text-left cursor-pointer flex items-center gap-2 group"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600 group-hover:bg-blue-600 dark:group-hover:bg-cyan-400 transition" />
@@ -656,7 +656,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </li>
               <li>
                 <button
-                  onClick={() => handleLink("home", "#estimator")}
+                  onClick={() => handleLink("contact", "calculator")}
                   className="hover:text-amber-700 dark:hover:text-cyan-300 transition text-left cursor-pointer flex items-center gap-2 group text-amber-700 dark:text-amber-300/90 font-medium"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />

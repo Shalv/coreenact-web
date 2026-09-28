@@ -191,6 +191,12 @@ export default function App() {
       return;
     }
 
+    // If target is calculator or estimator, navigate to contact page #calculator
+    if (target === "calculator" || target === "estimator" || target === "#estimator") {
+      handleSelectPage("contact", "calculator");
+      return;
+    }
+
     // Otherwise scroll to section on current page
     if (currentPage !== "home") {
       handleSelectPage("home");
@@ -330,7 +336,7 @@ export default function App() {
 
             {/* Quick Portal Cards mirroring Coreenact main navigation */}
             <div className="py-12 max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#0b0f19]">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
                 {/* 1. Services Catalog Card */}
                 <div
                   onClick={() => handleSelectPage("services")}
@@ -451,46 +457,6 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Digital Marketing Card */}
-                <div
-                  onClick={() => handleSelectPage("digital-marketing")}
-                  className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-xl hover:border-indigo-500/50 dark:hover:border-indigo-500/50 transition-all duration-300 cursor-pointer group text-left overflow-hidden flex flex-col h-full"
-                >
-                  <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
-                    <img
-                      src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80"
-                      alt="Coreenact Digital Marketing and Growth Acceleration"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      referrerPolicy="no-referrer"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
-                    <div className="absolute top-3 left-3">
-                      <MicrosoftAppBadge app="customer-insights" />
-                    </div>
-                    <div className="absolute bottom-2.5 left-3 right-3 flex items-center justify-between text-white text-xs font-bold">
-                      <span>SEO & Paid ROAS</span>
-                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                  <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-                    <div>
-                      <div className="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center mb-3 shadow-sm">
-                        <TrendingUp className="w-4 h-4" />
-                      </div>
-                      <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-sky-400 transition">
-                        Digital Marketing
-                      </h3>
-                      <p className="text-sm text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
-                        Enterprise SEO, Generative Search (GEO), B2B ABM, and Dynamics 365 closed-loop marketing.
-                      </p>
-                    </div>
-                    <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center text-xs font-bold text-blue-600 dark:text-sky-400">
-                      <span>Explore Growth Services</span>
-                      <ChevronRight className="w-3.5 h-3.5 ml-1" />
-                    </div>
-                  </div>
-                </div>
-
                 {/* About Coreenact Card */}
                 <div
                   onClick={() => handleSelectPage("about")}
@@ -605,18 +571,6 @@ export default function App() {
               </div>
             </section>
 
-            {/* 4. Digital Marketing & Growth Acceleration Section */}
-            <DigitalMarketingSection
-              onOpenContact={handleOpenContact}
-            />
-
-            {/* 5. Interactive ROI & 3-Year TCO Calculator */}
-            <RoiCalculator
-              onOpenContact={(interest) =>
-                handleOpenContact(interest || "Dynamics 365 Business Central Licensing & ROI")
-              }
-            />
-
             {/* 6. Enterprise Case Studies */}
             <CaseStudies
               onOpenContact={() => setIsContactOpen(true)}
@@ -652,6 +606,7 @@ export default function App() {
         {currentPage === "services" && (
           <ServicesPage
             onOpenContact={() => setIsContactOpen(true)}
+            onNavigateDigitalMarketing={() => handleSelectPage("digital-marketing")}
           />
         )}
 
@@ -669,9 +624,16 @@ export default function App() {
         )}
 
         {currentPage === "contact" && (
-          <ContactPage
-            onGroundLocation={handleGroundLocation}
-          />
+          <>
+            <ContactPage
+              onGroundLocation={handleGroundLocation}
+            />
+            <RoiCalculator
+              onOpenContact={(interest) =>
+                handleOpenContact(interest || "Dynamics 365 Business Central Licensing & ROI")
+              }
+            />
+          </>
         )}
 
         {currentPage === "solutions" && (

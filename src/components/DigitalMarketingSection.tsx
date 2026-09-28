@@ -46,15 +46,6 @@ export const DigitalMarketingSection: React.FC<DigitalMarketingSectionProps> = (
   onBack,
 }) => {
   const [selectedServiceId, setSelectedServiceId] = useState<string>("seo-geo");
-  const [currency, setCurrency] = useState<"INR" | "USD">("INR");
-  const [budgetInr, setBudgetInr] = useState<number>(150000); // 1.5 Lakh INR
-  const [budgetUsd, setBudgetUsd] = useState<number>(3000); // $3000 USD
-  const [selectedIndustry, setSelectedIndustry] = useState<string>("b2b_saas");
-  const [selectedChannels, setSelectedChannels] = useState<string[]>([
-    "google_ads",
-    "seo",
-    "linkedin",
-  ]);
 
   const selectedService = useMemo(() => {
     return (
@@ -62,104 +53,6 @@ export const DigitalMarketingSection: React.FC<DigitalMarketingSectionProps> = (
       DIGITAL_MARKETING_SERVICES[0]
     );
   }, [selectedServiceId]);
-
-  const toggleChannel = (channel: string) => {
-    setSelectedChannels((prev) =>
-      prev.includes(channel)
-        ? prev.filter((c) => c !== channel)
-        : [...prev, channel]
-    );
-  };
-
-  // ROI Calculator Math
-  const marketingProjections = useMemo(() => {
-    const budget = currency === "INR" ? budgetInr : budgetUsd;
-
-    // Industry multiplier benchmarks
-    const industryBenchmarks: Record<
-      string,
-      { avgCplInr: number; avgCplUsd: number; dealValueInr: number; dealValueUsd: number; closeRate: number }
-    > = {
-      b2b_saas: {
-        avgCplInr: 4200,
-        avgCplUsd: 65,
-        dealValueInr: 350000,
-        dealValueUsd: 5500,
-        closeRate: 0.12,
-      },
-      manufacturing: {
-        avgCplInr: 5800,
-        avgCplUsd: 85,
-        dealValueInr: 750000,
-        dealValueUsd: 12000,
-        closeRate: 0.1,
-      },
-      professional_services: {
-        avgCplInr: 3600,
-        avgCplUsd: 55,
-        dealValueInr: 280000,
-        dealValueUsd: 4500,
-        closeRate: 0.15,
-      },
-      healthcare: {
-        avgCplInr: 3200,
-        avgCplUsd: 48,
-        dealValueInr: 220000,
-        dealValueUsd: 3800,
-        closeRate: 0.14,
-      },
-      edtech: {
-        avgCplInr: 2400,
-        avgCplUsd: 38,
-        dealValueInr: 150000,
-        dealValueUsd: 2500,
-        closeRate: 0.16,
-      },
-    };
-
-    const currentBench = industryBenchmarks[selectedIndustry] || industryBenchmarks.b2b_saas;
-    const baseCpl = currency === "INR" ? currentBench.avgCplInr : currentBench.avgCplUsd;
-    const dealValue = currency === "INR" ? currentBench.dealValueInr : currentBench.dealValueUsd;
-
-    // Channel efficiency discount
-    const channelBonus = Math.max(0.85, 1 - (selectedChannels.length - 1) * 0.05);
-    const effectiveCpl = Math.round(baseCpl * channelBonus);
-
-    const estimatedLeads = Math.max(5, Math.round(budget / effectiveCpl));
-    const estimatedClosedDeals = Math.max(1, Math.round(estimatedLeads * currentBench.closeRate));
-    const estimatedPipelineValue = estimatedLeads * dealValue;
-    const estimatedNewRevenue = estimatedClosedDeals * dealValue;
-    const estimatedRoi = Number((estimatedNewRevenue / budget).toFixed(1));
-
-    return {
-      effectiveCpl,
-      estimatedLeads,
-      estimatedClosedDeals,
-      estimatedPipelineValue,
-      estimatedNewRevenue,
-      estimatedRoi: Math.max(2.5, estimatedRoi),
-    };
-  }, [currency, budgetInr, budgetUsd, selectedIndustry, selectedChannels]);
-
-  const formatCurrency = (val: number) => {
-    if (currency === "INR") {
-      if (val >= 10000000) {
-        return `₹${(val / 10000000).toFixed(2)} Cr`;
-      }
-      if (val >= 100000) {
-        return `₹${(val / 100000).toFixed(2)} Lakh`;
-      }
-      return `₹${val.toLocaleString("en-IN")}`;
-    } else {
-      if (val >= 1000000) {
-        return `$${(val / 1000000).toFixed(2)}M`;
-      }
-      if (val >= 1000) {
-        return `$${(val / 1000).toFixed(0)}k`;
-      }
-      return `$${val.toLocaleString("en-US")}`;
-    }
-  };
 
   const getServiceIcon = (iconName: string) => {
     switch (iconName) {
@@ -183,38 +76,18 @@ export const DigitalMarketingSection: React.FC<DigitalMarketingSectionProps> = (
   return (
     <section
       id="digital-marketing"
-      className="py-16 sm:py-24 bg-white dark:bg-[#0b0f19] text-slate-900 dark:text-slate-100 transition-colors duration-300"
+      className="py-12 sm:py-20 bg-white dark:bg-[#0b0f19] text-slate-900 dark:text-slate-100 transition-colors duration-300"
     >
       <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-        {/* Breadcrumb / Back Link if Standalone Page */}
-        {isStandalonePage && (
-          <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-            {(onBack || onBackHome) && (
-              <button
-                onClick={onBack || onBackHome}
-                className="hover:text-blue-600 dark:hover:text-sky-400 font-medium cursor-pointer transition flex items-center gap-1.5"
-                title="Go back to previous page"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Back</span>
-              </button>
-            )}
-            <ChevronRight className="w-3.5 h-3.5" />
-            <span className="text-slate-900 dark:text-slate-100 font-semibold">
-              Digital Marketing & Growth Services
-            </span>
-          </div>
-        )}
-
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-sky-300 text-xs font-mono font-bold tracking-wide shadow-2xs">
             <TrendingUp className="w-3.5 h-3.5 text-blue-600 dark:text-sky-400" />
             <span>COREENACT DIGITAL GROWTH LAB</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 dark:text-slate-100 font-heading">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 dark:text-slate-100 font-heading">
             Full-Funnel Digital Marketing & B2B Revenue Acceleration
-          </h2>
+          </h1>
           <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
             Dominate search rankings, acquire high-intent enterprise buyers, and bridge your digital campaigns directly to Microsoft Dynamics 365 CRM & ERP pipelines with closed-loop attribution.
           </p>
@@ -237,6 +110,96 @@ export const DigitalMarketingSection: React.FC<DigitalMarketingSectionProps> = (
               <CheckCircle2 className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
               Transparent ROAS & ROI Metrics
             </span>
+          </div>
+        </div>
+
+        {/* Practice Overview: Phased Execution Lifecycle, Deliverables & Business Impact */}
+        <div className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden text-left">
+          <div className="p-6 sm:p-8 lg:p-10 space-y-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">
+              <div className="space-y-1">
+                <div className="inline-flex items-center gap-2 text-xs font-mono font-bold text-[#005a9e] dark:text-sky-400 uppercase tracking-wider">
+                  <Award className="w-3.5 h-3.5" />
+                  <span>B2B Digital Marketing & Growth Practice Blueprint</span>
+                </div>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 font-heading">
+                  Closed-Loop Digital Acquisition & Dynamics 365 Attribution
+                </h2>
+              </div>
+              <button
+                onClick={() => onOpenContact("B2B Digital Marketing & Growth Acceleration")}
+                className="px-5 py-2.5 rounded-xl bg-[#005a9e] hover:bg-[#004a82] text-white font-bold text-xs sm:text-sm shadow-xs transition flex items-center justify-center gap-2 cursor-pointer shrink-0"
+              >
+                <Calendar className="w-4 h-4" />
+                <span>Book Growth Scoping Session</span>
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* 1. Phased Execution Lifecycle */}
+              <div className="p-5 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-3">
+                <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#005a9e] dark:bg-sky-400" />
+                  <span>Phased Execution Lifecycle</span>
+                </h3>
+                <ul className="space-y-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                  {[
+                    "Phase 1: 120-Point Technical SEO, Pixel & Competitor Gap Audit",
+                    "Phase 2: Target ICP Architecture, High-Intent Keywords & Ad Creative Build",
+                    "Phase 3: Multi-Channel Launch: Google Search, LinkedIn ABM & Core Web Vitals",
+                    "Phase 4: CRM/ERP Closed-Loop Attribution & Lead-to-Opportunity Sync",
+                    "Phase 5: ROAS Scaling, Conversion Rate Optimization (CRO) & Power BI Dashboards",
+                  ].map((phase, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-[#005a9e] dark:text-sky-400 shrink-0 mt-0.5" />
+                      <span>{phase}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* 2. Verified Deliverables */}
+              <div className="p-5 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-3">
+                <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-indigo-600 dark:bg-indigo-400" />
+                  <span>Verified Deliverables</span>
+                </h3>
+                <ul className="space-y-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                  {[
+                    "Targeted Inbound B2B Lead Generation (MQL/SQL) Engine",
+                    "Technical SEO & Generative Search (GEO) Optimization Blueprint",
+                    "High-ROAS Google Ads, LinkedIn & Meta Ads Campaign Architecture",
+                    "Microsoft Dynamics 365 Customer Insights & Marketing Journey Setup",
+                    "Real-Time Executive Marketing ROI & CAC Dashboards in Power BI",
+                  ].map((deliv, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
+                      <span>{deliv}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* 3. Strategic Business Value */}
+              <div className="p-5 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-3">
+                <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 uppercase tracking-wider flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-600 dark:bg-emerald-400" />
+                  <span>Strategic Business Value</span>
+                </h3>
+                <ul className="space-y-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                  {[
+                    "Average +310% organic search traffic growth within 12 months",
+                    "Average 4.8x verified ROAS on enterprise paid campaigns",
+                    "100% closed-loop attribution tracking from first click to ERP invoice",
+                  ].map((benefit, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0 mt-1.5" />
+                      <span>{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -456,238 +419,6 @@ export const DigitalMarketingSection: React.FC<DigitalMarketingSectionProps> = (
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* Interactive B2B Marketing ROI & Lead Estimator */}
-        <div className="rounded-3xl p-[2px] bg-gradient-to-br from-emerald-500 via-teal-500 to-indigo-600 shadow-xl shadow-emerald-500/10">
-          <div className="rounded-[22px] bg-white dark:bg-slate-900 p-6 sm:p-8 lg:p-10 text-left">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              {/* Left Column: Interactive Inputs */}
-              <div className="lg:col-span-6 space-y-6">
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
-                      <BarChart3 className="w-4 h-4" />
-                      <span>Live Revenue Forecasting</span>
-                    </span>
-                    {/* Currency Selector */}
-                    <div className="flex items-center gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
-                      <button
-                        type="button"
-                        onClick={() => setCurrency("INR")}
-                        className={`px-2.5 py-0.5 rounded text-xs font-bold cursor-pointer transition ${
-                          currency === "INR"
-                            ? "bg-orange-500 text-white shadow-2xs"
-                            : "text-slate-600 dark:text-slate-400"
-                        }`}
-                      >
-                        INR (₹)
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setCurrency("USD")}
-                        className={`px-2.5 py-0.5 rounded text-xs font-bold cursor-pointer transition ${
-                          currency === "USD"
-                            ? "bg-blue-600 text-white shadow-2xs"
-                            : "text-slate-600 dark:text-slate-400"
-                        }`}
-                      >
-                        USD ($)
-                      </button>
-                    </div>
-                  </div>
-
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-heading">
-                    Digital Marketing ROI & Lead Estimator
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
-                    Model your projected monthly inbound qualified leads, target acquisition costs, and estimated pipeline revenue.
-                  </p>
-                </div>
-
-                {/* Input 1: Monthly Budget Slider */}
-                <div className="space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
-                      Monthly Digital Marketing Budget
-                    </label>
-                    <span className="px-3 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 font-mono font-bold text-base border border-emerald-200 dark:border-emerald-800">
-                      {currency === "INR" ? formatCurrency(budgetInr) : formatCurrency(budgetUsd)} / mo
-                    </span>
-                  </div>
-                  {currency === "INR" ? (
-                    <input
-                      type="range"
-                      min={50000}
-                      max={2000000}
-                      step={25000}
-                      value={budgetInr}
-                      onChange={(e) => setBudgetInr(Number(e.target.value))}
-                      className="w-full h-2.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-600"
-                    />
-                  ) : (
-                    <input
-                      type="range"
-                      min={1000}
-                      max={35000}
-                      step={500}
-                      value={budgetUsd}
-                      onChange={(e) => setBudgetUsd(Number(e.target.value))}
-                      className="w-full h-2.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-600"
-                    />
-                  )}
-                  <div className="flex justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                    <span>{currency === "INR" ? "₹50,000/mo" : "$1,000/mo"}</span>
-                    <span>{currency === "INR" ? "₹5 Lakh/mo" : "$10,000/mo"}</span>
-                    <span>{currency === "INR" ? "₹20 Lakh+/mo" : "$35,000+/mo"}</span>
-                  </div>
-                </div>
-
-                {/* Input 2: Target Industry Selector */}
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider block">
-                    Your Industry Vertical
-                  </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                    {[
-                      { id: "b2b_saas", label: "B2B SaaS / Tech" },
-                      { id: "manufacturing", label: "Industrial / Mfg" },
-                      { id: "professional_services", label: "Pro Services" },
-                      { id: "healthcare", label: "Healthcare / Life Sci" },
-                      { id: "edtech", label: "Education & EdTech" },
-                    ].map((ind) => (
-                      <button
-                        key={ind.id}
-                        type="button"
-                        onClick={() => setSelectedIndustry(ind.id)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold text-center transition cursor-pointer border ${
-                          selectedIndustry === ind.id
-                            ? "bg-emerald-600 text-white border-emerald-600 shadow-xs"
-                            : "bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100"
-                        }`}
-                      >
-                        {ind.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Input 3: Channel Focus Multi-Select */}
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider block">
-                    Target Acquisition Channels (Multi-Select)
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      { id: "google_ads", label: "Google Ads (Search & PMax)" },
-                      { id: "seo", label: "SEO & AI Generative Search" },
-                      { id: "linkedin", label: "LinkedIn B2B ABM" },
-                      { id: "content", label: "Thought Leadership & Email" },
-                    ].map((ch) => {
-                      const isActive = selectedChannels.includes(ch.id);
-                      return (
-                        <button
-                          key={ch.id}
-                          type="button"
-                          onClick={() => toggleChannel(ch.id)}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition cursor-pointer border flex items-center gap-1.5 ${
-                            isActive
-                              ? "bg-blue-600 text-white border-blue-600 shadow-2xs font-semibold"
-                              : "bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700"
-                          }`}
-                        >
-                          <Check className={`w-3.5 h-3.5 ${isActive ? "opacity-100" : "opacity-0"}`} />
-                          <span>{ch.label}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column: Calculated Projections Display */}
-              <div className="lg:col-span-6 rounded-2xl p-[2px] bg-gradient-to-br from-emerald-500 to-teal-600">
-                <div className="rounded-[14px] bg-white dark:bg-slate-850 p-6 sm:p-8 space-y-6">
-                  <div className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider flex items-center justify-between">
-                    <span>Projected Monthly Outcomes</span>
-                    <span className="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-[10px] font-bold">
-                      Confidence 94%
-                    </span>
-                  </div>
-
-                  {/* Major Headline Metric */}
-                  <div className="space-y-1">
-                    <div className="text-xs text-slate-500 dark:text-slate-400">
-                      Estimated Monthly Pipeline Value
-                    </div>
-                    <div className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 font-mono tracking-tight">
-                      {formatCurrency(marketingProjections.estimatedPipelineValue)}
-                    </div>
-                    <div className="text-xs text-slate-600 dark:text-slate-300 flex items-center gap-1.5 pt-1">
-                      <TrendingUp className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                      <span className="font-bold text-emerald-700 dark:text-emerald-300">
-                        {marketingProjections.estimatedRoi}x Projected Marketing ROI
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* 3 Sub-Metrics Grid */}
-                  <div className="grid grid-cols-3 gap-2.5 pt-2 border-t border-slate-100 dark:border-slate-800">
-                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 text-center">
-                      <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">
-                        Monthly MQLs
-                      </div>
-                      <div className="text-xl sm:text-2xl font-black text-slate-900 dark:text-slate-100 font-mono mt-1">
-                        ~{marketingProjections.estimatedLeads}
-                      </div>
-                      <div className="text-[9px] text-slate-500 dark:text-slate-400">Qualified leads</div>
-                    </div>
-
-                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 text-center">
-                      <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">
-                        Target CPL
-                      </div>
-                      <div className="text-xl sm:text-2xl font-black text-blue-600 dark:text-sky-400 font-mono mt-1">
-                        {formatCurrency(marketingProjections.effectiveCpl)}
-                      </div>
-                      <div className="text-[9px] text-slate-500 dark:text-slate-400">Cost per lead</div>
-                    </div>
-
-                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 text-center">
-                      <div className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">
-                        Est. Closed Deals
-                      </div>
-                      <div className="text-xl sm:text-2xl font-black text-purple-600 dark:text-purple-400 font-mono mt-1">
-                        {marketingProjections.estimatedClosedDeals}+
-                      </div>
-                      <div className="text-[9px] text-slate-500 dark:text-slate-400">Per month</div>
-                    </div>
-                  </div>
-
-                  {/* Consultation CTA */}
-                  <div className="pt-2">
-                    <button
-                      onClick={() =>
-                        onOpenContact(
-                          `Digital Marketing Growth Plan (${formatCurrency(
-                            currency === "INR" ? budgetInr : budgetUsd
-                          )}/mo budget - ${selectedIndustry})`
-                        )
-                      }
-                      className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer"
-                    >
-                      <CheckCircle2 className="w-4 h-4" />
-                      <span>Lock In This Customized Marketing Roadmap</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                    <p className="text-[11px] text-center text-slate-500 dark:text-slate-400 mt-2">
-                      Includes 100% transparent live dashboard & no long-term lock-in contract.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
