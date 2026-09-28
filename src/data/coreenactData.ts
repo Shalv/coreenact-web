@@ -10,6 +10,12 @@ export const COREENACT_CONTACT = {
   addressCanada: "4255 Sherwoodtowne Blvd, Ste 300, Mississauga, ON L4Z 1Y5, Canada",
   consultationUrl: "https://coreenact.com",
   tagline: "Converting Enterprise Complexity into an Intelligent Core",
+  socials: {
+    linkedin: "https://www.linkedin.com/company/coreenact-solutions",
+    x: "https://x.com/coreenact40183",
+    instagram: "https://www.instagram.com/coreenact",
+    youtube: "https://www.youtube.com/@CoreenactSolutions",
+  },
   offices: [
     {
       id: "india",

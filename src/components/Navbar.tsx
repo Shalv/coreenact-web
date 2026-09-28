@@ -119,11 +119,11 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Main Navigation Bar */}
-      <div className="max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 gap-3">
+      <div className="max-w-[1480px] w-full mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20 gap-2 xl:gap-3 w-full">
           {/* Official Attached Logo */}
           <div
-            className="flex items-center gap-3 cursor-pointer group shrink-0"
+            className="flex items-center gap-2.5 cursor-pointer group shrink-0"
             onClick={() => handlePageClick("home")}
             title="Coreenact - Microsoft Dynamics 365 Business Central Partner"
           >
@@ -131,39 +131,32 @@ export const Navbar: React.FC<NavbarProps> = ({
               <img
                 src="/coreenact-logo-transparent.png"
                 alt="Coreenact Solutions"
-                className="h-10 sm:h-12 w-auto object-contain shrink-0"
+                className="h-9 sm:h-11 w-auto object-contain shrink-0"
               />
             </div>
-            {/* Full badge on 2XL screens */}
-            <div className="hidden 2xl:flex items-center gap-2 border-l border-slate-200 dark:border-slate-800 pl-3 shrink-0">
-              <MicrosoftLogo className="w-5 h-5 shrink-0" />
-              <div className="flex flex-col text-left">
+            {/* Compact badge on 2XL screens */}
+            <div className="hidden 2xl:flex items-center gap-1.5 border-l border-slate-200 dark:border-slate-800 pl-2.5 shrink-0">
+              <MicrosoftLogo className="w-4 h-4 shrink-0" />
+              <div className="flex flex-col text-left leading-tight">
                 <span className="text-[10px] font-extrabold tracking-wider text-blue-700 dark:text-sky-400 uppercase font-mono whitespace-nowrap">
                   Microsoft Partner
                 </span>
-                <span className="text-xs font-semibold text-slate-600 dark:text-slate-400 whitespace-nowrap">
-                  Dynamics 365 Business Central
+                <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-400 whitespace-nowrap">
+                  Dynamics 365
                 </span>
               </div>
-            </div>
-            {/* Compact badge on XL screens */}
-            <div className="hidden xl:flex 2xl:hidden items-center gap-1.5 border-l border-slate-200 dark:border-slate-800 pl-2.5 shrink-0">
-              <MicrosoftLogo className="w-4 h-4 shrink-0" />
-              <span className="text-[10px] font-extrabold tracking-wider text-blue-700 dark:text-sky-400 uppercase font-mono whitespace-nowrap">
-                Microsoft Partner
-              </span>
             </div>
           </div>
 
           {/* Desktop Navigation Links (XL and above) */}
-          <nav className="hidden xl:flex items-center gap-1 2xl:gap-1.5 bg-slate-100/90 dark:bg-slate-900/90 p-1 2xl:p-1.5 rounded-full border border-slate-200/80 dark:border-slate-800 shadow-2xs shrink-0">
+          <nav className="hidden xl:flex items-center gap-0.5 2xl:gap-1 bg-slate-100/90 dark:bg-slate-900/90 p-1 rounded-full border border-slate-200/80 dark:border-slate-800 shadow-2xs shrink-0">
             {navItems.map((item) => {
               const isActive = activePage === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => handlePageClick(item.id)}
-                  className={`px-3 py-1.5 2xl:px-4 2xl:py-2 rounded-full text-xs 2xl:text-sm font-semibold transition cursor-pointer whitespace-nowrap shrink-0 ${
+                  className={`px-2.5 2xl:px-3.5 py-1.5 rounded-full text-xs xl:text-[13px] font-semibold transition cursor-pointer whitespace-nowrap shrink-0 ${
                     isActive
                       ? "bg-blue-600 text-white shadow-xs"
                       : "text-slate-700 hover:text-blue-700 hover:bg-white dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-sky-400"
@@ -188,7 +181,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 key={item.id}
                 onClick={() => handlePageClick(item.id as PageType)}
-                className={`px-2.5 py-1 rounded-full text-xs font-semibold transition cursor-pointer whitespace-nowrap shrink-0 ${
+                className={`px-2.5 py-1.5 rounded-full text-xs font-semibold transition cursor-pointer whitespace-nowrap shrink-0 ${
                   activePage === item.id
                     ? "bg-blue-600 text-white shadow-xs"
                     : "text-slate-700 hover:text-blue-700 hover:bg-white dark:text-slate-200 dark:hover:bg-slate-800"
@@ -199,13 +192,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             ))}
           </nav>
 
-          {/* Action CTAs: Add-on, Book Consultation, Support Login */}
-          <div className="hidden lg:flex items-center gap-1.5 xl:gap-2 shrink-0">
+          {/* Action CTAs: Add-on & Book Consultation aligned with website container width */}
+          <div className="hidden lg:flex items-center justify-end gap-2 xl:gap-2.5 shrink-0">
             {/* Add-on Dropdown Menu Button */}
             <div className="relative shrink-0" ref={addonsRef}>
               <button
                 onClick={() => setAddonsDropdownOpen(!addonsDropdownOpen)}
-                className="px-2.5 xl:px-3.5 py-2 rounded-lg font-bold text-xs cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center gap-1.5 whitespace-nowrap shrink-0"
+                className="px-3 xl:px-3.5 py-2 rounded-xl font-bold text-xs xl:text-[13px] cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center gap-1.5 whitespace-nowrap shrink-0"
                 title="Explore Business Central Add-ons"
               >
                 <span className="whitespace-nowrap">Add-on</span>
@@ -244,7 +237,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Book Consultation Button */}
             <button
               onClick={() => onOpenContact()}
-              className="px-2.5 xl:px-3.5 py-2 rounded-lg font-bold text-xs cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center gap-1.5 whitespace-nowrap shrink-0"
+              className="px-3.5 xl:px-4 2xl:px-5 py-2 rounded-xl font-bold text-xs xl:text-[13px] cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0"
             >
               <span className="whitespace-nowrap">Book Consultation</span>
               <ArrowRight className="w-3.5 h-3.5 shrink-0" />
