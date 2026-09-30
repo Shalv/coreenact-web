@@ -37,6 +37,7 @@ import { MicrosoftAppBadge } from "./components/icons/MicrosoftIcons";
 import consultantConsultingImg from "./assets/images/indian_d365_consultant_1790050307568.jpg";
 import industryOpsCardImg from "./assets/images/indian_industry_ops_1790050360620.jpg";
 import globalConsultingTeamImg from "./assets/images/enterprise_consulting_team_1790047798645.jpg";
+import agenticAiImg from "./assets/images/agentic_ai_orchestration_1790754514111.jpg";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageType>("home");
@@ -389,7 +390,7 @@ export default function App() {
                 >
                   <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-900">
                     <img
-                      src="/src/assets/images/agentic_ai_orchestration_1790754514111.jpg"
+                      src={agenticAiImg}
                       alt="Agentic AI, Microsoft Copilot and Autonomous ERP Agents"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       referrerPolicy="no-referrer"

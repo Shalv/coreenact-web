@@ -28,7 +28,7 @@ const INDUSTRY_IMAGES: Record<string, string> = {
   construction: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1400&q=75",
   "maritime-logistics": "https://images.unsplash.com/photo-1494412651409-8963ce7935a7?auto=format&fit=crop&w=1400&q=75",
   healthcare: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1400&q=75",
-  distribution: "https://images.unsplash.com/photo-1601599963565-b7f49b9c68ba?auto=format&fit=crop&w=1400&q=75",
+  distribution: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=80",
 };
 
 const INDUSTRY_MS_APP: Record<string, "business-central" | "power-bi" | "copilot" | "teams" | "power-apps" | "azure" | "dataverse" | "power-automate"> = {

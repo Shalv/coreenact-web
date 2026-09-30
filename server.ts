@@ -1075,6 +1075,9 @@ async function startServer() {
     return;
   }
 
+  // Serve static assets from public directory
+  app.use(express.static(path.join(process.cwd(), "public")));
+
   if (process.env.NODE_ENV !== "production") {
     const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({

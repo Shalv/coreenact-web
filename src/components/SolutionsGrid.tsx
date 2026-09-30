@@ -32,13 +32,16 @@ import {
   TechIcon,
   MicrosoftAppBadge,
 } from "./icons/MicrosoftIcons";
+import agenticAiImg from "../assets/images/agentic_ai_orchestration_1790754514111.jpg";
+import dynamicsCoreImg from "../assets/images/dynamics_365_core_erp_1790754528919.jpg";
+import aiProductivityImg from "../assets/images/ai_productivity_copilot_1790754545049.jpg";
 
 const PILLAR_BANNER_IMAGES: Record<string, string> = {
-  "run-transform": "/src/assets/images/dynamics_365_core_erp_1790754528919.jpg",
+  "run-transform": dynamicsCoreImg,
   "data-ai-insights": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=1600&q=80",
   "scale-localize": "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1600&q=80",
   "secure-govern": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1600&q=80",
-  "ai-productivity": "/src/assets/images/ai_productivity_copilot_1790754545049.jpg",
+  "ai-productivity": aiProductivityImg,
   "edcore-solution": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1600&q=80",
 };
 
@@ -53,10 +56,10 @@ const PILLAR_GRADIENTS: Record<string, string> = {
 
 const SOLUTION_ITEM_IMAGES: Record<string, string> = {
   // Run & Transform (Microsoft Dynamics 365 Core)
-  "Dynamics 365 Business Central": "/src/assets/images/dynamics_365_core_erp_1790754528919.jpg",
+  "Dynamics 365 Business Central": dynamicsCoreImg,
   "Dynamics 365 Finance & Operations": "https://images.unsplash.com/photo-1580983218765-f663bec07b37?auto=format&fit=crop&w=800&q=80",
   "Dynamics 365 CRM": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80",
-  "AI Agent in ERP": "/src/assets/images/agentic_ai_orchestration_1790754514111.jpg",
+  "AI Agent in ERP": agenticAiImg,
   "AI-OCR Document Recognition": "https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=800&q=80",
   "Power Apps & Power Automate": "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80",
 
@@ -77,8 +80,8 @@ const SOLUTION_ITEM_IMAGES: Record<string, string> = {
   "24/7 Managed Services & Support": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
 
   // AI & Productivity (Agentic AI)
-  "Microsoft Copilot for Business Central": "/src/assets/images/ai_productivity_copilot_1790754545049.jpg",
-  "Custom Agentic AI Solutions": "/src/assets/images/agentic_ai_orchestration_1790754514111.jpg",
+  "Microsoft Copilot for Business Central": aiProductivityImg,
+  "Custom Agentic AI Solutions": agenticAiImg,
   "Digital Transformation Advisory": "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=800&q=80",
 
   // EdCore
