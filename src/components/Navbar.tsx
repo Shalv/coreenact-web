@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Phone,
@@ -6,12 +6,10 @@ import {
   Menu,
   X,
   MapPin,
-  ChevronDown,
 } from "lucide-react";
 import { PageType } from "../types";
 import { COREENACT_CONTACT } from "../data/coreenactData";
 import { MicrosoftLogo } from "./icons/MicrosoftIcons";
-import { AddonsListCard } from "./AddonsListCard";
 import { AddonItem } from "../data/addonsData";
 
 interface NavbarProps {
@@ -27,14 +25,9 @@ export const Navbar: React.FC<NavbarProps> = ({
   onSelectPage,
   onOpenContact,
   onNavigate,
-  onSelectAddon,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [addonsDropdownOpen, setAddonsDropdownOpen] = useState(false);
-  const [mobileAddonsOpen, setMobileAddonsOpen] = useState(false);
-
-  const addonsRef = useRef<HTMLDivElement>(null);
 
   const handlePageClick = (page: PageType, sectionId?: string) => {
     if (typeof onSelectPage === "function") {
@@ -43,7 +36,6 @@ export const Navbar: React.FC<NavbarProps> = ({
       onNavigate(page);
     }
     setMobileMenuOpen(false);
-    setAddonsDropdownOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -55,24 +47,15 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (addonsRef.current && !addonsRef.current.contains(event.target as Node)) {
-        setAddonsDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const navItems: Array<{ id: PageType; label: string }> = [
+  const navItems: Array<{ id: PageType; label: string; shortLabel?: string }> = [
     { id: "home", label: "Home" },
     { id: "solutions", label: "Solutions" },
     { id: "services", label: "Services" },
-    { id: "ai-agents", label: "AI & Agents" },
+    { id: "ai-agents", label: "AI & Agents", shortLabel: "AI" },
     { id: "industries", label: "Industries" },
-    { id: "about", label: "About Us" },
+    { id: "about", label: "About Us", shortLabel: "About" },
     { id: "case-studies", label: "Case Studies" },
+    { id: "resources", label: "Resources" },
     { id: "contact", label: "Contact" },
   ];
 
@@ -84,46 +67,50 @@ export const Navbar: React.FC<NavbarProps> = ({
           : "border-b border-slate-200/80 bg-white dark:bg-slate-950 dark:border-slate-800"
       }`}
     >
-      {/* Top Utility Bar */}
-      <div className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200/80 dark:border-slate-800 py-1.5 px-4 text-center text-xs text-slate-600 dark:text-slate-300 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
-        <span className="flex items-center gap-2 text-blue-700 dark:text-sky-400 font-bold whitespace-nowrap shrink-0">
-          <MicrosoftLogo className="w-3.5 h-3.5 shrink-0" />
-          <span>Official Microsoft Solutions Partner</span>
-        </span>
-        <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
-        <span className="whitespace-nowrap shrink-0">
-          Enterprise Inquiries:{" "}
-          <a
-            href={`mailto:${COREENACT_CONTACT.email}`}
-            className="text-slate-900 dark:text-slate-100 hover:text-blue-700 dark:hover:text-sky-400 font-mono font-bold transition whitespace-nowrap"
-          >
-            {COREENACT_CONTACT.email}
-          </a>
-        </span>
-        <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
-        <span className="flex items-center gap-2.5 whitespace-nowrap shrink-0">
-          <a
-            href={`tel:+91${COREENACT_CONTACT.phoneRaw}`}
-            className="inline-flex items-center gap-1 text-slate-900 dark:text-slate-100 hover:text-blue-700 dark:hover:text-sky-400 font-mono font-bold transition"
-            title="Call Coreenact"
-          >
-            <Phone className="w-3.5 h-3.5 text-blue-600 dark:text-sky-400 shrink-0" />
-            <span>{COREENACT_CONTACT.phone}</span>
-          </a>
-        </span>
-        <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
-        <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 font-medium whitespace-nowrap shrink-0">
-          <MapPin className="w-4 h-4 text-blue-600 dark:text-sky-400 shrink-0" />
-          <span>Offices in Haryana (India) & Mississauga (Canada)</span>
-        </span>
+      {/* Top Utility Bar - Aligned to site container width */}
+      <div className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200/80 dark:border-slate-800">
+        <div className="max-w-[1480px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-1.5 text-xs text-slate-600 dark:text-slate-300 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+          <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
+            <span className="flex items-center gap-1.5 text-blue-700 dark:text-sky-400 font-bold whitespace-nowrap shrink-0">
+              <MicrosoftLogo className="w-3.5 h-3.5 shrink-0" />
+              <span>Official Microsoft Solutions Partner</span>
+            </span>
+            <span className="text-slate-300 dark:text-slate-700 hidden md:inline">•</span>
+            <span className="hidden md:inline whitespace-nowrap">
+              Enterprise Inquiries:{" "}
+              <a
+                href={`mailto:${COREENACT_CONTACT.email}`}
+                className="text-slate-900 dark:text-slate-100 hover:text-blue-700 dark:hover:text-sky-400 font-mono font-bold transition whitespace-nowrap"
+              >
+                {COREENACT_CONTACT.email}
+              </a>
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2.5 sm:gap-3 flex-wrap">
+            <a
+              href={`tel:+91${COREENACT_CONTACT.phoneRaw}`}
+              className="inline-flex items-center gap-1 text-slate-900 dark:text-slate-100 hover:text-blue-700 dark:hover:text-sky-400 font-mono font-bold transition whitespace-nowrap"
+              title="Call Coreenact"
+            >
+              <Phone className="w-3.5 h-3.5 text-blue-600 dark:text-sky-400 shrink-0" />
+              <span>{COREENACT_CONTACT.phone}</span>
+            </a>
+            <span className="text-slate-300 dark:text-slate-700 hidden sm:inline">•</span>
+            <span className="hidden sm:flex items-center gap-1 text-slate-700 dark:text-slate-300 font-medium whitespace-nowrap shrink-0">
+              <MapPin className="w-3.5 h-3.5 text-blue-600 dark:text-sky-400 shrink-0" />
+              <span>Haryana & Mississauga</span>
+            </span>
+          </div>
+        </div>
       </div>
 
-      {/* Main Navigation Bar */}
+      {/* Main Navigation Bar - Exactly aligned with 1480px site width */}
       <div className="max-w-[1480px] w-full mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 gap-2 xl:gap-3 w-full">
+        <div className="flex items-center justify-between h-18 sm:h-20 gap-2 xl:gap-2.5 2xl:gap-3 w-full">
           {/* Official Attached Logo */}
           <div
-            className="flex items-center gap-2.5 cursor-pointer group shrink-0"
+            className="flex items-center gap-2 cursor-pointer group shrink-0"
             onClick={() => handlePageClick("home")}
             title="Coreenact - Microsoft Dynamics 365 Business Central Partner"
           >
@@ -131,7 +118,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <img
                 src="/coreenact-logo-transparent.png"
                 alt="Coreenact Solutions"
-                className="h-9 sm:h-11 w-auto object-contain shrink-0"
+                className="h-8 sm:h-9 2xl:h-11 w-auto object-contain shrink-0"
               />
             </div>
             {/* Compact badge on 2XL screens */}
@@ -149,39 +136,41 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Desktop Navigation Links (XL and above) */}
-          <nav className="hidden xl:flex items-center gap-0.5 2xl:gap-1 bg-slate-100/90 dark:bg-slate-900/90 p-1 rounded-full border border-slate-200/80 dark:border-slate-800 shadow-2xs shrink-0">
+          <nav className="hidden xl:flex items-center gap-0.5 2xl:gap-1 bg-slate-100/90 dark:bg-slate-900/90 p-1 rounded-full border border-slate-200/80 dark:border-slate-800 shadow-2xs shrink min-w-0">
             {navItems.map((item) => {
               const isActive = activePage === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => handlePageClick(item.id)}
-                  className={`px-2.5 2xl:px-3.5 py-1.5 rounded-full text-xs xl:text-[13px] font-semibold transition cursor-pointer whitespace-nowrap shrink-0 ${
+                  className={`px-2 2xl:px-3 py-1.5 rounded-full text-xs 2xl:text-[13px] font-semibold transition cursor-pointer whitespace-nowrap shrink-0 ${
                     isActive
                       ? "bg-blue-600 text-white shadow-xs"
                       : "text-slate-700 hover:text-blue-700 hover:bg-white dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-sky-400"
                   }`}
                 >
-                  <span className="whitespace-nowrap">{item.label}</span>
+                  <span className="hidden 2xl:inline whitespace-nowrap">{item.label}</span>
+                  <span className="2xl:hidden whitespace-nowrap">{item.shortLabel || item.label}</span>
                 </button>
               );
             })}
           </nav>
 
           {/* Compact Nav Links for Large laptops (lg: 1024px to 1279px) */}
-          <nav className="hidden lg:flex xl:hidden items-center gap-0.5 bg-slate-100/90 dark:bg-slate-900/90 p-1 rounded-full border border-slate-200/80 dark:border-slate-800 shadow-2xs shrink-0">
+          <nav className="hidden lg:flex xl:hidden items-center gap-0.5 bg-slate-100/90 dark:bg-slate-900/90 p-1 rounded-full border border-slate-200/80 dark:border-slate-800 shadow-2xs shrink min-w-0">
             {[
               { id: "solutions", label: "Solutions" },
               { id: "services", label: "Services" },
-              { id: "ai-agents", label: "AI & Agents" },
+              { id: "ai-agents", label: "AI" },
               { id: "industries", label: "Industries" },
               { id: "about", label: "About" },
+              { id: "resources", label: "Resources" },
               { id: "contact", label: "Contact" },
             ].map((item) => (
               <button
                 key={item.id}
                 onClick={() => handlePageClick(item.id as PageType)}
-                className={`px-2.5 py-1.5 rounded-full text-xs font-semibold transition cursor-pointer whitespace-nowrap shrink-0 ${
+                className={`px-2 py-1 rounded-full text-xs font-semibold transition cursor-pointer whitespace-nowrap shrink-0 ${
                   activePage === item.id
                     ? "bg-blue-600 text-white shadow-xs"
                     : "text-slate-700 hover:text-blue-700 hover:bg-white dark:text-slate-200 dark:hover:bg-slate-800"
@@ -192,52 +181,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             ))}
           </nav>
 
-          {/* Action CTAs: Add-on & Book Consultation aligned with website container width */}
-          <div className="hidden lg:flex items-center justify-end gap-2 xl:gap-2.5 shrink-0">
-            {/* Add-on Dropdown Menu Button */}
-            <div className="relative shrink-0" ref={addonsRef}>
-              <button
-                onClick={() => setAddonsDropdownOpen(!addonsDropdownOpen)}
-                className="px-3 xl:px-3.5 py-2 rounded-xl font-bold text-xs xl:text-[13px] cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center gap-1.5 whitespace-nowrap shrink-0"
-                title="Explore Business Central Add-ons"
-              >
-                <span className="whitespace-nowrap">Add-on</span>
-                <ChevronDown
-                  className={`w-3.5 h-3.5 shrink-0 transition-transform duration-200 ${
-                    addonsDropdownOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              {/* Add-on Dropdown Menu */}
-              <AnimatePresence>
-                {addonsDropdownOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 6, scale: 0.98 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute left-0 sm:left-auto sm:-right-24 md:-right-16 lg:right-0 mt-2 w-[calc(100vw-2rem)] sm:w-[540px] md:w-[580px] max-w-[580px] z-50 shadow-2xl"
-                  >
-                    <AddonsListCard
-                      onSelectAddon={(addon) => {
-                        setAddonsDropdownOpen(false);
-                        onSelectAddon?.(addon);
-                      }}
-                      onOpenConsultation={(addonName) => {
-                        setAddonsDropdownOpen(false);
-                        onOpenContact(addonName);
-                      }}
-                    />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
+          {/* Action CTA: Book Consultation aligned with website container width */}
+          <div className="hidden lg:flex items-center justify-end shrink-0">
             {/* Book Consultation Button */}
             <button
               onClick={() => onOpenContact()}
-              className="px-3.5 xl:px-4 2xl:px-5 py-2 rounded-xl font-bold text-xs xl:text-[13px] cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0"
+              className="px-4 xl:px-4.5 2xl:px-5 py-2 rounded-xl font-bold text-xs 2xl:text-[13px] cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0"
             >
               <span className="whitespace-nowrap">Book Consultation</span>
               <ArrowRight className="w-3.5 h-3.5 shrink-0" />
@@ -283,46 +232,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-2">
-              {/* Mobile Add-on Expandable Menu */}
-              <div className="space-y-2">
-                <button
-                  onClick={() => setMobileAddonsOpen(!mobileAddonsOpen)}
-                  className="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
-                >
-                  <span>Add-on</span>
-                  <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                      mobileAddonsOpen ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-
-                <AnimatePresence>
-                  {mobileAddonsOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="overflow-hidden"
-                    >
-                      <AddonsListCard
-                        className="border-blue-800/40 p-2 sm:p-3"
-                        onSelectAddon={(addon) => {
-                          setMobileMenuOpen(false);
-                          setMobileAddonsOpen(false);
-                          onSelectAddon?.(addon);
-                        }}
-                        onOpenConsultation={(addonName) => {
-                          setMobileMenuOpen(false);
-                          setMobileAddonsOpen(false);
-                          onOpenContact(addonName);
-                        }}
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
               {/* Book Consultation */}
               <button
                 onClick={() => {

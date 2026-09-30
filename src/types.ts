@@ -47,6 +47,7 @@ export type PageType =
   | 'industries'
   | 'about'
   | 'case-studies'
+  | 'resources'
   | 'contact';
 
 export interface ServiceItem {

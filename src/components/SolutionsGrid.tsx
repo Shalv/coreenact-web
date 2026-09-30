@@ -34,11 +34,11 @@ import {
 } from "./icons/MicrosoftIcons";
 
 const PILLAR_BANNER_IMAGES: Record<string, string> = {
-  "run-transform": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80",
+  "run-transform": "/src/assets/images/dynamics_365_core_erp_1790754528919.jpg",
   "data-ai-insights": "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=1600&q=80",
   "scale-localize": "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1600&q=80",
   "secure-govern": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1600&q=80",
-  "ai-productivity": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1600&q=80",
+  "ai-productivity": "/src/assets/images/ai_productivity_copilot_1790754545049.jpg",
   "edcore-solution": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1600&q=80",
 };
 
@@ -52,11 +52,11 @@ const PILLAR_GRADIENTS: Record<string, string> = {
 };
 
 const SOLUTION_ITEM_IMAGES: Record<string, string> = {
-  // Run & Transform
-  "Dynamics 365 Business Central": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+  // Run & Transform (Microsoft Dynamics 365 Core)
+  "Dynamics 365 Business Central": "/src/assets/images/dynamics_365_core_erp_1790754528919.jpg",
   "Dynamics 365 Finance & Operations": "https://images.unsplash.com/photo-1580983218765-f663bec07b37?auto=format&fit=crop&w=800&q=80",
   "Dynamics 365 CRM": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80",
-  "AI Agent in ERP": "https://images.unsplash.com/photo-1535378917042-10a22c95931a?auto=format&fit=crop&w=800&q=80",
+  "AI Agent in ERP": "/src/assets/images/agentic_ai_orchestration_1790754514111.jpg",
   "AI-OCR Document Recognition": "https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=800&q=80",
   "Power Apps & Power Automate": "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80",
 
@@ -76,9 +76,9 @@ const SOLUTION_ITEM_IMAGES: Record<string, string> = {
   "ERP Audit & Health Check": "https://images.unsplash.com/photo-1573166364366-3f4f8b1857ea?auto=format&fit=crop&w=800&q=80",
   "24/7 Managed Services & Support": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
 
-  // AI & Productivity
-  "Microsoft Copilot for Business Central": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
-  "Custom Agentic AI Solutions": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+  // AI & Productivity (Agentic AI)
+  "Microsoft Copilot for Business Central": "/src/assets/images/ai_productivity_copilot_1790754545049.jpg",
+  "Custom Agentic AI Solutions": "/src/assets/images/agentic_ai_orchestration_1790754514111.jpg",
   "Digital Transformation Advisory": "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=800&q=80",
 
   // EdCore

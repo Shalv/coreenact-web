@@ -647,6 +647,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <ul className="space-y-2.5 text-xs text-slate-600 dark:text-slate-400">
               <li>
                 <button
+                  onClick={() => handleLink("resources")}
+                  className="hover:text-emerald-600 dark:hover:text-cyan-300 transition text-left cursor-pointer flex items-center gap-2 group font-semibold text-blue-700 dark:text-sky-300"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-sky-400" />
+                  <span>Microsoft BC Resources & Updates</span>
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={() => handleLink("about")}
                   className="hover:text-emerald-600 dark:hover:text-cyan-300 transition text-left cursor-pointer flex items-center gap-2 group"
                 >
