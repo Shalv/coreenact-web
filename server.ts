@@ -629,7 +629,7 @@ app.post("/api/chat", async (req, res) => {
         title: "D365 Functional Consultant",
         instruction:
           "You are Coreenact's Lead Dynamics 365 Business Central Functional Consultant. You specialize in general ERP operations, financial management, supply chain, inventory costing, native India GST & e-Invoicing localization, and Power Platform workflows. Provide balanced, clear, and practical enterprise recommendations.",
-        defaultModel: "gemini-3.8-flash", // General tasks (free tier, fast, supports Google Search)
+        defaultModel: "gemini-3.5-flash", // General tasks
       },
       fast: {
         title: "Rapid ERP & Licensing Specialist",
@@ -641,7 +641,7 @@ app.post("/api/chat", async (req, res) => {
         title: "AI & Automation Strategist",
         instruction:
           "You are Coreenact's AI & Automation Strategist. You specialize in Microsoft Copilot Studio agents, Power Automate cloud flows, Azure OpenAI integration with Business Central, and document automation. Provide architectural and workflow design patterns.",
-        defaultModel: "gemini-3.8-flash", // Automation and general AI tasks
+        defaultModel: "gemini-3.5-flash", // Automation and general AI tasks
       },
     };
 

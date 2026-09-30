@@ -19,6 +19,8 @@ import { AddonsListCard } from "./components/AddonsListCard";
 import { AddonDetailModal } from "./components/AddonDetailModal";
 import { AddonsDrawer } from "./components/AddonsDrawer";
 import { AddonItem } from "./data/addonsData";
+import { GeminiChatbot, ChatRole } from "./components/GeminiChatbot";
+import { ChatLauncherButton } from "./components/ChatLauncherButton";
 import { PageType } from "./types";
 import {
   ArrowLeft,
@@ -43,6 +45,8 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState<PageType>("home");
   const [historyStack, setHistoryStack] = useState<PageType[]>(["home"]);
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [chatInitialRole, setChatInitialRole] = useState<ChatRole>("consultant");
   const [gmpQuotaExceeded, setGmpQuotaExceeded] = useState(false);
 
   useEffect(() => {
@@ -259,6 +263,10 @@ export default function App() {
         onOpenContact={handleOpenContact}
         onNavigate={handleNavigate}
         onSelectAddon={handleSelectAddon}
+        onOpenChat={() => {
+          setChatInitialRole("consultant");
+          setIsChatOpen(true);
+        }}
       />
 
       {/* Page Breadcrumb / Bar for Subpages */}
@@ -645,6 +653,10 @@ export default function App() {
           <div className="pt-4">
             <AiAgentsPage
               onOpenContact={handleOpenContact}
+              onOpenChat={(role) => {
+                setChatInitialRole(role || "ai_specialist");
+                setIsChatOpen(true);
+              }}
             />
           </div>
         )}
@@ -713,7 +725,7 @@ export default function App() {
       />
 
       {/* Floating Action Button for Add-on Suite */}
-      <div className="fixed bottom-6 right-6 z-40">
+      <div className="fixed bottom-6 left-6 z-40">
         <button
           onClick={() => setIsAddonsDrawerOpen(true)}
           className="p-3 sm:px-4 sm:py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900 shadow-md transition-all duration-150 flex items-center gap-3 cursor-pointer border border-slate-700/50 dark:border-slate-200"
@@ -735,6 +747,25 @@ export default function App() {
           </div>
         </button>
       </div>
+
+      {/* Floating Gemini Copilot Launcher */}
+      <ChatLauncherButton
+        isOpen={isChatOpen}
+        onClick={() => {
+          setChatInitialRole("consultant");
+          setIsChatOpen(true);
+        }}
+      />
+
+      {/* Multi-Turn Gemini Enterprise Chatbot */}
+      <GeminiChatbot
+        isOpen={isChatOpen}
+        onClose={() => setIsChatOpen(false)}
+        initialRole={chatInitialRole}
+        onOpenContactWithSpec={(specText) => {
+          handleOpenContact(specText);
+        }}
+      />
 
       {/* Add-on Detailed Modal */}
       <AddonDetailModal

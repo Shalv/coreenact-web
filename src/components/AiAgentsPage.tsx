@@ -991,10 +991,12 @@ export const COPILOT_RELATED_STORIES: CopilotTopicDetail[] = [
 interface AiAgentsPageProps {
   onOpenContact: (initialInterest?: string) => void;
   onNavigateSection?: (sectionId: string) => void;
+  onOpenChat?: (initialRole?: "consultant" | "architect" | "fast" | "ai_specialist") => void;
 }
 
 export const AiAgentsPage: React.FC<AiAgentsPageProps> = ({
   onOpenContact,
+  onOpenChat,
 }) => {
   // Active FAQ state for smooth accordion toggles
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -1135,6 +1137,15 @@ export const AiAgentsPage: React.FC<AiAgentsPageProps> = ({
                   <span>Book Copilot Architecture Discovery</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
+                {onOpenChat && (
+                  <button
+                    onClick={() => onOpenChat("ai_specialist")}
+                    className="px-5 py-3 rounded-lg font-bold text-sm bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-md transition flex items-center gap-2 cursor-pointer ring-2 ring-blue-400/30"
+                  >
+                    <Sparkles className="w-4 h-4 text-sky-200 animate-pulse" />
+                    <span>Launch Gemini AI Strategist</span>
+                  </button>
+                )}
                 <button
                   onClick={() => scrollToSection("topic-explorer")}
                   className="px-5 py-3 rounded-lg font-semibold text-sm bg-slate-100 hover:bg-slate-200/80 text-slate-800 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition cursor-pointer"

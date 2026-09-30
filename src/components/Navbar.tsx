@@ -6,6 +6,7 @@ import {
   Menu,
   X,
   MapPin,
+  Sparkles,
 } from "lucide-react";
 import { PageType } from "../types";
 import { COREENACT_CONTACT } from "../data/coreenactData";
@@ -18,6 +19,7 @@ interface NavbarProps {
   onOpenContact: (initialInterest?: string) => void;
   onNavigate?: (sectionId: string) => void;
   onSelectAddon?: (addon: AddonItem) => void;
+  onOpenChat?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -25,6 +27,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onSelectPage,
   onOpenContact,
   onNavigate,
+  onOpenChat,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -181,8 +184,18 @@ export const Navbar: React.FC<NavbarProps> = ({
             ))}
           </nav>
 
-          {/* Action CTA: Book Consultation aligned with website container width */}
-          <div className="hidden lg:flex items-center justify-end shrink-0">
+          {/* Action CTA: Ask Gemini + Book Consultation */}
+          <div className="hidden lg:flex items-center justify-end shrink-0 gap-2">
+            {onOpenChat && (
+              <button
+                onClick={onOpenChat}
+                className="px-3.5 py-2 rounded-xl font-bold text-xs cursor-pointer bg-gradient-to-r from-blue-50 to-indigo-50 dark:bg-slate-800 border border-blue-200/90 dark:border-blue-900 text-blue-700 dark:text-sky-300 hover:border-blue-400 hover:shadow-xs transition flex items-center gap-1.5 whitespace-nowrap shrink-0"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-sky-400 animate-pulse" />
+                <span>Ask Gemini</span>
+              </button>
+            )}
+
             {/* Book Consultation Button */}
             <button
               onClick={() => onOpenContact()}
