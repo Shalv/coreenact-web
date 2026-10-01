@@ -48,7 +48,7 @@ const ROLE_PRESETS: Record<
   {
     title: string;
     description: string;
-    defaultModel: "gemini-3.1-pro-preview" | "gemini-3.5-flash" | "gemini-3.1-flash-lite";
+    defaultModel: "gemini-3.1-pro-preview" | "gemini-3.8-flash" | "gemini-3.1-flash-lite";
     modelBadge: string;
     icon: React.ReactNode;
     color: string;
@@ -74,12 +74,12 @@ const ROLE_PRESETS: Record<
   consultant: {
     title: "D365 Functional Consultant",
     description: "General ERP workflows, inventory, financials, and India GST/e-Invoice",
-    defaultModel: "gemini-3.5-flash",
-    modelBadge: "General Tasks (gemini-3.5-flash)",
+    defaultModel: "gemini-3.8-flash",
+    modelBadge: "General Tasks (gemini-3.8-flash)",
     icon: <Layers className="w-4 h-4 text-blue-600 dark:text-sky-400" />,
     color: "from-blue-600 to-indigo-600",
     welcomeMessage:
-      "Welcome! I am Coreenact's **Lead Dynamics 365 Functional Consultant** powered by **Gemini 3.5 Flash**. I assist with standard business workflows, inventory costing, month-end bank reconciliations, and native India statutory localization (GST, e-Invoicing, e-Way bills). What business process would you like to explore?",
+      "Welcome! I am Coreenact's **Lead Dynamics 365 Functional Consultant** powered by **Gemini 3.8 Flash**. I assist with standard business workflows, inventory costing, month-end bank reconciliations, and native India statutory localization (GST, e-Invoicing, e-Way bills). What business process would you like to explore?",
     samplePrompts: [
       "How does Indian GST e-Invoicing link with Business Central?",
       "Best practices for multi-location warehouse replenishment",
@@ -104,12 +104,12 @@ const ROLE_PRESETS: Record<
   ai_specialist: {
     title: "AI & Automation Strategist",
     description: "Copilot Studio agents, Power Automate flows, and Azure OpenAI in ERP",
-    defaultModel: "gemini-3.5-flash",
-    modelBadge: "General Tasks (gemini-3.5-flash)",
+    defaultModel: "gemini-3.8-flash",
+    modelBadge: "General Tasks (gemini-3.8-flash)",
     icon: <Cpu className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />,
     color: "from-cyan-600 to-blue-600",
     welcomeMessage:
-      "Hello! I am Coreenact's **AI & Automation Strategist** powered by **Gemini 3.5 Flash**. I specialize in deploying Microsoft Copilot Studio agents, designing automated Power Automate approval workflows, and grounding AI models in Business Central telemetry. How can we automate your business processes today?",
+      "Hello! I am Coreenact's **AI & Automation Strategist** powered by **Gemini 3.8 Flash**. I specialize in deploying Microsoft Copilot Studio agents, designing automated Power Automate approval workflows, and grounding AI models in Business Central telemetry. How can we automate your business processes today?",
     samplePrompts: [
       "How to build an autonomous PO approval agent in Copilot Studio?",
       "How does Microsoft Graph grounding protect enterprise ERP data?",
@@ -117,6 +117,136 @@ const ROLE_PRESETS: Record<
     ],
   },
 };
+
+function getClientKnowledgeAnswer(query: string, roleTitle: string): string {
+  const q = (query || "").toLowerCase();
+
+  if (q.includes("5 phase") || q.includes("phase") || q.includes("framework") || q.includes("methodology") || q.includes("delivery")) {
+    return `### Coreenact 5-Phase Implementation Framework
+
+Coreenact delivers Microsoft Dynamics 365 Business Central deployments using our structured, milestone-driven **5-Phase Delivery Framework**:
+
+1. **Phase 1: Discover (Weeks 1–3)**
+   - Business process mapping and requirements gathering
+   - Fit-gap analysis between standard Business Central and business requirements
+   - Licensing strategy (Essential vs. Premium vs. Team Member)
+   - ROI baseline and preliminary timeline formulation
+
+2. **Phase 2: Design (Weeks 4–7)**
+   - Functional Design Specifications (FDS) for all core departments
+   - Chart of Accounts (COA) redesign and dimension tagging structure
+   - Database schema, table extensions, and security role matrix
+   - Data migration strategy for legacy records
+
+3. **Phase 3: Develop (Weeks 8–14)**
+   - Clean, event-driven AL extension development (zero base-code modifications)
+   - Third-party API integrations (e-invoicing, bank feeds, payment gateways, CRM)
+   - ETL scripts for historical master data (Customers, Vendors, Items, Chart of Accounts)
+   - Power Platform automation (Power BI analytics, Power Automate approval flows)
+
+4. **Phase 4: Deploy (Weeks 15–18)**
+   - User Acceptance Testing (UAT) with real transactional test cases
+   - Cutover rehearsal and final master/opening balance migration
+   - Parallel test run with legacy systems
+   - End-user training workshops and go-live certification
+
+5. **Phase 5: Drive (Post Go-Live)**
+   - 30-day hypercare support on-site and remote
+   - 24/7 SLA-governed support desk (Level 1, 2, and 3)
+   - Semi-annual major release regression testing and continuous optimization`;
+  }
+
+  if (q.includes("edcore") || q.includes("education") || q.includes("school") || q.includes("college") || q.includes("university") || q.includes("student") || q.includes("fee")) {
+    return `### EdCore Education ERP by Coreenact
+
+**EdCore** is Coreenact's proprietary institutional ERP built natively on Microsoft Dynamics 365 Business Central for schools, colleges, and multi-campus university groups:
+
+- **Student Admissions & Enrollment**: End-to-end applicant tracking, digital form submission, entrance assessment grading, and automated enrollment conversion.
+- **Automated Fee Billing & Reconciliation**: Dynamic fee structures (tuition, transport, lab, hostel), online payment gateway integration, automatic fee receipt generation, and real-time bank reconciliation.
+- **Timetable & Faculty Scheduling**: Conflict-free classroom allocation, faculty substitute management, and course credit scheduling.
+- **Exams, Marks & Grade Sheets**: Continuous assessment tracking, exam hall ticket generation, multi-grading scale support, and automated report card publishing.
+- **Biometric & RFID Attendance**: Live student and staff attendance tracking with instant automated SMS/WhatsApp alerts to guardians.
+- **GPS Fleet & Transport Tracking**: Real-time school bus tracking, geo-fencing, transport route management, and driver allocation.
+- **Digital Library Management**: ISBN barcode cataloging, book issue/return tracking, overdue fine calculation, and OPAC search.`;
+  }
+
+  if (q.includes("gst") || q.includes("tax") || q.includes("invoice") || q.includes("invoicing") || q.includes("tds") || q.includes("rcm") || q.includes("e-way") || q.includes("india")) {
+    return `### Native India GST & Statutory Localization in Business Central
+
+Coreenact provides full-spectrum localization for Indian tax laws and statutory reporting within Microsoft Dynamics 365 Business Central:
+
+- **Real-Time E-Invoicing**: Direct integration with the Government Invoice Registration Portal (IRP) via NIC / ClearTax APIs to generate Invoice Reference Numbers (IRN) and digitally signed QR codes instantly upon invoice posting.
+- **Automated E-Way Bills**: Seamless API generation of E-Way bills from sales shipments and transfer orders without leaving Business Central.
+- **Multi-State GST Compliance**: Full handling of IGST, CGST, SGST, and UTGST across multi-warehouse locations and inter-state stock transfers.
+- **TDS & TCS Automation**: Automatic Tax Deducted at Source calculation on vendor payments and Tax Collected at Source on receipt thresholds.
+- **Reverse Charge Mechanism (RCM)**: Automated self-invoicing and input tax credit management for unregistered vendor transactions.
+- **Statutory Reporting**: Pre-formatted GSTR-1, GSTR-3B reconciliation worksheets and audit-ready electronic ledgers.`;
+  }
+
+  if (q.includes("nav") || q.includes("gp") || q.includes("migration") || q.includes("upgrade") || q.includes("moderniz") || q.includes("c/al")) {
+    return `### Legacy Dynamics NAV & GP to Business Central Cloud Migration
+
+Coreenact specializes in risk-free migrations from legacy on-premise systems (Dynamics NAV 2009–2018, Dynamics GP) to Business Central Cloud SaaS:
+
+- **Automated C/AL to AL Conversion**: Refactoring customized legacy C/AL code into clean, modular AL extensions that preserve your custom business logic without compromising future automatic cloud updates.
+- **Clean Data Cleansing & ETL**: Extracting historical General Ledger entries, customer/vendor subledgers, open purchase orders, and inventory valuation with complete audit trails.
+- **Hardware & Maintenance Elimination**: Retiring on-premise SQL servers, eliminating costly Windows Server licenses, and gaining Microsoft's 99.9% cloud SLA with automated daily backups.
+- **Modern User Experience**: Transforming older desktop interfaces into responsive browser and mobile app workflows accessible anywhere.`;
+  }
+
+  if (q.includes("price") || q.includes("pricing") || q.includes("cost") || q.includes("license") || q.includes("licensing") || q.includes("tco") || q.includes("essential") || q.includes("premium")) {
+    return `### Microsoft Dynamics 365 Business Central Licensing & Pricing Guide (Not F&O)
+
+Coreenact provides transparent pricing and license optimization specifically for Microsoft Dynamics 365 Business Central (not F&O):
+
+- **Business Central Cloud Essential (₹6,655 per user/month | ~$79 USD)**:
+  Includes Financial Management (GL, AP, AR, Fixed Assets), Sales & Order Processing, Purchasing & Payables, Inventory Management & Costing, Multi-currency, Basic CRM, and Project/Job Accounting.
+- **Business Central Cloud Premium (₹9,155 per user/month | ~$109 USD)**:
+  Includes everything in Essential plus **Manufacturing** (Production Orders, Bill of Materials, Capacity Planning, Routing) and **Service Order Management** (Service contracts, dispatching, warranty tracking).
+- **Device License (₹3,780 per device/month | ~$45 USD)**:
+  Designed for shared shop-floor terminals, warehouse barcode scanners, and point-of-sale stations.
+- **Team Member License (₹665 per user/month | ~$8 USD)**:
+  Designed for lightweight users who need read access across the system, timesheet entry, expense reporting, and purchase quote approval.
+- **Fresh Implementation & Migration Services**:
+  - Fresh Implementation: Milestone-based 5-Phase framework (90-day Turnkey or 45-day Express).
+  - Migration from Dynamics NAV / legacy systems: FastTrack 60-day cutover with automated C/AL to AL conversion.`;
+  }
+
+  if (q.includes("office") || q.includes("address") || q.includes("contact") || q.includes("location") || q.includes("phone") || q.includes("email") || q.includes("delhi") || q.includes("canada") || q.includes("where")) {
+    return `### Coreenact Offices & Contact Information
+
+Connect with our global enterprise advisory teams:
+
+- **Global Delivery Headquarters (India)**:
+  - Address: 123-1st Floor, SRS CORPORATE TOWER, NH-19, Sector 31, Faridabad, Haryana 121003
+  - Email: **info@coreenact.com**
+  - Working Hours: Mon–Fri, 9:00 AM – 6:30 PM IST (24/7 Managed Support available)
+
+- **North America Delivery Hub (Canada)**:
+  - Address: 201 City Centre Drive, Suite 700, Mississauga, ON L5B 2T4, Canada
+  - Service Hours: Mon–Fri, 9:00 AM – 5:00 PM EST
+
+- **Digital Inquiries & Support**:
+  - General Inquiries: **info@coreenact.com**
+  - Enterprise Support: **support@coreenact.com**
+  - Sales & Architecture Discovery: **sales@coreenact.com**
+  - WhatsApp / Direct Line: **+91 84487 96169**
+  - Website: [coreenact.com](https://coreenact.com)`;
+  }
+
+  return `### Enterprise Guidance from Coreenact Technologies
+
+Thank you for contacting Coreenact Technologies regarding Microsoft Dynamics 365 Business Central.
+
+**Core Capabilities:**
+- **Full-Lifecycle ERP Implementation**: Milestone-driven **5-Phase Delivery Framework** (Discover, Design, Develop, Deploy, Drive) ensuring measurable business outcomes.
+- **Proprietary Solutions**: **EdCore Education ERP** for multi-campus academic institutions, discrete manufacturing blueprints, and FMCG supply chain engines.
+- **Native Localization**: Full compliance with Indian GST, real-time e-invoicing via IRP/NIC, automated E-way bills, TDS, and RCM.
+- **Legacy Modernization**: Automated conversion of legacy Dynamics NAV / GP C/AL code into clean, upgrade-safe AL extensions.
+- **Global Delivery Reach**: Dual delivery centers in New Delhi, India (HQ) and Mississauga, Canada with 24/7 SLA-governed support.
+
+Connect with our architecture team at **sales@coreenact.com** or call **+91 84487 96169**.`;
+}
 
 export const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
   isOpen,
@@ -180,7 +310,7 @@ export const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
     setMessages((prev) => [...prev, switchNotice]);
   };
 
-  const handleModelChange = (modelName: "gemini-3.1-pro-preview" | "gemini-3.5-flash" | "gemini-3.1-flash-lite") => {
+  const handleModelChange = (modelName: "gemini-3.1-pro-preview" | "gemini-3.8-flash" | "gemini-3.1-flash-lite") => {
     setSelectedModel(modelName);
   };
 
@@ -256,17 +386,18 @@ export const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
 
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (err: any) {
-      console.error("Chat error:", err);
-      const errorMessage: ChatMessage = {
-        id: `err-${Date.now()}`,
+      console.warn("Chat API fallback invoked:", err);
+      const fallbackText = getClientKnowledgeAnswer(query, ROLE_PRESETS[selectedRole].title);
+      const assistantMessage: ChatMessage = {
+        id: `assistant-${Date.now()}`,
         role: "model",
-        content:
-          "Our enterprise assistant encountered a temporary connectivity delay. Please check your query or connect directly with our human architects via [Schedule Discovery Call](#contact).",
+        content: `${fallbackText}\n\n---\n*Coreenact Verified Enterprise Knowledge Base. Connect with our architects via [Schedule Discovery Call](#contact) or call +91 84487 96169.*`,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-        modelUsed: "coreenact-fallback",
+        modelUsed: "coreenact-enterprise-kb",
         roleTitle: ROLE_PRESETS[selectedRole].title,
+        isLocalFallback: true,
       };
-      setMessages((prev) => [...prev, errorMessage]);
+      setMessages((prev) => [...prev, assistantMessage]);
     } finally {
       setIsLoading(false);
     }
@@ -408,13 +539,13 @@ export const GeminiChatbot: React.FC<GeminiChatbotProps> = ({
             value={selectedModel}
             onChange={(e) =>
               handleModelChange(
-                e.target.value as "gemini-3.1-pro-preview" | "gemini-3.5-flash" | "gemini-3.1-flash-lite"
+                e.target.value as "gemini-3.1-pro-preview" | "gemini-3.8-flash" | "gemini-3.1-flash-lite"
               )
             }
             className="text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1 text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
           >
             <option value="gemini-3.1-pro-preview">Pro (Complex Tasks)</option>
-            <option value="gemini-3.5-flash">Flash (General Tasks)</option>
+            <option value="gemini-3.8-flash">Flash (General Tasks)</option>
             <option value="gemini-3.1-flash-lite">Lite (Fast Tasks)</option>
           </select>
         </div>

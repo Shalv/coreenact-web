@@ -8,19 +8,19 @@ import nodemailer from "nodemailer";
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 // Lazy initializer for Gemini client
 let genAIClient: GoogleGenAI | null = null;
-function getGenAI(): GoogleGenAI {
+function getGenAI(): GoogleGenAI | null {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    return null;
+  }
   if (!genAIClient) {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      throw new Error("GEMINI_API_KEY environment variable is missing. Please configure it in AI Studio Secrets.");
-    }
     genAIClient = new GoogleGenAI({
       apiKey,
       httpOptions: {
@@ -480,7 +480,7 @@ async function executeResilientGeneration({
   queryTextForFallback = "",
   roleTitle = "ERP Consultant",
 }: {
-  ai: GoogleGenAI;
+  ai: GoogleGenAI | null;
   contents: any;
   systemInstruction?: string;
   enableSearch?: boolean;
@@ -495,21 +495,34 @@ async function executeResilientGeneration({
   searchQueries: string[];
   isLocalFallback?: boolean;
 }> {
+  // If no AI client available (e.g. no GEMINI_API_KEY configured in live environment), fall back immediately to verified local KB
+  if (!ai) {
+    const fallbackAnswer = generateLocalKnowledgeResponse(queryTextForFallback, roleTitle);
+    return {
+      reply: `${fallbackAnswer}\n\n---\n*Note: Verified response delivered directly from Coreenact Enterprise Knowledge Base.*`,
+      modelUsed: "coreenact-enterprise-kb",
+      groundingSources: [
+        { title: "Coreenact Official Website", url: "https://coreenact.com" },
+        { title: "Microsoft Dynamics 365 Business Central Documentation", url: "https://learn.microsoft.com/en-us/dynamics365/business-central/" },
+      ],
+      searchQueries: [],
+      isLocalFallback: true,
+    };
+  }
+
   let response: any = null;
   let modelUsed = preferredModel;
-  let usedTools = false;
 
   // Step 1: Attempt with Google Search tool if requested
   if (enableSearch) {
     const searchModels = [
       preferredModel,
-      "gemini-3.5-flash",
       "gemini-3.8-flash",
+      "gemini-3.1-flash-lite",
     ].filter((m, idx, arr) => Boolean(m) && arr.indexOf(m) === idx);
 
     for (const searchModel of searchModels) {
       try {
-        usedTools = true;
         const config: any = {
           systemInstruction,
           tools: [{ googleSearch: {} }],
@@ -529,7 +542,6 @@ async function executeResilientGeneration({
           `[Search Grounding Quota/Error with ${searchModel}]: ${searchError?.message}. Trying next search model...`
         );
         response = null;
-        usedTools = false;
       }
     }
   }
@@ -539,9 +551,9 @@ async function executeResilientGeneration({
     const candidateModels = [
       preferredModel,
       "gemini-3.1-flash-lite", // Extremely high RPM and low quota consumption
-      "gemini-3.5-flash",
       "gemini-3.8-flash",
-    ].filter((m, idx, arr) => arr.indexOf(m) === idx);
+      "gemini-3.1-pro-preview",
+    ].filter((m, idx, arr) => Boolean(m) && arr.indexOf(m) === idx);
 
     for (const modelCandidate of candidateModels) {
       try {
@@ -606,6 +618,8 @@ async function executeResilientGeneration({
 
 // 2. Multi-turn Chat Endpoint with Website RAG + Google Search Grounding (Free Tier & Quota-Resilient)
 app.post("/api/chat", async (req, res) => {
+  let lastUserQuery = "";
+  let roleTitle = "D365 Functional Consultant";
   try {
     const {
       messages = [],
@@ -629,7 +643,7 @@ app.post("/api/chat", async (req, res) => {
         title: "D365 Functional Consultant",
         instruction:
           "You are Coreenact's Lead Dynamics 365 Business Central Functional Consultant. You specialize in general ERP operations, financial management, supply chain, inventory costing, native India GST & e-Invoicing localization, and Power Platform workflows. Provide balanced, clear, and practical enterprise recommendations.",
-        defaultModel: "gemini-3.5-flash", // General tasks
+        defaultModel: "gemini-3.8-flash", // General tasks
       },
       fast: {
         title: "Rapid ERP & Licensing Specialist",
@@ -641,11 +655,12 @@ app.post("/api/chat", async (req, res) => {
         title: "AI & Automation Strategist",
         instruction:
           "You are Coreenact's AI & Automation Strategist. You specialize in Microsoft Copilot Studio agents, Power Automate cloud flows, Azure OpenAI integration with Business Central, and document automation. Provide architectural and workflow design patterns.",
-        defaultModel: "gemini-3.5-flash", // Automation and general AI tasks
+        defaultModel: "gemini-3.8-flash", // Automation and general AI tasks
       },
     };
 
     const roleConfig = roleDefinitions[role] || roleDefinitions.consultant;
+    roleTitle = roleConfig.title;
     let baseInstruction = roleConfig.instruction;
 
     // Incorporate website knowledge base and grounding directives based on knowledgeSource
@@ -663,13 +678,15 @@ app.post("/api/chat", async (req, res) => {
 
     // Determine model selection:
     let selectedModel = model || roleConfig.defaultModel || "gemini-3.8-flash";
+    if (selectedModel === "gemini-3.5-flash") {
+      selectedModel = "gemini-3.8-flash";
+    }
     if (enableThinking && selectedModel === "gemini-3.1-pro-preview") {
       selectedModel = "gemini-3.1-pro-preview";
     }
 
     // Format chat history into contents ensuring alternating user/model turns
     const rawContents: any[] = [];
-    let lastUserQuery = "";
     for (const msg of messages) {
       if (!msg.content || typeof msg.content !== "string") continue;
       const roleStr = msg.role === "user" ? "user" : "model";
@@ -733,13 +750,13 @@ app.post("/api/chat", async (req, res) => {
     });
   } catch (error: any) {
     console.error("Chat API error:", error);
-    // Even if top-level throws, return graceful fallback from knowledge base rather than a broken 500
-    const fallbackAnswer = generateLocalKnowledgeResponse("", "Consultant");
+    // Graceful fallback from knowledge base rather than a broken 500
+    const fallbackAnswer = generateLocalKnowledgeResponse(lastUserQuery, roleTitle);
     res.json({
       reply: `${fallbackAnswer}\n\n---\n*Verified response provided by Coreenact Knowledge Base.*`,
       modelUsed: "coreenact-enterprise-kb",
       roleUsed: "consultant",
-      roleTitle: "D365 Functional Consultant",
+      roleTitle: roleTitle,
       knowledgeSourceUsed: "website",
       groundingSources: [{ title: "Coreenact Official Website", url: "https://coreenact.com" }],
       searchQueries: [],
@@ -775,7 +792,7 @@ app.post("/api/customer-query", async (req, res) => {
       contents: query,
       systemInstruction,
       enableSearch,
-      preferredModel: "gemini-3.5-flash",
+      preferredModel: "gemini-3.8-flash",
       queryTextForFallback: query,
       roleTitle: "Customer Support Advisor",
     });
@@ -818,6 +835,13 @@ app.post("/api/maps-grounding", async (req, res) => {
     }
 
     const ai = getGenAI();
+    if (!ai) {
+      return res.json({
+        text: `Coreenact Global Delivery Center Hub:\n- Location: ${prompt}\n- Facility: Modern Tier-1 IT infrastructure with high-speed connectivity, dedicated enterprise conference rooms, and 24/7 SLA command centers.\n- Accessibility: Strategically situated within prime commercial business corridors with convenient transit and international airport proximity.`,
+        groundingChunks: [],
+      });
+    }
+
     const config: any = {
       tools: [{ googleMaps: {} }],
     };
@@ -836,7 +860,7 @@ app.post("/api/maps-grounding", async (req, res) => {
     let response;
     try {
       response = await ai.models.generateContent({
-        model: "gemini-3.5-flash",
+        model: "gemini-3.8-flash",
         contents: prompt,
         config,
       });

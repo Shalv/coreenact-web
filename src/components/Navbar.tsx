@@ -6,12 +6,12 @@ import {
   Menu,
   X,
   MapPin,
-  Sparkles,
 } from "lucide-react";
 import { PageType } from "../types";
 import { COREENACT_CONTACT } from "../data/coreenactData";
 import { MicrosoftLogo } from "./icons/MicrosoftIcons";
 import { AddonItem } from "../data/addonsData";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 interface NavbarProps {
   activePage?: PageType;
@@ -27,7 +27,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   onSelectPage,
   onOpenContact,
   onNavigate,
-  onOpenChat,
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -54,7 +53,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: "home", label: "Home" },
     { id: "solutions", label: "Solutions" },
     { id: "services", label: "Services" },
-    { id: "ai-agents", label: "AI & Agents", shortLabel: "AI" },
+    { id: "ai-agents", label: "AI & Agents", shortLabel: "AI Agents" },
     { id: "industries", label: "Industries" },
     { id: "about", label: "About Us", shortLabel: "About" },
     { id: "case-studies", label: "Case Studies" },
@@ -110,22 +109,22 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Main Navigation Bar - Exactly aligned with 1480px site width */}
       <div className="max-w-[1480px] w-full mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18 sm:h-20 gap-2 xl:gap-2.5 2xl:gap-3 w-full">
+        <div className="flex items-center justify-between h-18 sm:h-20 gap-4 w-full">
           {/* Official Attached Logo */}
           <div
-            className="flex items-center gap-2 cursor-pointer group shrink-0"
+            className="flex items-center gap-2.5 cursor-pointer group shrink-0"
             onClick={() => handlePageClick("home")}
             title="Coreenact - Microsoft Dynamics 365 Business Central Partner"
           >
-            <div className="flex items-center transition group-hover:opacity-90 dark:bg-white/95 dark:px-2.5 dark:py-1 dark:rounded-xl shrink-0">
+            <div className="flex items-center transition group-hover:opacity-90 dark:bg-white dark:px-2.5 dark:py-1 dark:rounded-lg dark:shadow-2xs shrink-0">
               <img
                 src="/coreenact-logo-transparent.png"
                 alt="Coreenact Solutions"
-                className="h-8 sm:h-9 2xl:h-11 w-auto object-contain shrink-0"
+                className="h-8 sm:h-9 xl:h-10 w-auto object-contain shrink-0"
               />
             </div>
-            {/* Compact badge on 2XL screens */}
-            <div className="hidden 2xl:flex items-center gap-1.5 border-l border-slate-200 dark:border-slate-800 pl-2.5 shrink-0">
+            {/* Microsoft Partner Badge */}
+            <div className="hidden xl:flex items-center gap-1.5 border-l border-slate-200 dark:border-slate-800 pl-2.5 shrink-0">
               <MicrosoftLogo className="w-4 h-4 shrink-0" />
               <div className="flex flex-col text-left leading-tight">
                 <span className="text-[10px] font-extrabold tracking-wider text-blue-700 dark:text-sky-400 uppercase font-mono whitespace-nowrap">
@@ -138,68 +137,34 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </div>
 
-          {/* Desktop Navigation Links (XL and above) */}
-          <nav className="hidden xl:flex items-center gap-0.5 2xl:gap-1 bg-slate-100/90 dark:bg-slate-900/90 p-1 rounded-full border border-slate-200/80 dark:border-slate-800 shadow-2xs shrink min-w-0">
+          {/* Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 bg-slate-100/90 dark:bg-slate-900/90 p-1 rounded-full border border-slate-200/80 dark:border-slate-800 shadow-2xs shrink min-w-0">
             {navItems.map((item) => {
               const isActive = activePage === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => handlePageClick(item.id)}
-                  className={`px-2 2xl:px-3 py-1.5 rounded-full text-xs 2xl:text-[13px] font-semibold transition cursor-pointer whitespace-nowrap shrink-0 ${
+                  className={`px-2 xl:px-2.5 2xl:px-3 py-1.5 rounded-full text-xs xl:text-[13px] font-semibold transition cursor-pointer whitespace-nowrap shrink-0 ${
                     isActive
                       ? "bg-blue-600 text-white shadow-xs"
                       : "text-slate-700 hover:text-blue-700 hover:bg-white dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-sky-400"
                   }`}
                 >
-                  <span className="hidden 2xl:inline whitespace-nowrap">{item.label}</span>
-                  <span className="2xl:hidden whitespace-nowrap">{item.shortLabel || item.label}</span>
+                  <span className="hidden xl:inline whitespace-nowrap">{item.label}</span>
+                  <span className="xl:hidden whitespace-nowrap">{item.shortLabel || item.label}</span>
                 </button>
               );
             })}
           </nav>
 
-          {/* Compact Nav Links for Large laptops (lg: 1024px to 1279px) */}
-          <nav className="hidden lg:flex xl:hidden items-center gap-0.5 bg-slate-100/90 dark:bg-slate-900/90 p-1 rounded-full border border-slate-200/80 dark:border-slate-800 shadow-2xs shrink min-w-0">
-            {[
-              { id: "solutions", label: "Solutions" },
-              { id: "services", label: "Services" },
-              { id: "ai-agents", label: "AI" },
-              { id: "industries", label: "Industries" },
-              { id: "about", label: "About" },
-              { id: "resources", label: "Resources" },
-              { id: "contact", label: "Contact" },
-            ].map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handlePageClick(item.id as PageType)}
-                className={`px-2 py-1 rounded-full text-xs font-semibold transition cursor-pointer whitespace-nowrap shrink-0 ${
-                  activePage === item.id
-                    ? "bg-blue-600 text-white shadow-xs"
-                    : "text-slate-700 hover:text-blue-700 hover:bg-white dark:text-slate-200 dark:hover:bg-slate-800"
-                }`}
-              >
-                <span className="whitespace-nowrap">{item.label}</span>
-              </button>
-            ))}
-          </nav>
+          {/* Action CTA: Theme Toggle + Book Consultation */}
+          <div className="hidden lg:flex items-center justify-end shrink-0 gap-2.5">
+            <ThemeSwitcher compact={true} />
 
-          {/* Action CTA: Ask Gemini + Book Consultation */}
-          <div className="hidden lg:flex items-center justify-end shrink-0 gap-2">
-            {onOpenChat && (
-              <button
-                onClick={onOpenChat}
-                className="px-3.5 py-2 rounded-xl font-bold text-xs cursor-pointer bg-gradient-to-r from-blue-50 to-indigo-50 dark:bg-slate-800 border border-blue-200/90 dark:border-blue-900 text-blue-700 dark:text-sky-300 hover:border-blue-400 hover:shadow-xs transition flex items-center gap-1.5 whitespace-nowrap shrink-0"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-sky-400 animate-pulse" />
-                <span>Ask Gemini</span>
-              </button>
-            )}
-
-            {/* Book Consultation Button */}
             <button
               onClick={() => onOpenContact()}
-              className="px-4 xl:px-4.5 2xl:px-5 py-2 rounded-xl font-bold text-xs 2xl:text-[13px] cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0"
+              className="px-4 xl:px-5 py-2 rounded-xl font-bold text-xs xl:text-[13px] cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition-colors flex items-center justify-center gap-1.5 whitespace-nowrap shrink-0"
             >
               <span className="whitespace-nowrap">Book Consultation</span>
               <ArrowRight className="w-3.5 h-3.5 shrink-0" />
@@ -208,8 +173,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Mobile/Tablet Menu Controls */}
           <div className="flex lg:hidden items-center gap-2 shrink-0">
+            <ThemeSwitcher compact={true} />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle navigation menu"
               className="p-2 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 cursor-pointer"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -244,8 +211,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               ))}
             </div>
 
-            <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-2">
-              {/* Book Consultation */}
+            <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-2.5">
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
@@ -267,7 +233,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </a>
               </div>
 
-              <div className="text-[11px] text-slate-500 text-center pt-1.5">
+              <div className="text-[11px] text-slate-500 text-center pt-1">
                 Offices: Haryana, India • Mississauga, Canada
               </div>
             </div>
